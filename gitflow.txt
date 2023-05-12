@@ -101,6 +101,3 @@ Lineamientos del repositorio:
 *   Al crear una nueva rama especificar:  (taskType)/(taskName) ej: feature/shopping-cart
 
 *   Solucionar conflictos antes de hacer un push request
-
-*  links sobre el tema: -https://vimeo.com/447008698/b02212e908  Git Branches Demo
-                        -https://vimeo.com/567639276/e365c11ede  Best Practices + Git Flow
