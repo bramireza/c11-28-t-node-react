@@ -1,4 +1,7 @@
-import { app } from "./src/app.js";
+const app = require('./app');
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server init at http://localhost:${PORT}`));
+app.set('port', process.env.PORT || 3004);
+
+app.listen(app.get('port'), () => {
+  console.log(`Server listening at port ${app.get('port')}`);
+});
