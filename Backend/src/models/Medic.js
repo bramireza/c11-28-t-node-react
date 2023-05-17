@@ -26,7 +26,11 @@ const medicSchema = new Schema({
   specialties: {
     branches: [
       {
-        
+        specialtyId: {
+          type: Schema.Types.ObjectId,
+          ref: 'Specialty',
+          required: true,
+        }
       }
     ]
   },
