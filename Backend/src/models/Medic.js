@@ -23,6 +23,13 @@ const medicSchema = new Schema({
     type: String,
     required: true,
   },
+  specialties: {
+    branches: [
+      {
+        
+      }
+    ]
+  },
   schedule: {
     type: String,
     required: true,
