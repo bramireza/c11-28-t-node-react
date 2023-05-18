@@ -1,7 +1,7 @@
 function LandingPage() {
   return (
     <div>
-      <h1>LandingPage</h1>
+      <h1 className="mt-5">LandingPage</h1>
     </div>
   );
 }
