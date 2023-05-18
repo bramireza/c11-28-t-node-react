@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 const PruebaRutas = () => {
   return (
@@ -6,4 +6,4 @@ const PruebaRutas = () => {
   )
 }
 
-export default PruebaRutas
+export default PruebaRutas;

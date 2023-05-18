@@ -1,6 +1,6 @@
 const Register = () => {
     return (
-        <main className="container" style={{ margin: "100px 0 20px 0" }}>
+        <main className="container mx-auto p-4" >
             <h1>Crear nueva cuenta</h1>
             <p className="mb-5">Forem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             <form action="" className="d-flex flex-column gap-2 align-self-start text-start">
@@ -25,12 +25,12 @@ const Register = () => {
                 />
 
                 <label htmlFor="" className="fst-italic align-self-start">
-                    DNI / Pasaporte
+                    Documento de identidad
                 </label>
                 <input
                     type="text"
                     className="form-control bg-light border border-none text-dark p-2"
-                    placeholder="DNI / Pasaporte"
+                    placeholder="Documento de identidad"
                     required
                 />
 
@@ -162,7 +162,7 @@ const Register = () => {
                 </div>
 
                 <button
-                    className="btn btn-primary my-3 bg-dark border-0"
+                    className="btn btn-primary my-3 bg-success w-50 mx-auto border-0"
                     style={{ transition: "background-color 0.2s", backgroundColor: "#000" }}
                 >
                     Enviar
