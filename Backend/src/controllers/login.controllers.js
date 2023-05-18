@@ -14,6 +14,8 @@ const loginUser = async (req,res) => {
         if (!isMatch) {
             return res.status(400).json({message:'Credenciales Invalidas'})
         }
+
+        return res.json({message:'Autenticacion correcta'})
     } catch (error) {
         res.status(500).json({message:'Error del servidor'})
     }
