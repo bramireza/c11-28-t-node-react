@@ -44,4 +44,11 @@ app.use((req, res, next) => {
 
 router(app);
 
+app.use((req, res) => {
+  res.status(404).send({
+    ok: false,
+    url: req.originalUrl + " not found",
+  });
+});
+
 module.exports = app;
