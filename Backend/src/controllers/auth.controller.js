@@ -1,5 +1,6 @@
 const Patient = require("../models/Patient");
 const bcrypt = require("bcrypt");
+const { createToken } = require("../utils/jwt");
 
 const login = async (req, res) => {
   const { personalId, password } = req.body;
@@ -21,10 +22,13 @@ const login = async (req, res) => {
       return res.status(403).json({ message: "Credenciales Invalidas" });
     }
 
+    const accessToken = createToken({ _id: patient._id });
+
     return res.status(200).json({
       ok: true,
       message: "Autenticacion correcta",
-      user: patient,
+      user: { name: patient.name },
+      accessToken,
     });
   } catch (error) {
     res.status(500).json({
@@ -76,7 +80,23 @@ const register = async (req, res) => {
   }
 };
 
+const me = async (req, res) => {
+  try {
+    const foundUser = await Patient.findById(req.user._id);
+    return res.status(200).json({
+      ok: true,
+      data: foundUser,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      message: "Error del servidor",
+      error,
+    });
+  }
+};
 module.exports = {
   login,
   register,
+  me,
 };
