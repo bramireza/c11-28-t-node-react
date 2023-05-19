@@ -9,6 +9,15 @@ const patientSchema = new Schema({
   },
   email: {
     type: String,
+    trim: true,
+    lowercase: true,
+    validate: {
+      validator: function (v) {
+        const emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+        return emailRegex.test(v);
+      },
+      message: (props) => `${props.value} is not a valid email address.`,
+    },
     required: true,
   },
   password: {
@@ -25,9 +34,16 @@ const patientSchema = new Schema({
   },
   personalId: {
     type: String,
+    validate: {
+      validator: function (v) {
+        return /^\d{8}$/.test(v);
+      },
+      message: (props) =>
+        `${props.value} is not a valid personal ID number. Must contain 8 digits.`,
+    },
     required: true,
   },
-  bithDay: {
+  birthDay: {
     type: Date,
     required: true,
   },
