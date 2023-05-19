@@ -12,7 +12,11 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 
 `DB_URL` : mongodb+srv://`username`:`password`+@apptestingcluster.8qjuddb.mongodb.net/?retryWrites=true&w=majority
 
-* Modificar username y password con las credenciales de acesso desde mongodb ATLAS
+* Modificar 'username' y 'password' con las credenciales de acesso desde mongodb ATLAS
+
+`JWT_ACCESS_SECRET` Clave secreta para crear los tokens
+
+`JWT_ACCESS_SECRET_EXP` Tiempo de expiracion de los tokens puede ser en (s,h,d) -> '1d'
 
 
 ## Instalacion
