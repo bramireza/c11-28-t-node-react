@@ -21,9 +21,9 @@ const Login = () => {
         </label>
         <input type="password" className="bg-light border border-none text-dark p-2" placeholder="Contraseña" required />
 
-        <a href="#" className="link-underline link-underline-opacity-0 fs-6 align-self-end mb-2">
+        <Link to='/resetPassword' href="" className="link-underline link-underline-opacity-0 fs-6 align-self-end mb-2">
           Olvidé mi contraseña
-        </a>
+        </Link>
         <button className="btn btn-success my-2 mx-auto w-50">Ingresar</button>
         <p href="#" className="mt-2">
           ¿ No tienes cuenta ?
