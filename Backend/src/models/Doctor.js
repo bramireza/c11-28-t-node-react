@@ -23,20 +23,21 @@ const doctorSchema = new Schema({
     type: String,
     required: true,
   },
-  specialties: {
-    branches: [
-      {
-        specialtyId: {
-          type: Schema.Types.ObjectId,
-          ref: 'Specialty',
-          required: true,
-        },
-      },
-    ],
-  },
-  schedule: {
-    
-  },
+  specialties: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Specialty',
+      required: true,
+    },
+  ],
+  schedule: [
+    {
+      // Schedule model stores single day agenda, hence an array storing each active weekday individually
+      type: Schema.Types.ObjectId,
+      ref: 'Schedule',
+      required: true,
+    },
+  ],
   active: {
     type: Boolean,
     default: true,
