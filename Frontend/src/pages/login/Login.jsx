@@ -35,13 +35,11 @@ const Login = () => {
     e.preventDefault();
     setErrors({});
     const response = validate();
-    console.log(response);
     if (Object.keys(response).length < 1) {
       const body = {
         personalId: state.personalId,
         password: state.password,
       };
-      console.log(body);
       try {
         const { data } = await auth.login(body);
         console.log(data);
@@ -85,11 +83,13 @@ const Login = () => {
             onChange={handleChange}
           />
           {errors.password && (
-            <p className={style.errorText}>
+            <div>
               {errors.password.map((elem, index) => (
-                <p key={index}>{elem}</p>
+                <p key={index} className={style.errorText}>
+                  {elem}
+                </p>
               ))}
-            </p>
+            </div>
           )}
         </div>
 

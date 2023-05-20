@@ -264,11 +264,13 @@ const Register = () => {
             onChange={handleChange}
           />
           {errors.password && (
-            <p className={style.errorText}>
+            <div>
               {errors.password.map((elem, index) => (
-                <p key={index}>{elem}</p>
+                <p key={index} className={style.errorText}>
+                  {elem}
+                </p>
               ))}
-            </p>
+            </div>
           )}
         </div>
 
@@ -285,12 +287,13 @@ const Register = () => {
             onChange={handleChange}
           />
           {errors.password2 && (
-            <p className={style.errorText}>
-              {" "}
+            <div>
               {errors.password2.map((elem, index) => (
-                <p key={index}>{elem}</p>
+                <p key={index} className={style.errorText}>
+                  {elem}
+                </p>
               ))}
-            </p>
+            </div>
           )}
         </div>
 
