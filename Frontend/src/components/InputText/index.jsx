@@ -1,4 +1,12 @@
+
+
 const inputText = (props) =>{
+
+  
+  function actualizarCambios(e){
+    // console.log(e.target.value)
+      props.actualizar(e.target.value)
+  }
 
     return <>
          <label htmlFor="" className="align-self-start">
@@ -9,6 +17,8 @@ const inputText = (props) =>{
           className="bg-light border border-none text-dark p-2 mb-3"
           placeholder={props.placeholder}
           required={props.required}
+          value={props.valor}
+          onChange={actualizarCambios}
         />
     </>
 }
