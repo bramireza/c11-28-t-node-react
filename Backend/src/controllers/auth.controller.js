@@ -1,3 +1,5 @@
+const encriptPass = require("../utils/bcrypt");
+
 const Patient = require("../models/Patient");
 const bcrypt = require("bcrypt");
 const { createToken } = require("../utils/jwt");
@@ -13,6 +15,7 @@ const login = async (req, res) => {
       });
     }
     const patient = await Patient.findOne({ personalId });
+
     if (!patient) {
       return res.status(403).json({ message: "Credenciales Invalidas" });
     }
@@ -40,6 +43,7 @@ const login = async (req, res) => {
 };
 const register = async (req, res) => {
   const data = req.body;
+  console.log(data);
   try {
     if (!data.personalId || !data.password) {
       return res.status(400).json({
@@ -65,7 +69,6 @@ const register = async (req, res) => {
       address: data.address,
     });
     const savedNewUser = await newUser.save();
-
     return res.status(200).json({
       ok: true,
       message: "Registro Exitoso",
