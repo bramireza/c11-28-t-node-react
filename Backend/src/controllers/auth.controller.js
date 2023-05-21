@@ -1,7 +1,7 @@
-const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const Patient = require("../models/Patient");
+const bcrypt = require("bcrypt");
 const ResetToken = require("../models/ResetToken");
 const { createToken } = require("../utils/jwt");
 const encriptPass = require("../utils/bcrypt");
@@ -26,6 +26,7 @@ const login = async (req, res) => {
       });
     }
     const patient = await Patient.findOne({ personalId });
+
     if (!patient) {
       return res.status(403).json({
         ok: false,
@@ -59,6 +60,7 @@ const login = async (req, res) => {
 };
 const register = async (req, res) => {
   const data = req.body;
+  console.log(data);
   try {
     if (!data.personalId || !data.password) {
       return res.status(400).json({
@@ -84,7 +86,6 @@ const register = async (req, res) => {
       address: data.address,
     });
     const savedNewUser = await newUser.save();
-
     return res.status(200).json({
       ok: true,
       message: "Registro Exitoso",
