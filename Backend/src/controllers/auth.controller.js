@@ -7,11 +7,11 @@ const { createToken } = require("../utils/jwt");
 const encriptPass = require("../utils/bcrypt");
 
 const transporter = nodemailer.createTransport({
-  host: "sandbox.smtp.mailtrap.io",
-  port: 2525,
+  host: process.env.HOST_MAIL,
+  port: process.env.PORT_MAIL,
   auth: {
-    user: "c7c79d6f30b9f0",
-    pass: "0fdb5af0252b71",
+    user: process.env.USER_MAIL,
+    pass: process.env.PASS_MAIL,
   },
 });
 
@@ -110,7 +110,8 @@ const me = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       ok: false,
-      message: "Error del servidor. Razón: " + error.message,
+      message: "Error del servidor",
+      error,
     });
   }
 };
@@ -137,7 +138,7 @@ const forgotPassword = async (req, res) => {
     const resetUrl = `${process.env.FRONT_URL}/confirmPassword?token=${token.token}`;
 
     await transporter.sendMail({
-      from: "NoCountry@gmail.com",
+      from: process.env.MAIL_MAIL,
       to: user.email,
       subject: "Restablecer contraseña",
       html: `<p>Hola ${user.name},</p><p>Haz clic en el siguiente enlace para restablecer tu contraseña:</p><p><a href="${resetUrl}">${resetUrl}</a></p><p>Si no solicitaste esto, no hagas nada y tu contraseña permanecerá igual.</p>`,
@@ -153,6 +154,7 @@ const forgotPassword = async (req, res) => {
       ok: false,
       message:
         "Error al enviar el correo electrónico de restablecimiento de contraseña",
+      error,
     });
   }
 };
@@ -193,7 +195,8 @@ const resetPassword = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       ok: false,
-      message: "Error del servidor. Razón: " + error.message,
+      message: "Error del servidor",
+      error,
     });
   }
 };
