@@ -1,8 +1,17 @@
+import Carrusel from "../../components/Carrusel";
+import QuienesSomos from "../../components/QuienesSomos/Index";
+import ListaServicios from "../../components/Servicios/Index";
+import EspecialidadesItems from "../../components/Especialidades/EspecialidadesItems";
+
 function LandingPage() {
   return (
-    <div>
-      <h1 className="mt-5">LandingPage</h1>
-    </div>
+    <>
+      <Carrusel />
+      <QuienesSomos />
+      <ListaServicios />
+      <EspecialidadesItems /> 
+       
+    </>
   );
 }
 export default LandingPage;
