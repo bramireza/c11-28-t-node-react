@@ -112,9 +112,9 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 
 ```json
 {
-  ok: true,
-  message: "Se envió un correo electrónico para restablecer la contraseña",
-  resetUrl: "urlConRutaDelfront,
+  "ok": true,
+  "message": "Se envió un correo electrónico para restablecer la contraseña",
+  "resetUrl": "urlConRutaDelfront,
 }
 ```
 
@@ -129,10 +129,10 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 #### Enviando datos desde el Front-End
 
 ```json
-  {
-    "token": "miTokenGeneradoDesdeBack",
-    "password": "miNuevaPassword"
-  }
+{
+  "token": "miTokenGeneradoDesdeBack",
+  "password": "miNuevaPassword"
+}
 
 ```
 
@@ -140,7 +140,7 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 
 ```json
 {
-  ok: true,
-  message: "Se restableció la contraseña con éxito",
+  "ok": true,
+  "message": "Se restableció la contraseña con éxito",
 }
 ```
