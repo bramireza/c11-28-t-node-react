@@ -7,20 +7,21 @@ import ContactUs from "../../components/ContactUs/ContactUs";
 import Entidades from "../../components/Entidades/Entidades";
 import Footer from "../../components/Footer/Footer";
 import ListaNoticias from "../../components/Noticias/ListaNoticias";
+import './styleLanding.css'
 
 function LandingPage() {
   return (
     <>
-
       <Carrusel />
-      <QuienesSomos />
-      <ListaServicios />
-      <EspecialidadesItems /> 
-      <ListaNoticias/>
-      <ContactUs/>
-      <Entidades/>
-      <Footer/>
-       
+      <div className="desktop-responsive">
+        <QuienesSomos />
+        <ListaServicios />
+        <EspecialidadesItems />
+        <ListaNoticias />
+        <ContactUs />
+        <Entidades />
+        <Footer />
+      </div>
     </>
   );
 }
