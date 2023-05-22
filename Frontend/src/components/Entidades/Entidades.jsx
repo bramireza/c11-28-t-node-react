@@ -1,7 +1,7 @@
 
 function Entidades() {
     return (
-        <section className=" p-5">
+        <section className=" p-3">
             <h4 className="row justify-content-center mb-5">Entidades</h4>
             <div className="d-flex justify-content-center row gap-5">
                 <img style={{ width: '110px', height: '112px' }} src="https://avatars.githubusercontent.com/u/16244902?s=280&v=4" alt="" />

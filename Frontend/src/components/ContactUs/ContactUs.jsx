@@ -1,8 +1,8 @@
 function ContactUs() {
     return ( 
-        <section className="container-fluid row m-0 p-5">
+        <section className="container-fluid row m-0 p-3">
             <div className="p-2 col-sm-4">
-                <h2 className="my-3">Contáctanos</h2>
+                <h2 className="my-2">Contáctanos</h2>
                 <h5 className="p-3">Our friendly team would love to hear from you. Lorem Ipsum.</h5> 
                 <div>
                     <p>hello@relume.io</p>
