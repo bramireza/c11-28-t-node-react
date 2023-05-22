@@ -1,13 +1,24 @@
-import  { useRef } from 'react';
+import Especialidades from "./Especialidades";
 
 const EspecialidadesItems = ()=>{
-    const lista = useRef('');
-    let especialidad = ['Especial 1','Especial 2','Especial 3','Especial 4','Especial 5','Especial 6'];
-    let template = `Link`
-    return<>
-    <ul ref={lista}></ul>
-    </>
 
+    const listaCategorias =['Especialidad 1', 'Especialidad 2','Especialidad 3','Especialidad 4','Especialidad 5','Especialidad 6','Especialidad 7'];
+
+    return <>
+        <div className="p-3">
+            <h2 className="fw-bolder">Especialidades</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus debitis molestias facilis iusto saepe vero autem temporibus quibusdam numquam nisi, quaerat ducimus eum omnis eos eaque sint magni ratione voluptatum?</p>
+        </div>
+        {listaCategorias.map((data,index)=>{
+            return <Especialidades
+                key={index}
+                especialidad={data}
+
+            />
+
+        })}
+
+    </>
 }
 
 export default EspecialidadesItems;

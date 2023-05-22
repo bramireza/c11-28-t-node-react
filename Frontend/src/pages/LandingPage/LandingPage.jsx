@@ -1,19 +1,16 @@
 import Carrusel from "../../components/Carrusel";
 import QuienesSomos from "../../components/QuienesSomos/Index";
-import TituloServicio from "../../components/Servicios/TituloServicios";
-import Servicios from "../../components/Servicios/Index";
-import TituloEspecialidades from "../../components/Especialidades/TituloEspecialidades";
+import ListaServicios from "../../components/Servicios/Index";
+import EspecialidadesItems from "../../components/Especialidades/EspecialidadesItems";
 
 function LandingPage() {
   return (
     <>
       <Carrusel />
       <QuienesSomos />
-      <TituloServicio titulo='Servicios' />
-      <Servicios servicio='Servicio 1' /> 
-      <Servicios servicio='Servicio 2'/> 
-      <Servicios servicio='Servicio 3'/>
-      <TituloEspecialidades titulo='Especialidades' /> 
+      <ListaServicios />
+      <EspecialidadesItems /> 
+       
     </>
   );
 }
