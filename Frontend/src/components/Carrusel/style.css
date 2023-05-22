@@ -1,4 +1,4 @@
-img{
+.contenedor img{
     width: 100%;
     height: calc(100vh - 60px);
 }
@@ -10,9 +10,9 @@ img{
 }
 
 @media screen and (max-width: 414px) {
-    img{
+    .contenedor img{
         width: 100%;
-        height: calc(75vh - 60px);
+        height: calc(60vh - 60px);
     }
     
 }
