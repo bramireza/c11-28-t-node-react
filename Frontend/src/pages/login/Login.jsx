@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
 import useServices from "../../services/useServices";
 import validatePassword from "../../utilities/validatePassword";
 import style from "./login.module.css";
@@ -54,6 +55,7 @@ const Login = () => {
     <main className="mx-auto text-center w-75">
       <h1 className="pt-4">Inicio de Sesion</h1>
       <h4 className="mb-5">Ingresar a tu cuenta</h4>
+
       <form onSubmit={handleSubmit} className="d-flex flex-column gap-2">
         <div>
           <label htmlFor="" className="fst-italic align-self-start">
@@ -97,6 +99,7 @@ const Login = () => {
           Olvidé mi contraseña
         </Link>
         <button className="btn btn-success my-2 mx-auto w-50">Ingresar</button>
+
         <p href="#" className="mt-2">
           ¿ No tienes cuenta ?
         </p>
