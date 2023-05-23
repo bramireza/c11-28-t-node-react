@@ -23,17 +23,24 @@ const ListaServicios = ()=>{
         
    return <>
    
-    <div className="p-3">
+        <div className="p-3">
             <h2 className="fw-bolder">Servicios</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, quidem, cum dolor at nisi ut vel reprehenderit repellendus expedita, voluptatem voluptates cupiditate. A fugit quasi laudantium sint ratione, neque officia!</p>
+            <p>
+            Sunt non aliquam perspiciatis tempora saepe. Nemo modi quae repudiandae corrupti iusto asperiores totam exercitationem ad nisi aperiam, quasi incidunt aut quod quaerat quibusdam vero labore quidem ut tempore quis?
+            Officiis, odio vero! Iure dolore quibusdam a voluptate adipisci tempore illum totam. Quos soluta dolorum quae distinctio harum voluptatem in minus dicta esse reprehenderit neque sunt, odio sint, laudantium impedit?</p>
         
         </div>
+        <div className="row ">
         {servicios.map((data,index)=>{
-            return <Servicio 
-                key={index}
-                servicio={data}
-            />
+            return  <Servicio 
+                    key={index}
+                    servicio={data}
+                />
+                
+                
         })}
+
+        </div>
                 
     </>
 }
