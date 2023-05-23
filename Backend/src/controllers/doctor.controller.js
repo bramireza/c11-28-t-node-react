@@ -22,7 +22,7 @@ const getOneBySpecialty = async (req, res) => {
   try {
     const { idSpecialty } = req.params;
     const doctors = await Doctor.find({ specialties: idSpecialty });
-    return res.status(201).json({
+    return res.status(200).json({
       ok: true,
       doctors,
     });
