@@ -57,7 +57,7 @@ const Login = () => {
       <h4 className="mb-5">Ingresar a tu cuenta</h4>
 
       <form onSubmit={handleSubmit} className="d-flex flex-column gap-2">
-        <div>
+        <div className="d-flex flex-column">
           <label htmlFor="" className="fst-italic align-self-start">
             Documento de identidad
           </label>
@@ -72,7 +72,7 @@ const Login = () => {
           {errors.personalId && <p className={style.errorText}>{errors.personalId}</p>}
         </div>
 
-        <div>
+        <div className="d-flex flex-column">
           <label htmlFor="" className="fst-italic align-self-start">
             Contraseña
           </label>
