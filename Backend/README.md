@@ -41,25 +41,27 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 ```http
   POST /api/v1/auth/login
 ```
-#### Enviando datos desde el Front-End
+* Descripción: Este endpoint se utiliza para iniciar sesión en la aplicación.
+* Método: POST
+* Headers: No requiere autenticación
 
-```json
-{
-  "personalId": "00000000",
-  "password":"myPassword+",
-}
+* Body (JSON):
+  ```json
+  {
+    "personalId": "00000000",
+    "password":"myPassword+",
+  }
 
-```
-#### Respuesta
-
-```json
-{
-  "ok": true,
-  "message": "Autenticacion correcta",
-  "user": {...}
-  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.mitoken" 
-}
-```
+  ```
+* Respuesta exitosa (JSON):
+  ```json
+  {
+    "ok": true,
+    "message": "Autenticacion correcta",
+    "user": {...}
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.mitoken" 
+  }
+  ```
 
 
 ### REGISTER
@@ -67,80 +69,86 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 ```http
   POST /api/v1/auth/register
 ```
-#### Enviando datos desde el Front-End
 
-```json
-{
-  "name": "John Doe",
-  "email": "johndoe@gmail.com",
-  "password":"myPassword+",
-  "phoneNumber": "987654321",
-  "address": "myAddress",
-  "personalId": "00000000",
-  "birthDay": "12-12-2012",
-  "gender": "male",
-  "nationality": "myCountry",
-  "cp": "myCodePostal",
-}
+* Descripción: Este endpoint se utiliza para resgistrate en la aplicación.
+* Método: POST
+* Headers: No requiere autenticación
 
-```
+* Body (JSON):
+  ```json
+  {
+    "name": "John Doe",
+    "email": "johndoe@gmail.com",
+    "password":"myPassword+",
+    "phoneNumber": "987654321",
+    "address": "myAddress",
+    "personalId": "00000000",
+    "birthDay": "12-12-2012",
+    "gender": "male",
+    "nationality": "myCountry",
+    "cp": "myCodePostal",
+  }
 
-#### Respuesta
-
-```json
-{
-  "ok": true,
-  "message": "Registro Exitoso",
-  "user": {...}
-}
-```
+  ```
+* Respuesta exitosa (JSON):
+  ```json
+  {
+    "ok": true,
+    "message": "Registro Exitoso",
+    "user": {...}
+  }
+  ```
 ### FORGOT PASSWORD
 
 ```http
   POST /api/v1/auth/forgot-password
 ```
-#### Enviando datos desde el Front-End
+* Descripción: Este endpoint se utiliza para generar un token y enviar un correo para restablecer tu contraseña.
+* Método: POST
+* Headers: Requiere autenticación con Bearer token
 
-```json
+* Body (JSON):
+  ```json
+    {
+      "email": "johndoe@gmail.com"
+    }
+
+  ```
+
+* Respuesta exitosa (JSON):
+  ```json
   {
-    "email": "johndoe@gmail.com"
+    "ok": true,
+    "message": "Se envió un correo electrónico para restablecer la contraseña",
+    "resetUrl": "urlConRutaDelfront,
   }
+  ```
 
-```
-
-#### Respuesta
-
-```json
-{
-  "ok": true,
-  "message": "Se envió un correo electrónico para restablecer la contraseña",
-  "resetUrl": "urlConRutaDelfront,
-}
-```
-
-#### URL Enviada por Correo
-`URL_FRONT/confirmPassword?token=miTokenGeneradoDesdeBack`
+* URL Enviada por Correo :
+  `URL_FRONT/confirmPassword?token=miTokenGeneradoDesdeBack`
 
 ### RESET PASSWORD
 
 ```http
   POST /api/v1/auth/reset-password
 ```
-#### Enviando datos desde el Front-End
+* Descripción: Este endpoint se utiliza para para restablecer tu contraseña.
+* Método: POST
+* Headers: No requiere autenticación
 
-```json
-{
-  "token": "miTokenGeneradoDesdeBack",
-  "password": "miNuevaPassword"
-}
+* Body (JSON):
+  ```json
+  {
+    "token": "miTokenGeneradoDesdeBack",
+    "password": "miNuevaPassword"
+  }
 
-```
+  ```
 
-#### Respuesta
-
-```json
-{
-  "ok": true,
-  "message": "Se restableció la contraseña con éxito",
-}
-```
+* Respuesta exitosa (JSON):
+  ```json
+  {
+    "ok": true,
+    "message": "Se restableció la contraseña con éxito",
+  }
+  ```
