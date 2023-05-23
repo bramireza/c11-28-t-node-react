@@ -3,7 +3,7 @@ import './style.css';
 
 function IndividualIntervalsExample() {
   return (
-    <div className=''>
+    <div className='contenedor'>
     <Carousel>
       <Carousel.Item interval={1000}>
         <img
