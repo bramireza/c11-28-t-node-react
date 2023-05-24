@@ -19,7 +19,7 @@ const store = async (req, res) => {
 };
 const getAll = async (req, res) => {
   try {
-    const specialties = await Specialty.find();
+    const specialties = await Specialty.find({ active: true });
     return res.status(200).json({
       ok: true,
       specialties,
@@ -36,6 +36,12 @@ const getOne = async (req, res) => {
   try {
     const _id = req.params.id;
     const specialty = await Specialty.findOne({ _id });
+    if (!specialty) {
+      return res.status(404).json({
+        ok: false,
+        message: "La especialidad no existe",
+      });
+    }
     return res.status(200).json({
       ok: true,
       specialty,
@@ -55,7 +61,12 @@ const update = async (req, res) => {
     const specialty = await Specialty.findByIdAndUpdate({ _id }, req.body, {
       new: true,
     });
-
+    if (!specialty) {
+      return res.status(404).json({
+        ok: false,
+        message: "La especialidad no existe",
+      });
+    }
     return res.status(200).json({
       ok: true,
       specialty,
@@ -71,8 +82,21 @@ const update = async (req, res) => {
 const remove = async (req, res) => {
   try {
     const _id = req.params.id;
-    const specialty = await Specialty.deleteOne({ _id });
-
+    const specialty = await Specialty.findByIdAndUpdate(
+      { _id },
+      {
+        active: false,
+      },
+      {
+        new: true,
+      }
+    );
+    if (!specialty) {
+      return res.status(404).json({
+        ok: false,
+        message: "La especialidad no existe",
+      });
+    }
     return res.status(200).json({
       ok: true,
       message: "Se eliminó exitosamente",
