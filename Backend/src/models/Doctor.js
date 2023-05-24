@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
@@ -8,10 +8,6 @@ const doctorSchema = new Schema({
     required: true,
   },
   email: {
-    type: String,
-    required: true,
-  },
-  password: {
     type: String,
     required: true,
   },
@@ -26,7 +22,7 @@ const doctorSchema = new Schema({
   specialties: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Specialty',
+      ref: "Specialty",
       required: true,
     },
   ],
@@ -34,7 +30,7 @@ const doctorSchema = new Schema({
     {
       // Schedule model stores single day agenda, hence an array storing each active weekday individually
       type: Schema.Types.ObjectId,
-      ref: 'Schedule',
+      ref: "Schedule",
       required: true,
     },
   ],
@@ -44,4 +40,4 @@ const doctorSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model('Doctor', doctorSchema);
+module.exports = mongoose.model("Doctor", doctorSchema);
