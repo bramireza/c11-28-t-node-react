@@ -65,7 +65,6 @@ const validatePassword = (password) => {
 };
 const register = async (req, res) => {
   const data = req.body;
-  console.log(data);
   try {
     if (!data.personalId || !data.password) {
       return res.status(400).json({
@@ -92,7 +91,7 @@ const register = async (req, res) => {
     newUser.password = await encriptPass(data.password);
     const savedNewUser = await newUser.save();
 
-    return res.status(200).json({
+    return res.status(201).json({
       ok: true,
       message: "Registro Exitoso",
       user: savedNewUser,
