@@ -15,16 +15,13 @@
 .navbar-toggler {
     background-color: white;    
 }
-
-
-
-
 .navbar {
     width: 100%;  
 }
 
 .navbar-brand{
     margin: 0;
+}
 .logo-menu{
     display: flex;
     flex-direction: row-reverse;
