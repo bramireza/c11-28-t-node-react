@@ -16,12 +16,22 @@
     background-color: white;    
 }
 
+
+
+
+.navbar {
+    width: 100%;  
+}
+
+.navbar-brand{
+    margin: 0;
 .logo-menu{
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
     width: 55vw;
     flex-wrap: wrap;
+
 }
 
 .logo {

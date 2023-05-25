@@ -30,7 +30,7 @@ const ListaServicios = ()=>{
             Officiis, odio vero! Iure dolore quibusdam a voluptate adipisci tempore illum totam. Quos soluta dolorum quae distinctio harum voluptatem in minus dicta esse reprehenderit neque sunt, odio sint, laudantium impedit?</p>
         
         </div>
-        <div className="row ">
+        <div>
         {servicios.map((data,index)=>{
             return  <Servicio 
                     key={index}
