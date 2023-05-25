@@ -1,19 +1,10 @@
-const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const Patient = require("../models/Patient");
 const bcrypt = require("bcrypt");
 const ResetToken = require("../models/ResetToken");
 const { createToken } = require("../utils/jwt");
 const encriptPass = require("../utils/bcrypt");
-
-const transporter = nodemailer.createTransport({
-  host: process.env.HOST_MAIL,
-  port: process.env.PORT_MAIL,
-  auth: {
-    user: process.env.USER_MAIL,
-    pass: process.env.PASS_MAIL,
-  },
-});
+const { transporter } = require("../utils/nodemailer");
 
 const login = async (req, res) => {
   const { personalId, password } = req.body;
@@ -79,14 +70,20 @@ const register = async (req, res) => {
           "La contraseña no cumple con los requisitos mínimos: al menos 8 caracteres, al menos 1 mayuscula y al menos 1 caracter especial.",
       });
     }
-    const foundUser = await Patient.findOne({ personalId: data.personalId });
+    let foundUser = await Patient.findOne({ personalId: data.personalId });
     if (foundUser) {
       return res.status(400).json({
         ok: false,
         message: "PersonalId ya está registrado.",
       });
     }
-
+    foundUser = await Patient.findOne({ email: data.email });
+    if (foundUser) {
+      return res.status(400).json({
+        ok: false,
+        message: "Email ya está registrado.",
+      });
+    }
     const newUser = new Patient(data);
     newUser.password = await encriptPass(data.password);
     const savedNewUser = await newUser.save();
