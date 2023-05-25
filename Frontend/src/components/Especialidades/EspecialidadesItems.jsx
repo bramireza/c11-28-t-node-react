@@ -9,7 +9,7 @@ const EspecialidadesItems = ()=>{
             <h2 className="fw-bolder">Especialidades</h2>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus debitis molestias facilis iusto saepe vero autem temporibus quibusdam numquam nisi, quaerat ducimus eum omnis eos eaque sint magni ratione voluptatum?</p>
         </div>
-        <div className="row px-4">
+        <div className="px-4">
             {listaCategorias.map((data,index)=>{
                 return <Especialidades
                     key={index}
