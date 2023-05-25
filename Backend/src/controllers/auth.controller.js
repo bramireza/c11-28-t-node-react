@@ -47,7 +47,7 @@ const login = async (req, res) => {
     return res.status(200).json({
       ok: true,
       message: "Autenticacion correcta",
-      user: { name: patient.name },
+      user: patient,
       accessToken,
     });
   } catch (error) {
@@ -58,14 +58,25 @@ const login = async (req, res) => {
     });
   }
 };
+const validatePassword = (password) => {
+  const regex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&+]{8,}$/;
+  return regex.test(password);
+};
 const register = async (req, res) => {
   const data = req.body;
-  console.log(data);
   try {
     if (!data.personalId || !data.password) {
       return res.status(400).json({
         ok: false,
         message: "Debe proporcionar un ID personal y una contraseña..",
+      });
+    }
+    if (!validatePassword(data.password)) {
+      return res.status(400).json({
+        ok: false,
+        message:
+          "La contraseña no cumple con los requisitos mínimos: al menos 8 caracteres, al menos 1 mayuscula y al menos 1 caracter especial.",
       });
     }
     const foundUser = await Patient.findOne({ personalId: data.personalId });
@@ -75,18 +86,12 @@ const register = async (req, res) => {
         message: "PersonalId ya está registrado.",
       });
     }
-    const newUser = new Patient({
-      name: data.name,
-      password: await encriptPass(data.password),
-      email: data.email,
-      personalId: data.personalId,
-      phoneNumber: data.phoneNumber,
-      birthDay: data.birthDay,
-      gender: data.gender,
-      address: data.address,
-    });
+
+    const newUser = new Patient(data);
+    newUser.password = await encriptPass(data.password);
     const savedNewUser = await newUser.save();
-    return res.status(200).json({
+
+    return res.status(201).json({
       ok: true,
       message: "Registro Exitoso",
       user: savedNewUser,

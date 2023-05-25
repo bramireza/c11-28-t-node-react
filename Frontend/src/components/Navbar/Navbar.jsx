@@ -1,42 +1,30 @@
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import { Link, NavLink } from "react-router-dom";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import { NavLink } from "react-router-dom";
+import { Button } from 'react-bootstrap'
 import "./Navbar.css";
 
 function NavBar() {
   return (
-    <div className="navbar m-0 p-0">
-      {[false].map((expand) => (
-        <Navbar key={expand} bg="dark" expand="lg" className="mb-0">
-          <div className="container-fluid">
-            <Navbar.Toggle className="boton-hamburguesa" aria-controls={`offcanvasNavbar-expand-${expand}`} />
-            <Link to="/">
-              <Navbar.Brand className="m-0 logo" href="#"></Navbar.Brand>
-            </Link>
-            <NavLink to="/login" className="m-0" href="#">
-              <button className="boton-ingresar">Ingresar</button>
-            </NavLink>
-            <Navbar.Collapse
-              id={`offcanvasNavbar-expand-${expand}`}
-              aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
-              placement="end"
-            >
-              <Nav className="justify-content-start flex-grow-1 pe-3">
-                <NavLink to="/" className="text-white m-2" href="#action1">
-                  Inicio
-                </NavLink>
-                <NavLink className="text-white m-2" href="#action1">
-                  Especialidades
-                </NavLink>
-                <NavLink className="text-white m-2" href="#action2">
-                  Guardias
-                </NavLink>
-              </Nav>
-            </Navbar.Collapse>
-          </div>
-        </Navbar>
-      ))}
-    </div>
+    <Navbar className='navbar d-flex align-items-start' bg="light" expand="lg"  >
+      <Container className='container d-flex align-items-start'>
+        <NavLink to="/login" className="m-0" href="#">
+          <Button className="boton-ingresar">Ingresar</Button>
+        </NavLink>
+        <div className='logo-menu'>
+          <NavLink to="/" className="m-0 logo" href="#home"></NavLink>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav>
+              <NavLink to="/" href="#home" className='m-2' >Somos</NavLink>
+              <NavLink href="#link" className='m-2'>Servicios</NavLink>
+              <NavLink href="#link" className='m-2' >About us</NavLink>
+            </Nav>
+          </Navbar.Collapse>
+        </div>
+      </Container>
+    </Navbar>
   );
 }
 

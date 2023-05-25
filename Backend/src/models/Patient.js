@@ -51,6 +51,14 @@ const patientSchema = new Schema({
     type: String,
     enum: ["male", "female", "other"],
   },
+  nationality: {
+    type: String,
+    required: true,
+  },
+  cp: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Patient", patientSchema);
