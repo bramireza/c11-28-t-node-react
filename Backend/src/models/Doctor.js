@@ -10,10 +10,47 @@ const doctorSchema = new Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
   },
   license: {
     type: String,
     required: true,
+  },
+  birthDay: {
+    type: Date,
+    required: true,
+  },
+  nationality: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+    trim: true,
+  },
+  personalId: {
+    type: String,
+    validate: {
+      validator: function (v) {
+        return /^\d{8}$/.test(v);
+      },
+      message: (props) =>
+        `${props.value} is not a valid personal ID number. Must contain 8 digits.`,
+    },
+    required: true,
+    unique: true,
+  },
+  cp: {
+    type: String,
+    required: true,
+  },
+  gender: {
+    type: String,
+    enum: ["male", "female", "other"],
   },
   phoneNumber: {
     type: String,

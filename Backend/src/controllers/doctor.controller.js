@@ -1,13 +1,46 @@
 const Doctor = require("../models/Doctor");
+const crypto = require("crypto");
+const encriptPass = require("../utils/bcrypt");
+const { transporter } = require("../utils/nodemailer");
 
 const store = async (req, res) => {
   try {
-    const doctor = new Doctor(req.body);
+    const data = req.body;
+    if (!data.personalId) {
+      return res.status(400).json({
+        ok: false,
+        message: "Debe proporcionar un ID personal",
+      });
+    }
+    let foundDoctor = await Doctor.findOne({ personalId: data.personalId });
+    if (foundDoctor) {
+      return res.status(400).json({
+        ok: false,
+        message: "PersonalId ya está registrado.",
+      });
+    }
+    foundDoctor = await Doctor.findOne({ email: data.email });
+    if (foundDoctor) {
+      return res.status(400).json({
+        ok: false,
+        message: "Email ya está registrado.",
+      });
+    }
+    const doctor = new Doctor(data);
+    // genera una password aleatoria
+    const password = crypto.randomBytes(10).toString("hex");
+    doctor.password = await encriptPass(password);
     const saveDoctor = await doctor.save();
 
+    await transporter.sendMail({
+      from: process.env.MAIL_MAIL,
+      to: doctor.email,
+      subject: "Confirmación Creacion de Cuenta",
+      html: `<p>Hola ${doctor.name},</p><p>Tus crendenciales son las siguientes</p><p><strong>PersonalId:</strong> ${doctor.personalId}<br><strong>Password:</strong> ${password}</p>`,
+    });
     return res.status(201).json({
       ok: true,
-      doctor: saveDoctor,
+      message: `Se ha guardado con exito la cuenta de ${doctor.name} con el personalId de ${doctor.personalId} `,
     });
   } catch (error) {
     res.status(500).json({
