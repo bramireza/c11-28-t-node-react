@@ -1,29 +1,43 @@
 const Doctor = require('../models/Doctor');
 
-const converWeeklyScheduleToMonthCalendar = async (doctorId, year, month) => {
+const convertWeeklyScheduleToMonthCalendar = async (doctorId, year, month) => {
   const startDate = new Date(year, month, 1);
-  const endDate = new Date(year, month);
+  const endDate = new Date(year, month + 1, 0);
 
   const calendarData = [];
-  const doctor = await Doctor.findById(doctorId);
+  const doctor = await Doctor.findById(doctorId).populate('schedule');
 
-  //Iterate through each day of the month
-  for (let day = startDate; day < endDate; day++) {
-    const dayOfWeek = day.getDay();
+  const daysOfWeek = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  // method date.setDate() changes  the current date to the argument passed which shuld be an integer
+  //method date.getDate() returns the current day of the month in local time
+  for (let day = startDate; day <= endDate; day.setDate(day.getDate() + 1)) {
+    const dayOfWeek = daysOfWeek[day.getDay()];
 
-    if (
-      doctor.schedule.find((schedule) =>
-        schedule.daysOfWeek.includes(dayOfWeek)
-      )
-    ) {
-      const availableAppointmentSlots =
-        Math.floor(
-          (endDate.getTime() - startDate.getTime()) /
-            (doctor.schedule.appointmentDuration * 60000)
-        ) - 1;
+    const schedule = doctor.schedule.find((schedule) => {
+      schedule.daysOfWeek.includes(dayOfWeek);
+    });
+
+    if (schedule) {
+      //Dates are created dynamically using startTime and endTime values saved in Schedule model
+      const startTime = new Date(`${day.toDateString} ${schedule.startTime}`);
+      const endTime = new Date(`${day.toDateString()} ${schedule.endTime}`);
+
+      const appointmentDuration = schedule.appointmentDuration;
+
+      const availableAppointmentSlots = Math.floor(
+        (endTime - startTime) / (appointmentDuration * 60000)
+      );
 
       calendarData.push({
-        day: day,
+        day: day.getDate(),
         availableAppointmentSlots: availableAppointmentSlots,
       });
     }
@@ -32,4 +46,4 @@ const converWeeklyScheduleToMonthCalendar = async (doctorId, year, month) => {
   return calendarData;
 };
 
-module.exports = converWeeklyScheduleToMonthCalendar;
+module.exports = convertWeeklyScheduleToMonthCalendar;
