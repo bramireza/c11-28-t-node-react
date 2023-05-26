@@ -1,21 +1,23 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
 const scheduleSchema = new Schema({
-  daysOfWeek: {
-    type: String,
-    enum: [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
-    ],
-    required: true,
-  },
+  daysOfWeek: [
+    {
+      type: String,
+      enum: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
+      required: true,
+    },
+  ],
   appointmentDuration: {
     type: Number,
     required: true,
@@ -30,4 +32,4 @@ const scheduleSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model('Schedule', scheduleSchema);
+module.exports = mongoose.model("Schedule", scheduleSchema);

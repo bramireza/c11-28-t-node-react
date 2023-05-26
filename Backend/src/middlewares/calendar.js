@@ -1,20 +1,20 @@
-const Doctor = require('../models/Doctor');
+const Doctor = require("../models/Doctor");
 
 const convertWeeklyScheduleToMonthCalendar = async (doctorId, year, month) => {
   const startDate = new Date(year, month, 1);
   const endDate = new Date(year, month + 1, 0);
 
   const calendarData = [];
-  const doctor = await Doctor.findById(doctorId).populate('schedule');
+  const doctor = await Doctor.findById(doctorId).populate("schedule");
 
   const daysOfWeek = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
   ];
   // method date.setDate() changes  the current date to the argument passed which shuld be an integer
   //method date.getDate() returns the current day of the month in local time
