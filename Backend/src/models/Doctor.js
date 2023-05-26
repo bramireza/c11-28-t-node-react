@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
@@ -22,22 +22,21 @@ const doctorSchema = new Schema({
   specialties: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Specialty",
+      ref: 'Specialty',
       required: true,
     },
   ],
-  schedule: [
-    {
-      // Schedule model stores single day agenda, hence an array storing each active weekday individually
-      type: Schema.Types.ObjectId,
-      ref: "Schedule",
-      required: true,
-    },
-  ],
+  schedule: {
+    // Schedule model stores single week agenda
+    type: Schema.Types.ObjectId,
+    ref: 'Schedule',
+    required: true,
+  },
+
   active: {
     type: Boolean,
     default: true,
   },
 });
 
-module.exports = mongoose.model("Doctor", doctorSchema);
+module.exports = mongoose.model('Doctor', doctorSchema);
