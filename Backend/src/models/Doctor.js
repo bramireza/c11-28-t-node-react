@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
@@ -59,21 +59,25 @@ const doctorSchema = new Schema({
   specialties: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Specialty',
+      ref: "Specialty",
       required: true,
     },
   ],
   schedule: {
     // Schedule model stores single week agenda
     type: Schema.Types.ObjectId,
-    ref: 'Schedule',
+    ref: "Schedule",
     required: true,
   },
-
+  rol: {
+    type: String,
+    required: true,
+    default: "doctor",
+  },
   active: {
     type: Boolean,
     default: true,
   },
 });
 
-module.exports = mongoose.model('Doctor', doctorSchema);
+module.exports = mongoose.model("Doctor", doctorSchema);

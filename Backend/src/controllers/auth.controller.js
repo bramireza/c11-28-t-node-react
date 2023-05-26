@@ -5,8 +5,10 @@ const ResetToken = require("../models/ResetToken");
 const { createToken } = require("../utils/jwt");
 const encriptPass = require("../utils/bcrypt");
 const { transporter } = require("../utils/nodemailer");
+const Admin = require("../models/Admin");
+const Doctor = require("../models/Doctor");
 
-const login = async (req, res) => {
+const loginPatient = async (req, res) => {
   const { personalId, password } = req.body;
 
   try {
@@ -54,7 +56,7 @@ const validatePassword = (password) => {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&+]{8,}$/;
   return regex.test(password);
 };
-const register = async (req, res) => {
+const registerPatient = async (req, res) => {
   const data = req.body;
   try {
     if (!data.personalId || !data.password) {
@@ -104,10 +106,13 @@ const register = async (req, res) => {
 
 const me = async (req, res) => {
   try {
-    const foundUser = await Patient.findById(req.user._id);
+    const user =
+      (await Patient.findById(req.user._id)) ||
+      (await Doctor.findById(req.user._id)) ||
+      (await Admin.findById(req.user._id));
     return res.status(200).json({
       ok: true,
-      data: foundUser,
+      user,
     });
   } catch (error) {
     return res.status(500).json({
@@ -117,7 +122,7 @@ const me = async (req, res) => {
     });
   }
 };
-const forgotPassword = async (req, res) => {
+const forgotPasswordPatient = async (req, res) => {
   const { email } = req.body;
   try {
     const user = await Patient.findOne({ email });
@@ -160,7 +165,7 @@ const forgotPassword = async (req, res) => {
     });
   }
 };
-const resetPassword = async (req, res) => {
+const resetPasswordPatient = async (req, res) => {
   try {
     const { token, password } = req.body;
 
@@ -202,10 +207,60 @@ const resetPassword = async (req, res) => {
     });
   }
 };
+
+const loginStaff = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    if (!email || !password) {
+      return res.status(400).json({
+        ok: false,
+        message: "Debe proporcionar un email y una contraseña..",
+      });
+    }
+    const user =
+      (await Admin.findOne({ email })) ||
+      (await Doctor.findOne({
+        $or: [{ email }, { personalId: email }],
+      }));
+
+    if (!user) {
+      return res.status(403).json({
+        ok: false,
+        message: "Credenciales Invalidas",
+      });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(403).json({
+        ok: false,
+        message: "Credenciales Invalidas",
+      });
+    }
+
+    const accessToken = createToken({ _id: user._id });
+
+    return res.status(200).json({
+      ok: true,
+      message: "Autenticacion correcta",
+      user,
+      accessToken,
+    });
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      message: "Error del servidor",
+      error,
+    });
+  }
+};
+
 module.exports = {
-  login,
-  register,
+  loginPatient,
+  registerPatient,
   me,
-  forgotPassword,
-  resetPassword,
+  forgotPasswordPatient,
+  resetPasswordPatient,
+  loginStaff,
 };

@@ -2,7 +2,8 @@ const Doctor = require("../models/Doctor");
 const crypto = require("crypto");
 const encriptPass = require("../utils/bcrypt");
 const { transporter } = require("../utils/nodemailer");
-
+const { store: storeSchedule } = require("../controllers/schedule.controller");
+const convertWeeklyScheduleToMonthCalendar = require("../middlewares/calendar");
 const store = async (req, res) => {
   try {
     const data = req.body;
@@ -27,6 +28,8 @@ const store = async (req, res) => {
       });
     }
     const doctor = new Doctor(data);
+    // Se crea y guarda el horario
+    doctor.schedule = await storeSchedule(req, res);
     // genera una password aleatoria
     const password = crypto.randomBytes(10).toString("hex");
     doctor.password = await encriptPass(password);
@@ -41,6 +44,29 @@ const store = async (req, res) => {
     return res.status(201).json({
       ok: true,
       message: `Se ha guardado con exito la cuenta de ${doctor.name} con el personalId de ${doctor.personalId} `,
+    });
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      message: "Error del servidor",
+      error,
+    });
+  }
+};
+
+const getCalendar = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { year, month } = req.body;
+
+    const calendar = await convertWeeklyScheduleToMonthCalendar(
+      id,
+      year,
+      month
+    );
+    return res.status(200).json({
+      ok: true,
+      calendar,
     });
   } catch (error) {
     res.status(500).json({
@@ -156,4 +182,12 @@ const remove = async (req, res) => {
     });
   }
 };
-module.exports = { store, getOne, getOneBySpecialty, getAll, update, remove };
+module.exports = {
+  store,
+  getCalendar,
+  getOne,
+  getOneBySpecialty,
+  getAll,
+  update,
+  remove,
+};
