@@ -59,11 +59,19 @@ const getCalendar = async (req, res) => {
     const id = req.params.id;
     const { year, month } = req.body;
 
+    const doctor = await Doctor.findById(id);
+    if (!doctor) {
+      return res.status(404).json({
+        ok: false,
+        message: "El doctor no existe",
+      });
+    }
     const calendar = await convertWeeklyScheduleToMonthCalendar(
       id,
       year,
       month
     );
+
     return res.status(200).json({
       ok: true,
       calendar,
