@@ -1,0 +1,14 @@
+.select{
+    
+    /* display: flex; */
+    margin: 10px;
+
+}
+
+.orden-modales{
+    display: flex;
+       
+    flex-wrap: wrap;
+    /* width: 310px; */
+    justify-content: center;
+}
