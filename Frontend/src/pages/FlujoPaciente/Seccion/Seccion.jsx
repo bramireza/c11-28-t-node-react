@@ -1,16 +1,16 @@
 import './seccion.css';
 
 
-
-
 const Seccion = ()=>{
-    let nombre = 'Maria Eugenia';
+    let url = new URL(window.location);
+    let nombre = url.searchParams.get("nombre");
+    
     return(
         <>
         
         <header className="header d-flex p-3 align-items-center justify-content-start gap-2">
             <img src="https://www.freeiconspng.com/thumbs/account-icon/account-profile-icon-1.png" className="img_perfil img-fluid" alt="perfil" />
-            <h5 className='saludo '>Hola, {nombre}</h5>
+            <h5 className='saludo '>Hola, {nombre}.</h5>
         </header>
         <main>
             <section className='p-3'>

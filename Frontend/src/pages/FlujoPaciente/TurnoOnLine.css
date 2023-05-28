@@ -1,5 +1,6 @@
 .cont{
-    padding: 20px 50px;  
+    padding: 20px 50px; 
+    width: 100%; 
 }
 .header{
     display: flex;
@@ -21,6 +22,7 @@
     position: relative;
     border-radius: 20px;
     margin: 0 20px;
+    
 }
 .title1, .title2, .title3{
     font-weight: bolder;
@@ -30,7 +32,7 @@
     height: 100px;
     position: absolute;
     right:-30px;
-    top: 40px;
+    top: 20px;
     /* background: red; */
     /* border: 1px solid #000; */
 }

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import useServices from "../../services/useServices";
 import validatePassword from "../../utilities/validatePassword";
 import style from "./login.module.css";
+import Seccion from "../FlujoPaciente/Seccion/Seccion";
 
 
 
@@ -15,6 +16,9 @@ const initialValues = {
 const Login = () => {
   const [state, setState] = useState(initialValues);
   const [errors, setErrors] = useState({});
+  
+  
+  
 
   const { auth } = useServices();
 
@@ -32,6 +36,8 @@ const Login = () => {
 
   const handleChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
+    
+    
   };
 
   const handleSubmit = async (e) => {
@@ -40,6 +46,8 @@ const Login = () => {
     //Este codigo es solo de prueba , se debe borrar.
     let verifica = state.personalId == '12345678' && state.password == 'Hackeando23$';
     verifica?window.location.href = '/turno' : alert('DNI o Contraseña incorrecta');
+   
+
 
 
     const response = validate();
