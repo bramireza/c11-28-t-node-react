@@ -1,0 +1,16 @@
+
+article{
+    border: 1px solid #000;
+    border-radius: 15px;
+}
+.img_perfil{
+    width: 48px;
+}
+.saludo{
+    width: 150px;
+    height: 49px;
+}
+.img_turno{
+    width: 102px;
+    height: 103px;
+}
