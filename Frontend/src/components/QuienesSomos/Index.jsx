@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 function QuienesSomos() {
   return (
     <Card border="light">
-      <Row >
+      <Row>
         <Col md={6}>
           <Card.Img className='card_img' variant="top" src="https://thumbs.dreamstime.com/b/grupo-de-doctores-felices-que-se-encuentran-en-la-oficina-del-hospital-52510947.jpg" />
         </Col>

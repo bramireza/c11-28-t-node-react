@@ -5,6 +5,8 @@ import useServices from "../../services/useServices";
 import validatePassword from "../../utilities/validatePassword";
 import style from "./login.module.css";
 
+
+
 const initialValues = {
   personalId: "",
   password: "",
@@ -35,6 +37,11 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
+    //Este codigo es solo de prueba , se debe borrar.
+    let verifica = state.personalId == '12345678' && state.password == 'Hackeando23$';
+    verifica?window.location.href = '/turno' : alert('DNI o Contraseña incorrecta');
+
+
     const response = validate();
     if (Object.keys(response).length < 1) {
       const body = {

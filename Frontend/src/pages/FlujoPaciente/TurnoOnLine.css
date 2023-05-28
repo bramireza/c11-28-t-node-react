@@ -1,0 +1,36 @@
+.cont{
+    padding: 20px 50px;  
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.close{
+    height: 30px;
+    width: 30px;
+    padding: 5px;
+    line-height: 10px;
+    /* background: red; */
+    color: #000;
+    border: none;
+    border-radius: 50%;
+}
+.article1, .article2, .article3{
+    position: relative;
+    border-radius: 20px;
+    margin: 0 20px;
+}
+.title1, .title2, .title3{
+    font-weight: bolder;
+}
+.picture1, .picture2, .picture3{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    right:-30px;
+    top: 40px;
+    /* background: red; */
+    /* border: 1px solid #000; */
+}
