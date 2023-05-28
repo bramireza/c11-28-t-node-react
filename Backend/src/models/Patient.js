@@ -19,6 +19,7 @@ const patientSchema = new Schema({
       message: (props) => `${props.value} is not a valid email address.`,
     },
     required: true,
+    unique: true,
   },
   password: {
     type: String,
@@ -42,6 +43,7 @@ const patientSchema = new Schema({
         `${props.value} is not a valid personal ID number. Must contain 8 digits.`,
     },
     required: true,
+    unique: true,
   },
   birthDay: {
     type: Date,
@@ -50,6 +52,19 @@ const patientSchema = new Schema({
   gender: {
     type: String,
     enum: ["male", "female", "other"],
+  },
+  nationality: {
+    type: String,
+    required: true,
+  },
+  cp: {
+    type: String,
+    required: true,
+  },
+  rol: {
+    type: String,
+    required: true,
+    default: "patient",
   },
 });
 

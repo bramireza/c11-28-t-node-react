@@ -2,87 +2,72 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* overflow-x: hidden; */
 }
 
-.boton-hamburguesa{
+.boton-hamburguesa {
     background-color: white;
 }
 
-.navbar-toggler-icon{
-    background-color: white;
-    /* color: white; */
+.navbar-toggler-icon {
+    background-color: white;    
 }
 
 .navbar-toggler {
-    background-color: white;
-    /* color: white; */
+    background-color: white;    
 }
-
-.collapsed{
-    width: 65px;
-    height: 37px; 
-    /* background-color: white; */
-    /* color: white; */
-}
-
 .navbar {
-    width: 100vw;  
+    width: 100%;  
 }
 
 .navbar-brand{
     margin: 0;
 }
+.logo-menu{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 55vw;
+    flex-wrap: wrap;
 
-.logo{
+}
+
+.logo {
     border: 1px solid black;
-    width: 100px;
+    width: 80px;
     height: 40px;
     background-color: bisque;
+    padding: 10px;
+    text-align: center;
 }
 
-.container-fluid{
-    padding: 0;
+.navbar>.container, .navbar>.container-fluid, .navbar>.container-lg, .navbar>.container-md, .navbar>.container-sm, .navbar>.container-xl, .navbar>.container-xxl {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: inherit;
+    align-items: flex-start;
+    justify-content: space-between;
 }
 
-.boton-ingresar{
-    width: 100px;
-    border-radius: 8%;
-    border: 1px black solid;
-    background-color:white;
-    color: black;
-    padding: 3px;
-    font-size: 15px;
-    margin-left: 0px;
+.logo-ingresar{
+    display: flex;
+    width: 60vw;
+    justify-content: space-between;
 }
 
-.boton-ingresar:hover{
-    background-color: blue;
-    color: white;
-}
 
 @media (min-width: 1024px) {
-    .navbar-nav {
-        max-width: 20%;
-    }
-
-    #offcanvasNavbar-expand-false{
-        max-width: 10%;
-    }
-
-    .navbar>.container, .navbar>.container-fluid, .navbar>.container-lg, .navbar>.container-md, .navbar>.container-sm, .navbar>.container-xl, .navbar>.container-xxl {
-        display: flex;
-        flex-wrap: nowrap;
-        align-items: center;
-        justify-content: center;
+    .logo-menu{
+        flex-direction: row;
         width: 70vw;
-        margin-left: 10px;
-    }   
-}
+    }
 
-@media (min-width: 1330px){
-    .navbar>.container, .navbar>.container-fluid, .navbar>.container-lg, .navbar>.container-md, .navbar>.container-sm, .navbar>.container-xl, .navbar>.container-xxl {         
-        margin-left: 15px; 
-        width: 85vw;      
+    .navbar-expand-lg .navbar-collapse {
+        display: flex!important;
+        flex-basis: auto;
+        justify-content: flex-end;
+        width: 60vw;
     }
 }
+
 
