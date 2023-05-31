@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./Calendario.css";
 import ConfirmarTurnos from '../ConfirmarCita/ConfirmarCita';
 import { api } from '../../../utilities/axios';
@@ -10,6 +10,24 @@ const Calendario = ({ agenda, cant, mes, year, medId }) => {
     const [userId, setUserId] = useState("")
 
     const DIAS = [{ dia: "Lun", num: 1 }, { dia: "Mar", num: 2 }, { dia: "Mie", num: 3 }, { dia: "Jue", num: 4 }, { dia: "Vie", num: 5 }, { dia: "Sab", num: 6 }, { dia: "Dom", num: 0 }]
+   
+    const options = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: false,
+        timeZone: "America/Argentina/Buenos_Aires" // Cambia esto a la zona horaria que necesites
+      };
+      
+      
+
+    useEffect(() => {
+        crearCita()
+
+
+    }, [dia, userId])
 
 
     const accessToken = localStorage.getItem("accessToken");
@@ -19,7 +37,8 @@ const Calendario = ({ agenda, cant, mes, year, medId }) => {
 
     function pasarDia({ i }) {
         console.log("llama funcion dia " + i)
-        setDia(new Date(year,mes,i))
+        
+        setDia((new Date(year, mes, i)).toDateString())
         console.log(dia)
         //setDia((DIAS.filter((es) => es.num === ((new Date(year, mes, i)).getDay())))[0].dia)
         setLoading(false)
@@ -27,26 +46,33 @@ const Calendario = ({ agenda, cant, mes, year, medId }) => {
         api().get("/auth/me", { headers })
             .then((response) => {
                 setUserId(response.data.user._id);
+
             })
             //.finally(() => setLoading(false))
             .catch((error) => {
                 console.log(error);
             });
-        crearCita()
+
 
     }
 
-    
+
 
     function crearCita() {
-        const data = {doctor:medId,patient:userId,appointmentDate:dia}
-        api().post("/appointment", data , {headers})
-        .then((response)=>{
-            console.log(response.data.appointment.appointmentDate)
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+        if (dia && userId) {
+            const data = { doctor: medId, patient: userId, appointmentDate: dia }
+            console.log(data)
+            api().post("/appointment", data, { headers })
+                .then((response) => {
+                    const date = new Date(response.data.appointment.appointmentDate);
+                    const formattedDate = date.toLocaleDateString("es-AR", options);
+                    console.log(formattedDate)
+
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
 
 
     }
