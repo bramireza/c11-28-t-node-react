@@ -91,6 +91,37 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
   }
 
 ```
+
+#### ME
+
+```http
+  GET /api/v1/auth/me
+```
+* Descripción: Este endpoint se utiliza para devolver los datos del usuario(paciente, doctor y administrador).
+* Método: GET
+* Headers: Requiere autenticación con Bearer token
+* Respuesta exitosa (JSON):
+
+```json
+  {
+    "ok": true,
+    "user": {
+        "_id": "6476c7e02b92a6182a17f63d",
+        "name": "John Doe",
+        "email": "johndoe@gmail.com",
+        "password": "$2b$08$vme8V0CLs5Vcu6HSFYEMSOfcRMXESveyskqfasufFXmBrH0e5UDey",
+        "phoneNumber": "987654321",
+        "address": "myAddress",
+        "personalId": "00000000",
+        "birthDay": "2012-12-12T05:00:00.000Z",
+        "gender": "male",
+        "nationality": "myCountry",
+        "cp": "myCodePostal",
+        "rol": "patient",
+        "__v": 0
+    }
+  }
+```
 * Respuesta exitosa (JSON):
 
 ```json
