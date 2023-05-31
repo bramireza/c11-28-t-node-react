@@ -1,3 +1,7 @@
+const {
+  getAvailableAppointmentSlots,
+  getAppointmentsByDoctorAndDate,
+} = require("../helpers/appointment");
 const Appointment = require("../models/Appointment");
 const Doctor = require("../models/Doctor");
 const Patient = require("../models/Patient");
@@ -21,35 +25,31 @@ const store = async (req, res) => {
       });
     }
     const date = new Date(data.appointmentDate);
-    const availableAppointment = await Appointment.aggregate([
-      // Matching appointments by the date
-      {
-        $match: {
-          appointmentDate: {
-            $gte: new Date(date.getFullYear(), date.getMonth(), date.getDate()),
-            $lt: new Date(
-              date.getFullYear(),
-              date.getMonth(),
-              date.getDate() + 1
-            ),
-          },
-          doctor: doctor._id,
-        },
-      },
-    ]);
-    const schedule = doctor.schedule;
-    //Dates are created dynamically using startTime and endTime values saved in Schedule model
-    const startTime = new Date(`${date.toDateString()} ${schedule.startTime}`);
-    const endTime = new Date(`${date.toDateString()} ${schedule.endTime}`);
-
-    const appointmentDuration = schedule.appointmentDuration;
-    const availableAppointmentSlots = Math.floor(
-      (endTime - startTime) / (appointmentDuration * 60000)
+    const availableAppointmentSlots = await getAvailableAppointmentSlots(
+      doctor,
+      date
     );
-
-    if (availableAppointmentSlots > availableAppointment.length) {
-      data.duration = doctor.schedule.appointmentDuration;
+    const schedule = doctor.schedule;
+    if (availableAppointmentSlots > 0) {
+      data.duration = schedule.appointmentDuration;
       const appointment = new Appointment(data);
+
+      // Init start time in appointment date
+      appointment.appointmentDate = new Date(
+        `${appointment.appointmentDate.toDateString()} ${schedule.startTime}`
+      );
+
+      // Number appointments added
+      const numberAppointmentsAdded = (
+        await getAppointmentsByDoctorAndDate(doctor._id, date)
+      ).length;
+
+      // Add hour in appointment date
+      appointment.appointmentDate.setMinutes(
+        appointment.appointmentDate.getMinutes() +
+          schedule.appointmentDuration * numberAppointmentsAdded
+      );
+
       const saveAppointment = await appointment.save();
       return res.status(201).json({
         ok: true,
@@ -58,7 +58,7 @@ const store = async (req, res) => {
     } else {
       res.status(500).json({
         ok: false,
-        message: "Error no hay turnos para es dia",
+        message: "No hay turnos para es dia",
       });
     }
   } catch (error) {
@@ -74,9 +74,16 @@ const getAllMyAppointments = async (req, res) => {
     const user =
       (await Patient.findById(req.user._id)) ||
       (await Doctor.findById(req.user._id));
+    if (!user) {
+      return res.status(404).json({
+        ok: false,
+        message: "Usuario no encontrado",
+      });
+    }
     const appointments = await Appointment.find({
       $or: [{ doctor: user._id }, { patient: user._id }],
     });
+
     return res.status(200).json({
       ok: true,
       appointments,

@@ -59,7 +59,7 @@ const getCalendar = async (req, res) => {
     const id = req.params.id;
     const { year, month } = req.body;
 
-    const doctor = await Doctor.findById(id);
+    const doctor = await Doctor.findById(id).populate("schedule");
     if (!doctor) {
       return res.status(404).json({
         ok: false,
@@ -67,7 +67,7 @@ const getCalendar = async (req, res) => {
       });
     }
     const calendar = await convertWeeklyScheduleToMonthCalendar(
-      id,
+      doctor,
       year,
       month
     );

@@ -31,7 +31,7 @@ appointmentRouter.put(
 );
 appointmentRouter.delete(
   "/:id",
-  isAuthenticated(["admin"]),
+  isAuthenticated(["patient", "admin"]),
   appointmentController.remove
 );
 
