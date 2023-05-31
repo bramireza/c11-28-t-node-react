@@ -12,26 +12,28 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2"
 
-function ConfirmarTurnos({datosMedico,startDate}) {
+function ConfirmarTurnos() {
 
     //console.log("en confirmarcita, datosmedico " + datosMedico[0].name + datosMedico[0].specialties)
     //console.log("en confirmarcita dato fecha " + startDate)
+    
+    
 
-    function confirmacion(){
+    /*function confirmacion(){
         Swal.fire({
             title: "¡Tu turno médico ha sido confirmado!",
             text: "Recibirás el comprobante en tu email. Recuerda llevarlo a tu cita.",                  
             width: 600,
             confirmButtonText: "Ver mis Turnos",
         });
-    }
+    }*/
 
     return (
         <div>
-           
+           confirmar turno
 
        
-        <section className='container p-3'>
+        {/* <section className='container p-3'>
             <h3>3. Confirmar turno</h3>
             <p>Forem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             <div className="card" >
@@ -45,9 +47,9 @@ function ConfirmarTurnos({datosMedico,startDate}) {
                             <p className="card-text">Lugar</p>
                         </div>
                         <div className="col">
-                            <p className="card-text">{datosMedico[0].specialties}</p>
-                            <p className="card-text">{datosMedico[0].name}</p>
-                            <p className="card-text">{startDate.toString()}</p>
+                            <p className="card-text">{especialidad}</p>
+                            <p className="card-text">{profesional}</p>
+                            <p className="card-text">{dia} {mes} {year}</p>
                             <p className="card-text">info lugar</p>
                         </div>
                     </div>
@@ -60,7 +62,7 @@ function ConfirmarTurnos({datosMedico,startDate}) {
                     Cancelar
                 </Link>
             </div>
-        </section>
+        </section> */}
         </div>
     );
 }

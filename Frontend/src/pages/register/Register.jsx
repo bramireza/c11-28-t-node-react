@@ -76,6 +76,8 @@ const Register = () => {
         address: state.address,
         birthDay: Date.parse(state.birthDay),
         gender: state.gender,
+        nationality:state.nationality,
+        cp:state.cp
       };
       try {
         const { data } = await auth.signup(body);

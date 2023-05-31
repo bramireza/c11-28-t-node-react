@@ -1,0 +1,13 @@
+.almanaque{
+    width: 320px;
+    height: 400px;
+}
+
+.botonAlmanaque{
+    width: 45px;
+    height: 60px;
+    align-items: center;
+    margin: 0;
+   
+    
+}
