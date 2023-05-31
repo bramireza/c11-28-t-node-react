@@ -29,7 +29,7 @@ function App() {
           {/* aca se va a poner la ruta al login y el componente de login, el componente pruba es solo para probar */}
           <Route path="/turnos-especialidad" element={<TurnoEspecialidad/>} />
 
-          <Route path="/fecha-turno/:medName" element={<FechaTurno/>}/>
+          <Route path="/fecha-turno/:medId" element={<FechaTurno/>}/>
 
           {/* <PruebaRutas/> */}
         </Routes>

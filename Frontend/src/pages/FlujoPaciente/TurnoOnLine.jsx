@@ -38,7 +38,7 @@ function TurnoOnLine() {
           
         </Modal.Body>
 
-          <Link to='/seccion' variant="primary" className='btn btn-primary w-75 mx-auto my-3'>Comenzar</Link>
+          <Link to='/turnos-especialidad' variant="primary" className='btn btn-primary w-75 mx-auto my-3'>Comenzar</Link>
       </Modal.Dialog>
     </div>
   );
