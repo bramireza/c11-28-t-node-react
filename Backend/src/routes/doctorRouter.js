@@ -20,7 +20,11 @@ doctorRouter.get(
   isAuthenticated(["patient", "admin"]),
   doctorController.getOneBySpecialty
 );
-doctorRouter.get("/:id", isAuthenticated(["admin"]), doctorController.getOne);
+doctorRouter.get(
+  "/:id",
+  isAuthenticated(["patient", "admin"]),
+  doctorController.getOne
+);
 doctorRouter.put(
   "/:id",
   isAuthenticated(["doctor", "admin"]),

@@ -1,4 +1,5 @@
 const adminRouter = require("./adminRouter");
+const appointmentRouter = require("./appointmentRouter");
 const authRouter = require("./authRouter");
 const doctorRouter = require("./doctorRouter");
 const specialtyRouter = require("./specialtyRouter");
@@ -8,6 +9,7 @@ const routes = [
   ["specialty", specialtyRouter],
   ["doctor", doctorRouter],
   ["admin", adminRouter],
+  ["appointment", appointmentRouter],
 ];
 
 const router = (app) => {

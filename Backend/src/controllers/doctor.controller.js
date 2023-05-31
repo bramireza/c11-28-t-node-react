@@ -59,7 +59,7 @@ const getCalendar = async (req, res) => {
     const id = req.params.id;
     const { year, month } = req.body;
 
-    const doctor = await Doctor.findById(id);
+    const doctor = await Doctor.findById(id).populate("schedule");
     if (!doctor) {
       return res.status(404).json({
         ok: false,
@@ -67,7 +67,7 @@ const getCalendar = async (req, res) => {
       });
     }
     const calendar = await convertWeeklyScheduleToMonthCalendar(
-      id,
+      doctor,
       year,
       month
     );
@@ -87,7 +87,9 @@ const getCalendar = async (req, res) => {
 const getOne = async (req, res) => {
   try {
     const _id = req.params.id;
-    const doctor = await Doctor.findOne({ _id });
+    const doctor = await Doctor.findOne({ _id }).populate({
+      path: "specialties",
+    });
     if (!doctor) {
       return res.status(404).json({
         ok: false,
@@ -109,7 +111,9 @@ const getOne = async (req, res) => {
 const getOneBySpecialty = async (req, res) => {
   try {
     const { idSpecialty } = req.params;
-    const doctors = await Doctor.find({ specialties: idSpecialty });
+    const doctors = await Doctor.find({ specialties: idSpecialty }).populate({
+      path: "specialties",
+    });
 
     return res.status(200).json({
       ok: true,
@@ -125,7 +129,9 @@ const getOneBySpecialty = async (req, res) => {
 };
 const getAll = async (req, res) => {
   try {
-    const doctors = await Doctor.find({ active: true });
+    const doctors = await Doctor.find({ active: true }).populate({
+      path: "specialties",
+    });
     return res.status(200).json({
       ok: true,
       doctors,
