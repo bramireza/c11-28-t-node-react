@@ -7,6 +7,7 @@ function AdminDashboard() {
 
     const [doctors, setDoctors] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [searchInput, setSearchInput] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -25,8 +26,12 @@ function AdminDashboard() {
             <DoctorCard></DoctorCard>
         )
     }
+    const handleChange = (e) => {
+        e.preventDefault();
+        setSearchInput(e.target.value);
+    };
 
-    
+
     //getDoctorById(1).then(res => console.log(res) ).catch(e => console.log(e))
 
     const Table = () => {
@@ -44,7 +49,7 @@ function AdminDashboard() {
                         return (
                             <tr className='fw-normal' key={index}>
                                 <th>
-                                    <img className='' style={{ height: '100px', width: '120px' }} src={doctor.image}/>
+                                    <img className='' style={{ height: '100px', width: '120px' }} src={doctor.image} />
                                 </th>
                                 <td className='align-middle'>
                                     <span className="ms-2">{doctor.name + " " + doctor.lastName}</span>
@@ -62,17 +67,27 @@ function AdminDashboard() {
     }
 
     return (
-            
         <section className="container-fluid p-3">
             <h1>Hola Admin</h1>
             <h5 className="col-12 mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</h5>
             <div className="row justify-content-center mb-2">
                 <button className="btn btn-outline-secondary mt-3 col-8"
-                    onClick = {() => navigate("/doctor/create")}  
+                    onClick={() => navigate("/doctor/create")}
                 >
                     Agregar perfil profesional
                 </button>
             </div>
+            <form action="" className="mb-5">
+                <label htmlFor="search" className="fst-italic align-self-start"></label>
+                <input
+                    type="text"
+                    className="form-control bg-light border border-secondary rounded text-dark"
+                    placeholder="Buscar por profesional o especialidad"
+                    name="search"
+                    value={searchInput}
+                    onChange={handleChange}
+                />
+            </form>
             <Table></Table>
         </section>
     )

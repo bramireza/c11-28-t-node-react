@@ -11,7 +11,6 @@ function DoctorCard() {
 
     useEffect(() => {
         try {
-            console.log(medId);
             getDoctorById(medId)
                 .then(res => {setDoctor(res); console.log(res)})
                 .catch(e => console.log(e))

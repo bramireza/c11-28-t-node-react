@@ -38,7 +38,7 @@ const doctors = [
     {
         medId:3,
         image: "https://uvn-brightspot.s3.amazonaws.com/assets/vixes/btg/curiosidades.batanga.com/files/6-cosas-que-ningun-doctor-puede-hacerte-3.jpg",
-        name: 'Laura',
+        name: 'Martín',
         lastName: 'Orlando',
         matricula: '875485',
         personalId: '58965632',

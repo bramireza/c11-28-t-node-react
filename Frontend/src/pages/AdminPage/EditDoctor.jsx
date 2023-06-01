@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import style from "../register/register.module.css";
 import { useParams } from "react-router-dom";
+import { getDoctorById } from './MockDoctors';
 
 const defaultValues = {
   personalId: "",
@@ -22,11 +23,11 @@ const defaultValues = {
 function EditDoctor() {
     const [state, setState] = useState(defaultValues);
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(true);
     const { medId } = useParams();
 
     useEffect(() => {
       try {
-          console.log(medId);
           getDoctorById(medId)
               .then(res => {setState(res); console.log(res)})
               .catch(e => console.log(e))
