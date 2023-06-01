@@ -33,7 +33,7 @@ function FechaTurno() {
       ? { Authorization: `Bearer ${accessToken}` }
       : {};
     api()
-      .post(`/doctor/${medId}/calendar`, data, { headers })
+      .get(`/doctor/${medId}/calendar`, { headers })
       .then((response) => {
         console.log(response.data.calendar)
         //(response.data.calendar).map
@@ -60,6 +60,16 @@ function FechaTurno() {
   return (
     <div>
 
+      {/* {loading ? <Select
+        className="select"
+        placeholder="Selecciona Mes"
+        name="especialidades"
+        options={MESES.map((esp) => ({
+          label: esp.mes,
+          value: esp.num,
+        }))}
+        onChange={traerAgenda}
+      /> : ""} */}
       <Select
         className="select"
         placeholder="Selecciona Mes"

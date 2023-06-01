@@ -4,8 +4,11 @@ import { Link } from 'react-router-dom';
 
 
 function ModalMedicos({ med, especialidad }) { 
+    
 
     console.log("en mostrar medicos especialidad " + especialidad)
+
+    
 
     console.log("en mostrar medicos "+med._id)   
 

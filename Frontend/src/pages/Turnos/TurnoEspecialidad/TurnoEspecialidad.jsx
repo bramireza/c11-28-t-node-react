@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+//import { useCartContext } from '../Contexto/CartContext'
 //import { getEspecialidades } from "../MockEspecialidades/MockEspecialidades";
 import Select from "react-select";
 import "./TurnoEspecialidad.css";
@@ -6,15 +7,23 @@ import "./TurnoEspecialidad.css";
 
 import ManejarModales from "../ManejarModales/ManejarModales";
 import { api } from "../../../utilities/axios";
+//import { useCartContext } from "../../Contexto/Contexto";
+import { useCartContext } from "../Contexto/Contexto";
 
 const TurnoEspecialidad = () => {
+
+  const {recolectarDatos} = useCartContext()
+
   const [especialidades, setEspecialidades] = useState([]);
   const [especialidad, setEspecialidad] = useState("");
   const [medicosEspecialidad, setMedicosEspecialidad] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loading2, setLoading2] = useState(true);
 
+
+
   useEffect(() => {
+    
     const accessToken = localStorage.getItem("accessToken");
     // Si el accessToken existe, agrega el encabezado de autorización en los headers
     const headers = accessToken
@@ -37,9 +46,10 @@ const TurnoEspecialidad = () => {
   
 
   const selectMedicos = ({ value }) => {
+    //recolectarDatos(especialidades.filter((el) => el._id.includes(value))[0].name)
     console.log("llega id de especialidades" + value)
     setEspecialidad(especialidades.filter((el) => el._id.includes(value))[0].name)
-    
+    recolectarDatos(especialidades.filter((el) => el._id.includes(value))[0].name)
     const accessToken = localStorage.getItem("accessToken");
     // Si el accessToken existe, agrega el encabezado de autorización en los headers
     const headers = accessToken
