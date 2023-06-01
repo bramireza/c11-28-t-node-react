@@ -6,6 +6,11 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import ConfirmPassword from "./pages/ConfirmPassword/ConfirmPassword";
 import Registro from "./pages/register/Register";
 import Login from "./pages/login/Login";
+import RegisterDoctor from "./pages/AdminPage/RegisterDoctor";
+import EditDoctor from "./pages/AdminPage/EditDoctor";
+import DoctorCard from "./pages/AdminPage/DoctorCard";
+import AdminDashboard from "./pages/AdminPage/AdminDashboard";
+
 
 function App() {
   return (
@@ -22,6 +27,11 @@ function App() {
           {/* aca se va a poner la ruta al login y el componente de login, el componente pruba es solo para probar */}
           <Route path="/prueba" element={<PruebaRutas />} />
           {/* <PruebaRutas/> */}
+
+          <Route path="/admin" element={<AdminDashboard></AdminDashboard>}/>
+          <Route path="/doctor/create" element={<RegisterDoctor/>}/>
+          <Route path="/doctor/edit/:medId/" element={<EditDoctor/>}/>
+          <Route path="/doctor/:medId" element={<DoctorCard/>}/>
         </Routes>
       </>
     </BrowserRouter>
