@@ -3,7 +3,7 @@ import "./Calendario.css";
 import ConfirmarTurnos from '../ConfirmarCita/ConfirmarCita';
 import { api } from '../../../utilities/axios';
 
-const Calendario = ({ agenda, cant, mes, year, medId }) => {
+const Calendario = ({ agenda, cant,  medId,year,mes }) => {
     console.log("pasamos a calendario")
     const [dia, setDia] = useState("")
     const [loading, setLoading] = useState(true)
@@ -35,6 +35,9 @@ const Calendario = ({ agenda, cant, mes, year, medId }) => {
 
     function pasarDia({ i }) {
         console.log("llama funcion dia " + i)
+        const toDay = new Date();
+        const year = toDay.getFullYear();
+        const mes = toDay.getMonth();
         setDia((new Date(year, mes, i)).toDateString())
         console.log(dia)
         setLoading(false)
