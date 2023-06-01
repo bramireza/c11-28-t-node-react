@@ -5,7 +5,6 @@ const {
 const Appointment = require("../models/Appointment");
 const Doctor = require("../models/Doctor");
 const Patient = require("../models/Patient");
-const Schedule = require("../models/Schedule");
 
 const store = async (req, res) => {
   try {
@@ -24,10 +23,19 @@ const store = async (req, res) => {
         message: "El paciente no existe",
       });
     }
-    const date = new Date(data.appointmentDate);
+    // Date appointment
+    const appointmentDate = new Date(data.appointmentDate);
+    // Date today 0h 0m 0s
+    const today = new Date().setHours(0, 0, 0, 0);
+    if (appointmentDate < today) {
+      return res.status(400).json({
+        ok: false,
+        message: "La fecha del turno no puede ser anterior a la fecha actual",
+      });
+    }
     const availableAppointmentSlots = await getAvailableAppointmentSlots(
       doctor,
-      date
+      appointmentDate
     );
     const schedule = doctor.schedule;
     if (availableAppointmentSlots > 0) {
@@ -41,7 +49,7 @@ const store = async (req, res) => {
 
       // Number appointments added
       const numberAppointmentsAdded = (
-        await getAppointmentsByDoctorAndDate(doctor._id, date)
+        await getAppointmentsByDoctorAndDate(doctor._id, appointmentDate)
       ).length;
 
       // Add hour in appointment date

@@ -1,9 +1,23 @@
 import './seccion.css';
+import { api } from '../../../utilities/axios';
+import React, { useState } from 'react';
+import { Link } from "react-router-dom";
+
+
+const accessToken = localStorage.getItem("accessToken");
+const headers = accessToken
+? { Authorization: `Bearer ${accessToken}` }
+: {};
 
 
 const Seccion = ()=>{
-    let url = new URL(window.location);
-    let nombre = url.searchParams.get("nombre");
+    const [nombre, setNombre] = useState('');
+    
+    
+    
+    api().get("/auth/me", { headers})
+        .then(res => setNombre(res.data.user.name))
+        .catch(err => console.log(err))
     
     return(
         <>
@@ -15,7 +29,7 @@ const Seccion = ()=>{
         <main>
             <section className='p-3'>
                 <h3>Turnos</h3>
-                <article className='d-flex p-3 align-items-center gap-4'>
+                <article className='d-flex p-3 align-items-center justify-content-between gap-4'>
                     <div className="datos_turno">
                         <h4 className='py-2'>Dr.Felipe Sanchez</h4>
                         <p>Área: Ginecología</p>
@@ -27,7 +41,7 @@ const Seccion = ()=>{
             </section>
             <section className='p-3'>
                 <h3>Turnos Anteriores</h3>
-                    <article className='d-flex p-3 align-items-center gap-4 mb-3 '>
+                    <article className='d-flex p-3 align-items-center justify-content-between gap-4 mb-3 '>
                         <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/7da02324714817.56338d63f2a30.jpg" className='img_turno' alt="logoDoc" />
                         <div className="datos_turno">
                             <h4 className='py-2'>Dra.Lupita Ortega</h4>
@@ -36,7 +50,7 @@ const Seccion = ()=>{
                             <p>Horarios: 9:00 am - 9:30 am</p>
                         </div>
                     </article>
-                    <article className='d-flex p-3 align-items-center gap-4'>
+                    <article className='d-flex p-3 align-items-center justify-content-between gap-4'>
                         <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/7da02324714817.56338d63f2a30.jpg" className='img_turno' alt="logoDoc" />
                         <div className="datos_turno">
                             <h4 className='py-2'>Dr.Pedro Aquino</h4>
@@ -46,6 +60,9 @@ const Seccion = ()=>{
                         </div>
                     </article>
             </section>
+            <div className='d-flex px-3 pb-3'>
+                    <Link to='/turnos-especialidad' className='btn btn-success col-12 col-md-6 mx-auto'>Crear nuevo turno</Link>
+            </div>
         </main>
         </>
     )
