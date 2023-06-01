@@ -5,7 +5,7 @@ const isAuthenticated = require("../middlewares/authJwt");
 const doctorRouter = express.Router();
 
 doctorRouter.post("/", isAuthenticated(["admin"]), doctorController.store);
-doctorRouter.post(
+doctorRouter.get(
   "/:id/calendar/",
   isAuthenticated(["patient", "admin"]),
   doctorController.getCalendar
