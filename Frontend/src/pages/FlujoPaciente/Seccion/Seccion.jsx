@@ -10,10 +10,13 @@ const headers = accessToken
 
 
 const Seccion = ()=>{
-    const [nombre, setNombre] = useState('')
-    api().get('/auth/me',{ headers})
-    .then(res => setNombre(res.data.user.name))
-    .catch(err => console.log(err))
+    const [nombre, setNombre] = useState('');
+    
+    
+    
+    api().get("/auth/me", { headers})
+        .then(res => setNombre(res.data.user.name))
+        .catch(err => console.log(err))
     
     return(
         <>
@@ -56,6 +59,9 @@ const Seccion = ()=>{
                         </div>
                     </article>
             </section>
+            <div className='d-flex px-3 pb-3'>
+                    <button className='btn btn-success col-12 col-md-6 mx-auto'>Crear nuevo turno</button>
+            </div>
         </main>
         </>
     )
