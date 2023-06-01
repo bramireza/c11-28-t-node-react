@@ -33,7 +33,7 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
   npm install 
   npm start
 ```
-    ## API Reference
+## API Reference
 
 ### AUTHENTICATE
 #### LOGIN
@@ -515,6 +515,35 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
     }
   }
   ```
+ #### GET CALENDAR
+```http
+  GET /api/v1/doctor/idDoctor/calendar
+```
+* Descripción: Este endpoint se utiliza para mostrar los dias del mes actual en que atiende un doctor en especifico.
+  - day: es el numero del dia
+  - availableAppointmentSlots: es el numero de citas disponibles que quedan en ese dia
+* Método: GET
+* Headers: Requiere autenticación con Bearer token
+* Params: idDoctor
+* Respuesta exitosa (JSON):
+
+  ```json
+  {
+    "ok": true,
+    "calendar": [
+        {
+            "day": 5,
+            "availableAppointmentSlots": 10
+        },
+        {
+            "day": 7,
+            "availableAppointmentSlots": 10
+        },
+        {...}
+    ]
+  }
+  ```
+  
 #### UPDATE DOCTOR
 ```http
   PUT /api/v1/doctor/idDoctor
