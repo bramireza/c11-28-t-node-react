@@ -1,6 +1,7 @@
 import './seccion.css';
 import { api } from '../../../utilities/axios';
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 
 
 const accessToken = localStorage.getItem("accessToken");
@@ -60,7 +61,7 @@ const Seccion = ()=>{
                     </article>
             </section>
             <div className='d-flex px-3 pb-3'>
-                    <button className='btn btn-success col-12 col-md-6 mx-auto'>Crear nuevo turno</button>
+                    <Link to='/turnos-especialidad' className='btn btn-success col-12 col-md-6 mx-auto'>Crear nuevo turno</Link>
             </div>
         </main>
         </>
