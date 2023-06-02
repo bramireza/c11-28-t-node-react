@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import useServices from "../../services/useServices";
+import authServices from "../../services/authServices";
 import validatePassword from "../../utilities/validatePassword";
 import style from "./login.module.css";
-import Seccion from "../FlujoPaciente/Seccion/Seccion";
 
 const initialValues = {
   personalId: "",
@@ -15,8 +14,9 @@ const Login = () => {
   const [state, setState] = useState(initialValues);
   const [errors, setErrors] = useState({});
 
-  const { auth } = useServices();
+  const { auth } = authServices();
   const navigate = useNavigate();
+
   const validate = () => {
     let errorsList = {};
 
@@ -67,12 +67,13 @@ const Login = () => {
       <h1 className="pt-4">Inicio de Sesion</h1>
       <h4 className="mb-5">Ingresar a tu cuenta</h4>
 
-      <form onSubmit={handleSubmit} className="d-flex flex-column gap-2">
+      <form onSubmit={handleSubmit} className="d-flex flex-column gap-2 ">
         <div className="d-flex flex-column">
-          <label htmlFor="" className="fst-italic align-self-start">
+          <label htmlFor="personalId" className="fst-italic align-self-start">
             Documento de identidad
           </label>
           <input
+            id="personalId"
             type="text"
             className="bg-light border border-none text-dark p-2 mb-3"
             placeholder="Documento de identidad"

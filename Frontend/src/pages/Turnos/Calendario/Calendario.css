@@ -1,13 +1,19 @@
-.almanaque{
-    width: 320px;
-    height: 400px;
+.almanaque {
+  width: 320px;
+  height: 400px;
 }
 
-.botonAlmanaque{
-    width: 45px;
-    height: 60px;
-    align-items: center;
-    margin: 0;
-   
-    
+.botonAlmanaque {
+  width: 45px;
+  height: 60px;
+  align-items: center;
+  margin: 0;
+}
+.availableDays {
+  color: white;
+  background-color: blue;
+}
+.unAvailableDays {
+  color: white;
+  background-color: red;
 }
