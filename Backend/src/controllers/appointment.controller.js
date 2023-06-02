@@ -5,6 +5,7 @@ const {
 const Appointment = require("../models/Appointment");
 const Doctor = require("../models/Doctor");
 const Patient = require("../models/Patient");
+const Specialty = require("../models/Specialty");
 
 const store = async (req, res) => {
   try {
@@ -21,6 +22,13 @@ const store = async (req, res) => {
       return res.status(404).json({
         ok: false,
         message: "El paciente no existe",
+      });
+    }
+    const specialty = await Specialty.findById(data.specialty);
+    if (!specialty) {
+      return res.status(404).json({
+        ok: false,
+        message: "La especialidad no existe",
       });
     }
     // Date appointment
@@ -59,9 +67,14 @@ const store = async (req, res) => {
       );
 
       const saveAppointment = await appointment.save();
+      const populatedAppointment = await Appointment.findById(
+        saveAppointment._id
+      )
+        .populate("specialty")
+        .populate("doctor");
       return res.status(201).json({
         ok: true,
-        appointment: saveAppointment,
+        appointment: populatedAppointment,
       });
     } else {
       res.status(500).json({

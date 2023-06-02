@@ -13,6 +13,11 @@ const appointmentSchema = new Schema({
     ref: "Patient",
     required: true,
   },
+  specialty: {
+    type: Schema.Types.ObjectId,
+    ref: "Specialty",
+    require: true,
+  },
   appointmentDate: {
     type: Date,
     required: true,
