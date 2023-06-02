@@ -24,7 +24,7 @@ const Seccion = ()=>{
         const paciente = ()=>{
             api().get('appointment/me', { headers })
             .then(res =>{
-                setHora(res.data.appointments[0].appointmentDate.split('T')[1].slice(0,5)),
+                setHora(res.data.appointments[0].appointmentDate.split('T')[1].slice(0,5))
                 setDia(res.data.appointments[0].appointmentDate.split('T')[0])
         })
             .catch(err => console.log(err))
@@ -36,17 +36,19 @@ const Seccion = ()=>{
             api().get(`/doctor/${id}`, { headers })
             .then(res =>
                  {
-                setArea(res.data.doctor.specialties[0].name),
+                setArea(res.data.doctor.specialties[res.data.doctor.specialties.length - 1].name),
                 setDoc(res.data.doctor.name)}
                 )
             .catch(err => err)
         }
         doctor(idDoc)
         
+        // Busca nombre del paciente
         api().get("/auth/me", { headers})
             .then(res => setNompa(res.data.user.name))
             .catch(err => console.log(err))
 
+        //Busca el id del doctor
         api().get("/appointment/me", { headers})
             .then(res => 
                 setIdDoc(res.data.appointments[0].doctor)
