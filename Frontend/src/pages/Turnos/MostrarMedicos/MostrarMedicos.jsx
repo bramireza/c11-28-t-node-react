@@ -2,16 +2,20 @@ import React, { useEffect, useState } from "react";
 import "./MostrarMedicos.css";
 import { Link } from "react-router-dom";
 import { api } from "../../../utilities/axios";
+import { useCartContext } from "../Contexto/Contexto";
 
 function ModalMedicos({ med, idEspecialidad }) {
   const [especialidad, setEspecialidad] = useState("");
+  const { recolectarDatos } = useCartContext();
+
   useEffect(() => {
     if (idEspecialidad) {
+      recolectarDatos(idEspecialidad)
       api()
         .get("/specialty/" + idEspecialidad)
-        .then((response) => setEspecialidad(response.data.specialty.name))
+        .then((response) => setEspecialidad(response.data.specialty.name))        
         .catch((error) => console.log(error));
-      setEspecialidad();
+      //setEspecialidad();
     }
   }, [idEspecialidad]);
   return (

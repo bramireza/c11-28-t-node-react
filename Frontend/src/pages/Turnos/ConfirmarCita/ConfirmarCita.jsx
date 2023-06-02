@@ -5,12 +5,29 @@ import { useState } from "react";
 import Seccion from "../../FlujoPaciente/Seccion/Seccion";
 
 
-function ConfirmarTurnos({ formattedDate, medicoName, appointment }) {
+function ConfirmarTurnos({appointment}) {
+ console.log("appointment", appointment)
+  
   const { especialidad } = useCartContext();
   const [loading,setLoading]=useState(true)
-  console.log("se ve en confirmar turno" + especialidad);
+  const [formattedDate, setFormattedDate] = useState("");
+  console.log("se ve en confirmar turno" , especialidad);
   console.log("medico name en confirmar");
-  console.log(medicoName);
+  // console.log(medicoName);
+
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: false,
+    timeZone: "America/Argentina/Buenos_Aires", // Cambia esto a la zona horaria que necesites
+};
+  
+  const date = new Date(appointment.appointmentDate);
+  setFormattedDate(date.toLocaleDateString("es-AR", options));
+
 
   function confirmacion() {
     Swal.fire({
@@ -29,13 +46,18 @@ function ConfirmarTurnos({ formattedDate, medicoName, appointment }) {
 
   return (
     <div>
+
+{/* {appointment.specialty.name}
+{appointment.doctor.name}
+{formattedDate} */}
+
       {/* {especialidad}
             {medicoName}
 
             {formattedDate}
            confirmar turno */}
 
-      {loading ? <section className="container p-3">
+      {/* {loading ? <section className="container p-3">
         <h3>3. Confirmar Turno</h3>
         <p>Forem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         <div className="card">
@@ -48,13 +70,13 @@ function ConfirmarTurnos({ formattedDate, medicoName, appointment }) {
                 <p className="card-text">Especialidad:</p>
                 <p className="card-text">Profesional:</p>
                 <p className="card-text">Fecha y Hora:</p>
-                {/* <p className="card-text">Lugar</p> */}
+                
               </div>
               <div className="col">
-                <p className="card-text">{especialidad}</p>
-                <p className="card-text">{medicoName}</p>
-                <p className="card-text">{formattedDate} hs</p>
-                {/* <p className="card-text">info lugar</p> */}
+                <p className="card-text">{appointment.specialty.name}</p>
+                <p className="card-text">{appointment.doctor.name}</p>
+                <p className="card-text">{appointment.appointmentDate} hs</p>
+                
               </div>
             </div>
           </div>
@@ -72,8 +94,8 @@ function ConfirmarTurnos({ formattedDate, medicoName, appointment }) {
             Cancelar
           </Link>
         </div>
-      </section> : ""}
-      {loading?"":<Seccion/>}
+      </section> : ""} */}
+      {/* {loading?"":<Seccion/>} */}
       
     </div>
   );

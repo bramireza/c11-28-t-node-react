@@ -19,7 +19,7 @@ const CartContextProvider = ({ children }) => {
         
     }
 
-    console.log("en contexto " + especialidad)
+    console.log("en contexto " , especialidad)
 
     return (
         <CartContext.Provider value={{recolectarDatos,especialidad}}>           
