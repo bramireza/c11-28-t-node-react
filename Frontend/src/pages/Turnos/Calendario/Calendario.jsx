@@ -10,6 +10,7 @@ const Calendario = ({ agenda, medId }) => {
   const [formattedDate, setFormattedDate] = useState("");
   const [medicoName, setMedicoName] = useState("");
   const [fechaSeleccionada, setFechaSeleccionada] = useState(new Date());
+  const [appointment, setAppointment]=useState({})
   const minDate = new Date(
     fechaSeleccionada.getFullYear(),
     fechaSeleccionada.getMonth(),
@@ -60,6 +61,8 @@ const Calendario = ({ agenda, medId }) => {
         .then((response) => {
           const date = new Date(response.data.appointment.appointmentDate);
           setFormattedDate(date.toLocaleDateString("es-AR", options));
+          setAppointment(response.data.appointment)
+
         })
 
         .catch((error) => {
@@ -128,6 +131,7 @@ const Calendario = ({ agenda, medId }) => {
           formattedDate={formattedDate}
           medId={medId}
           medicoName={medicoName}
+          appointment={appointment}
         />
       )}
     </div>

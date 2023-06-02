@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useCartContext } from "../Contexto/Contexto";
+import { useState } from "react";
+import Seccion from "../../FlujoPaciente/Seccion/Seccion";
 
-function ConfirmarTurnos({ formattedDate, medicoName }) {
+
+function ConfirmarTurnos({ formattedDate, medicoName, appointment }) {
   const { especialidad } = useCartContext();
+  const [loading,setLoading]=useState(true)
   console.log("se ve en confirmar turno" + especialidad);
   console.log("medico name en confirmar");
   console.log(medicoName);
@@ -14,6 +18,12 @@ function ConfirmarTurnos({ formattedDate, medicoName }) {
       text: "Recibirás el comprobante en tu email. Recuerda llevarlo a tu cita.",
       width: 600,
       confirmButtonText: "Ver mis Turnos",
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        setLoading(false)
+        
+      }
     });
   }
 
@@ -25,7 +35,7 @@ function ConfirmarTurnos({ formattedDate, medicoName }) {
             {formattedDate}
            confirmar turno */}
 
-      <section className="container p-3">
+      {loading ? <section className="container p-3">
         <h3>3. Confirmar Turno</h3>
         <p>Forem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         <div className="card">
@@ -62,7 +72,9 @@ function ConfirmarTurnos({ formattedDate, medicoName }) {
             Cancelar
           </Link>
         </div>
-      </section>
+      </section> : ""}
+      {loading?"":<Seccion/>}
+      
     </div>
   );
 }

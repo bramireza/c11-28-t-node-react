@@ -18,15 +18,15 @@ const TurnoEspecialidad = () => {
   const [loading2, setLoading2] = useState(true);
 
   useEffect(() => {
-    api()
-      .get("/doctor")
-      .then((response) => {
-        setMedicosEspecialidad(response.data.doctors);
-      })
-      .finally(() => setLoading2(false))
-      .catch((error) => {
-        console.log(error);
-      });
+    // api()
+    //   .get("/doctor")
+    //   .then((response) => {
+    //     setMedicosEspecialidad(response.data.doctors);
+    //   })
+    //   .finally(() => setLoading2(false))
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
     api()
       .get("/specialty")
       .then((response) => {
@@ -39,7 +39,9 @@ const TurnoEspecialidad = () => {
   }, []);
 
   const selectMedicos = ({ value }) => {
+    
     setIdEspecialidad(value);
+    console.log("set id especialidad" + value)
     api()
       .get("/doctor/specialty/" + value)
       .then((response) => {
