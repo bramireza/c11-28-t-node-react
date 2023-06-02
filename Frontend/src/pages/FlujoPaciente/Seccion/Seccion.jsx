@@ -73,7 +73,7 @@ const Seccion = ()=>{
         <main>
             <section className='p-3'>
                 <h3>Turno reciente</h3>
-                <article className='d-flex p-3 align-items-center justify-content-between gap-4'>
+                <article className='d-flex p-3 align-items-center justify-content-between gap-4 bg-body-tertiary shadow'>
                     <div className="datos_turno">
                         <h4 className='py-2'>Dr.{doc}</h4>
                         <p>Área: {area}</p>
@@ -85,7 +85,7 @@ const Seccion = ()=>{
             </section>
             <section className='p-3'>
                 <h3>Turnos Anteriores</h3>
-                    <article className='d-flex p-3 align-items-center justify-content-between gap-4 mb-3 '>
+                    <article className='d-flex p-3 align-items-center justify-content-between gap-4 mb-3 bg-body-tertiary shadow '>
                         <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/7da02324714817.56338d63f2a30.jpg" className='img_turno rounded' alt="logoDoc" />
                         <div className="datos_turno">
                             <h4 className='py-2'>Dra.Lupita Ortega</h4>
@@ -94,7 +94,7 @@ const Seccion = ()=>{
                             <p>Horario: 9:00 am - 9:30 am</p>
                         </div>
                     </article>
-                    <article className='d-flex p-3 align-items-center justify-content-between gap-4'>
+                    <article className='d-flex p-3 align-items-center justify-content-between gap-4 bg-body-tertiary shadow'>
                         <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/7da02324714817.56338d63f2a30.jpg" className='img_turno rounded' alt="logoDoc" />
                         <div className="datos_turno">
                             <h4 className='py-2'>Dr.Pedro Aquino</h4>
