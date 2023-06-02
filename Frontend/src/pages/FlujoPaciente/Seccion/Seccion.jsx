@@ -1,6 +1,6 @@
 import './seccion.css';
 import { api } from '../../../utilities/axios';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from "react-router-dom";
 
 
@@ -44,27 +44,35 @@ const Seccion = ()=>{
         doctor(idDoc)
         
         // Busca nombre del paciente
-        api().get("/auth/me", { headers})
-            .then(res => setNompa(res.data.user.name))
-            .catch(err => console.log(err))
-
+        function nombrePaciente(){
+            api().get("/auth/me", { headers})
+                .then(res => setNompa(res.data.user.name))
+                .catch(err => console.log(err))
+        }
+        nombrePaciente()
         //Busca el id del doctor
-        api().get("/appointment/me", { headers})
-            .then(res => 
-                setIdDoc(res.data.appointments[0].doctor)
-                )
-            .catch(err => console.log(err))
+        function BuscaIdDoctor(){
+            api().get("/appointment/me", { headers})
+                .then(res => {
+                    console.log(res.data.appointments[0].doctor)
+                    setIdDoc(res.data.appointments[0].doctor)
+                }
+                    )
+                .catch(err => console.log(err))
+        }
+        BuscaIdDoctor();
+            
             
     return(
         <>
         
         <header className="header d-flex p-3 align-items-center justify-content-start gap-2">
-            <img src="https://www.freeiconspng.com/thumbs/account-icon/account-profile-icon-1.png" className="img_perfil img-fluid" alt="perfil" />
-            <h5 className='saludo '>Hola, {nompa}.</h5>
+            <img src="https://www.freeiconspng.com/thumbs/account-icon/account-profile-icon-1.png" className="img_perfil img-fluid rounded-circle" alt="perfil" />
+            <h5 className='col-6 '>Hola, {nompa.toUpperCase()}.</h5>
         </header>
         <main>
             <section className='p-3'>
-                <h3>Turnos</h3>
+                <h3>Turno reciente</h3>
                 <article className='d-flex p-3 align-items-center justify-content-between gap-4'>
                     <div className="datos_turno">
                         <h4 className='py-2'>Dr.{doc}</h4>
@@ -72,13 +80,13 @@ const Seccion = ()=>{
                         <p>Día: {dia}</p>
                         <p>Horario: {hora}</p>
                     </div>
-                        <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/7da02324714817.56338d63f2a30.jpg" className='img_turno' alt="logoDoc" />
+                        <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/7da02324714817.56338d63f2a30.jpg" className='img_turno rounded' alt="logoDoc" />
                 </article>
             </section>
             <section className='p-3'>
                 <h3>Turnos Anteriores</h3>
                     <article className='d-flex p-3 align-items-center justify-content-between gap-4 mb-3 '>
-                        <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/7da02324714817.56338d63f2a30.jpg" className='img_turno' alt="logoDoc" />
+                        <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/7da02324714817.56338d63f2a30.jpg" className='img_turno rounded' alt="logoDoc" />
                         <div className="datos_turno">
                             <h4 className='py-2'>Dra.Lupita Ortega</h4>
                             <p>Área: Ginecología</p>
@@ -87,7 +95,7 @@ const Seccion = ()=>{
                         </div>
                     </article>
                     <article className='d-flex p-3 align-items-center justify-content-between gap-4'>
-                        <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/7da02324714817.56338d63f2a30.jpg" className='img_turno' alt="logoDoc" />
+                        <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/7da02324714817.56338d63f2a30.jpg" className='img_turno rounded' alt="logoDoc" />
                         <div className="datos_turno">
                             <h4 className='py-2'>Dr.Pedro Aquino</h4>
                             <p>Área: Clinico</p>
