@@ -1,34 +1,23 @@
-import { createContext, useContext, useState} from "react"
+import { createContext, useContext, useState } from "react";
 
-const CartContext = createContext()
+const CartContext = createContext();
 
-export const useCartContext = () => useContext(CartContext)
+export const useCartContext = () => useContext(CartContext);
 
 const CartContextProvider = ({ children }) => {
-    const [especialidad,setEspecialidad]=useState("")
-    //const [medico,setMedico]=useState("")
+  const [especialidad, setEspecialidad] = useState("");
 
-   // setVariable("zapato")
+  function recolectarDatos(especialidad) {
+    setEspecialidad(especialidad);
+  }
 
-    //console.log(variable)
+  console.log("en contexto ", especialidad);
 
-    function recolectarDatos(especialidad){
-        setEspecialidad(especialidad)
-        
-        //setMedico(medico)
-        
-    }
+  return (
+    <CartContext.Provider value={{ recolectarDatos, especialidad }}>
+      {children}
+    </CartContext.Provider>
+  );
+};
 
-    console.log("en contexto " + especialidad)
-
-    return (
-        <CartContext.Provider value={{recolectarDatos,especialidad}}>           
-            {children}
-        </CartContext.Provider>
-    )
-
-}
-
-
-
-export default CartContextProvider
+export default CartContextProvider;

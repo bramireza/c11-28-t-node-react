@@ -3,11 +3,18 @@ import { api } from '../../../utilities/axios';
 import { useState } from 'react';
 import { Link } from "react-router-dom";
 
-
 const accessToken = localStorage.getItem("accessToken");
-const headers = accessToken
-? { Authorization: `Bearer ${accessToken}` }
-: {};
+const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
+const Seccion = () => {
+  const [nombre, setNombre] = useState("");
+
+  useEffect(() => {
+    api()
+      .get("/auth/me", { headers })
+      .then((res) => setNombre(res.data.user.name))
+      .catch((err) => console.log(err));
+  }, []);
 
 
 const Seccion = ()=>{
@@ -106,10 +113,21 @@ const Seccion = ()=>{
             </section>
             <div className='d-flex px-3 pb-3'>
                     <Link to='/turnos-especialidad' className='btn btn-success col-12 col-md-6 mx-auto'>Crear nuevo turno</Link>
+
             </div>
-        </main>
-        </>
-    )
+          </article>
+        </section>
+        <div className="d-flex px-3 pb-3">
+          <Link
+            to="/turnos-especialidad"
+            className="btn btn-success col-12 col-md-6 mx-auto"
+          >
+            Crear nuevo turno
+          </Link>
+        </div>
+      </main>
+    </>
+  );
 };
 
 export default Seccion;

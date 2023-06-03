@@ -3,13 +3,19 @@ import Calendar from "react-calendar";
 import "./Calendario.css";
 import ConfirmarTurnos from "../ConfirmarCita/ConfirmarCita";
 import { api } from "../../../utilities/axios";
+import { useCartContext } from "../Contexto/Contexto";
 
 const Calendario = ({ agenda, medId }) => {
+  const { especialidad } = useCartContext();
+
   const [loading, setLoading] = useState(true);
+  const [loading2, setLoading2] = useState(true);
+
   const [userId, setUserId] = useState("");
-  const [formattedDate, setFormattedDate] = useState("");
+
   const [medicoName, setMedicoName] = useState("");
   const [fechaSeleccionada, setFechaSeleccionada] = useState(new Date());
+  const [appointment, setAppointment] = useState(null);
   const minDate = new Date(
     fechaSeleccionada.getFullYear(),
     fechaSeleccionada.getMonth(),
@@ -30,6 +36,7 @@ const Calendario = ({ agenda, medId }) => {
     .map((day) => day.day);
 
   useEffect(() => {
+    setAppointment(null);
     api()
       .get("/auth/me")
       .then((response) => {
@@ -38,15 +45,14 @@ const Calendario = ({ agenda, medId }) => {
       .catch((error) => {
         console.log(error);
       });
-    api()
-      .get("/doctor/" + medId)
-      .then((response) => {
-        setMedicoName(response.data.doctor.name);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [fechaSeleccionada]);
+  }, []);
+  useEffect(() => {
+    if (appointment) {
+      console.log(appointment);
+
+      setLoading2(loading);
+    }
+  }, [appointment, loading]);
 
   const crearCita = (date) => {
     if (userId) {
@@ -54,18 +60,18 @@ const Calendario = ({ agenda, medId }) => {
         doctor: medId,
         patient: userId,
         appointmentDate: date,
+        specialty: especialidad,
       };
       api()
         .post("/appointment", data)
         .then((response) => {
-          const date = new Date(response.data.appointment.appointmentDate);
-          setFormattedDate(date.toLocaleDateString("es-AR", options));
+          console.log(response.data.appointment);
+          setAppointment(response.data.appointment);
+          setLoading(false);
         })
-
         .catch((error) => {
           console.log(error);
         });
-      setLoading(false);
     }
   };
 
@@ -96,16 +102,6 @@ const Calendario = ({ agenda, medId }) => {
     return view === "month" && !diasDisponiblesEnAgenda.includes(diaActual);
   };
 
-  const options = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: false,
-    timeZone: "America/Argentina/Buenos_Aires", // Cambia esto a la zona horaria que necesites
-  };
-
   return (
     <div className="almanaque">
       {loading ? (
@@ -121,15 +117,7 @@ const Calendario = ({ agenda, medId }) => {
       ) : (
         ""
       )}
-      {loading ? (
-        ""
-      ) : (
-        <ConfirmarTurnos
-          formattedDate={formattedDate}
-          medId={medId}
-          medicoName={medicoName}
-        />
-      )}
+      {appointment && !loading && <ConfirmarTurnos appointment={appointment} />}
     </div>
   );
 };
