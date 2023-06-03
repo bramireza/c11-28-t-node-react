@@ -42,7 +42,7 @@ function ConfirmarTurnos({ appointment }) {
 
   return (
     <div>
-      <section className="container p-3">
+      {loading ? <section className="container p-3">
         <h3>3. Confirmar Turno</h3>
         <p>Forem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         <div className="card">
@@ -77,9 +77,9 @@ function ConfirmarTurnos({ appointment }) {
             Cancelar
           </Link>
         </div>
-      </section>
+      </section> : ""}
 
-      {/* {loading?"":<Seccion/>} */}
+      {loading?"":<Seccion/>}
     </div>
   );
 }
