@@ -1,5 +1,5 @@
 import Modal from 'react-bootstrap/Modal';
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import './TurnoOnLine.css';
 
 function TurnoOnLine() {
@@ -13,7 +13,7 @@ function TurnoOnLine() {
         
           <div className='header p-3'>
             <Modal.Title className=''>Turnos On-Line</Modal.Title>
-            <Link to='/seccion?nombre=María Eugenia' className='close link-underline link-underline-opacity-0'>X</Link>
+            <Link to='/seccion' className='close link-underline link-underline-opacity-0'>X</Link>
           </div>
         
             <p className='px-5 py-2'>
