@@ -1,19 +1,15 @@
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { useCartContext } from "../Contexto/Contexto";
 import { useState } from "react";
 import Seccion from "../../FlujoPaciente/Seccion/Seccion";
 
+function ConfirmarTurnos({ appointment }) {
+  console.log("appointment", appointment);
 
-function ConfirmarTurnos({appointment}) {
- console.log("appointment", appointment)
-  
-  const { especialidad } = useCartContext();
-  const [loading,setLoading]=useState(true)
+  const [loading, setLoading] = useState(true);
   const [formattedDate, setFormattedDate] = useState("");
-  console.log("se ve en confirmar turno" , especialidad);
+  console.log("se ve en confirmar turno");
   console.log("medico name en confirmar");
-  // console.log(medicoName);
 
   const options = {
     year: "numeric",
@@ -23,11 +19,10 @@ function ConfirmarTurnos({appointment}) {
     minute: "numeric",
     hour12: false,
     timeZone: "America/Argentina/Buenos_Aires", // Cambia esto a la zona horaria que necesites
-};
-  
+  };
+
   const date = new Date(appointment.appointmentDate);
   setFormattedDate(date.toLocaleDateString("es-AR", options));
-
 
   function confirmacion() {
     Swal.fire({
@@ -38,18 +33,16 @@ function ConfirmarTurnos({appointment}) {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        setLoading(false)
-        
+        setLoading(false);
       }
     });
   }
 
   return (
     <div>
-
-{/* {appointment.specialty.name}
-{appointment.doctor.name}
-{formattedDate} */}
+      {appointment.specialty.name}
+      {appointment.doctor.name}
+      {formattedDate}
 
       {/* {especialidad}
             {medicoName}
@@ -96,7 +89,6 @@ function ConfirmarTurnos({appointment}) {
         </div>
       </section> : ""} */}
       {/* {loading?"":<Seccion/>} */}
-      
     </div>
   );
 }

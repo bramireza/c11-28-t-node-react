@@ -14,43 +14,18 @@ function FechaTurno() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(false);
     api()
       .get(`/doctor/${medId}/calendar`)
       .then((response) => {
         setAgenda(response.data.calendar);
       })
-      //.finally(() => setLoading(false))
+      .finally(() => setLoading(false))
       .catch((error) => {
         console.log(error);
       });
-    //}
   }, [medId]);
 
-  return (
-    <div>{loading ? "" : <Calendario agenda={agenda} medId={medId} />}</div>
-  );
+  return <div>{<Calendario agenda={agenda} medId={medId} />}</div>;
 }
 
 export default FechaTurno;
-
-/*  function datos(date) {
-    console.log("llamo funcion datos " + date)
-    let momento = medicos.filter((el) => el.name.includes(medName))
-    console.log("en fecha turno " + momento[0].name + momento[0].specialties)
-    setDatosMedico(medicos.filter((el) => el.name.includes(medName)))
-    setLoading(false)
-
-  }*/
-
-/* const [medicos, setMedicos] = useState();
- const [startDate, setStartDate] = useState(new Date());
- const [datosMedico, setDatosMedico] = useState([])*/
-
-/* {loading ? <DatePicker selected={startDate} onChange={(date) => { setStartDate(date), datos(date) }} />:""}
-     {datosMedico.length === 0 ? "" : <ConfirmarTurnos datosMedico={datosMedico} startDate={startDate} />}*/
-
-/* getMedicos()
- .then(res => setMedicos(res))
- .catch((err) => console.log(err))
- .finally(() => setLoading(false))*/

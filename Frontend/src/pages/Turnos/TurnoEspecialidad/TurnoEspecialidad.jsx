@@ -18,15 +18,6 @@ const TurnoEspecialidad = () => {
   const [loading2, setLoading2] = useState(true);
 
   useEffect(() => {
-    // api()
-    //   .get("/doctor")
-    //   .then((response) => {
-    //     setMedicosEspecialidad(response.data.doctors);
-    //   })
-    //   .finally(() => setLoading2(false))
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
     api()
       .get("/specialty")
       .then((response) => {
@@ -39,20 +30,17 @@ const TurnoEspecialidad = () => {
   }, []);
 
   const selectMedicos = ({ value }) => {
-    
     setIdEspecialidad(value);
-    console.log("set id especialidad" + value)
+    console.log("set id especialidad" + value);
     api()
       .get("/doctor/specialty/" + value)
       .then((response) => {
         setMedicosEspecialidad(response.data.doctors);
       })
-      .finally(() => setLoading(false))
+      .finally(() => setLoading2(false))
       .catch((error) => {
         console.log(error);
       });
-
-    setLoading2(false);
   };
 
   return (
@@ -69,13 +57,14 @@ const TurnoEspecialidad = () => {
             value: esp._id,
           }))}
           onChange={selectMedicos}
+          key={especialidades.map((esp) => esp._id)}
         />
       )}
       <div className="orden-modales">
         {loading2
           ? ""
           : medicosEspecialidad.map((med) => (
-              <div key={med.license}>
+              <div key={med._id}>
                 {<ModalMedicos med={med} idEspecialidad={idEspecialidad} />}
               </div>
             ))}
@@ -85,48 +74,3 @@ const TurnoEspecialidad = () => {
 };
 
 export default TurnoEspecialidad;
-
-/*import React, { useEffect, useState } from 'react'
-import { getEspecialidades } from '../MockEspecialidades/MockEspecialidades'
-import Select from 'react-select';
-import "./TurnoEspecialidad.css";
-import { getMedicos } from '../MockMedicos/MockMedicos';
-
-import ManejarModales from '../ManejarModales/ManejarModales';
-
-const TurnoEspecialidad = () => {
-    const [especialidades, setEspecialidades] = useState([])
-    const [medicos, setMedicos] = useState([])
-    const [medicosEspecialidad, setMedicosEspecialidad] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [loading2, setLoading2] = useState(true)
-
-    useEffect(() => {
-        getEspecialidades()
-            .then(respuesta => setEspecialidades(respuesta))
-            .catch((err) => console.log(err))
-            .finally(() => setLoading(false))
-        getMedicos()
-            .then(res => setMedicos(res))
-            .catch((err) => console.log(err))
-            .finally(() => setLoading(false))
-    }, [])
-
-    const selectMedicos = ({ value }) => {
-        setMedicosEspecialidad(medicos.filter((el) => el.specialties.includes(value)))
-        setLoading2(false)
-    }
-
-    return (
-        <div>
-            {loading ? "Cargando" : <Select className='select' placeholder="Selecciona Especialidad" name='especialidades'
-                options={especialidades.map(esp => ({ label: esp.name, value: esp.name }))}
-                onChange={selectMedicos} />}
-            <div className='orden-modales'>
-                {loading2 ? "" : medicosEspecialidad.map(med => <div key={med.license}>{<ManejarModales med={med} />}</div>)}
-            </div>
-        </div>
-    )
-}
-
-export default TurnoEspecialidad*/
