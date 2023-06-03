@@ -7,7 +7,7 @@ import { useCartContext } from "../Contexto/Contexto";
 
 const Calendario = ({ agenda, medId }) => {
   const { especialidad } = useCartContext();
-  console.log(especialidad);
+
   const [loading, setLoading] = useState(true);
   const [loading2, setLoading2] = useState(true);
 
@@ -15,7 +15,7 @@ const Calendario = ({ agenda, medId }) => {
 
   const [medicoName, setMedicoName] = useState("");
   const [fechaSeleccionada, setFechaSeleccionada] = useState(new Date());
-  const [appointment, setAppointment] = useState({});
+  const [appointment, setAppointment] = useState(null);
   const minDate = new Date(
     fechaSeleccionada.getFullYear(),
     fechaSeleccionada.getMonth(),
@@ -36,12 +36,7 @@ const Calendario = ({ agenda, medId }) => {
     .map((day) => day.day);
 
   useEffect(() => {
-    if (appointment) {
-      console.log(appointment);
-      setLoading2(false);
-    }
-  }, [appointment]);
-  useEffect(() => {
+    setAppointment(null);
     api()
       .get("/auth/me")
       .then((response) => {
@@ -50,16 +45,14 @@ const Calendario = ({ agenda, medId }) => {
       .catch((error) => {
         console.log(error);
       });
-    api()
-      .get("/doctor/" + medId)
-      .then((response) => {
-        setMedicoName(response.data.doctor.name);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    console.log(appointment);
-  }, [fechaSeleccionada]);
+  }, []);
+  useEffect(() => {
+    if (appointment) {
+      console.log(appointment);
+
+      setLoading2(loading);
+    }
+  }, [appointment, loading]);
 
   const crearCita = (date) => {
     if (userId) {
@@ -124,7 +117,7 @@ const Calendario = ({ agenda, medId }) => {
       ) : (
         ""
       )}
-      {appoinment && <ConfirmarTurnos appointment={appointment} />}
+      {appointment && !loading && <ConfirmarTurnos appointment={appointment} />}
     </div>
   );
 };

@@ -25,7 +25,11 @@ function FechaTurno() {
       });
   }, [medId]);
 
-  return <div>{<Calendario agenda={agenda} medId={medId} />}</div>;
+  return (
+    <div>
+      {loading ? "Cargando" : <Calendario agenda={agenda} medId={medId} />}
+    </div>
+  );
 }
 
 export default FechaTurno;
