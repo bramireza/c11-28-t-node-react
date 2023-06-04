@@ -272,17 +272,17 @@ function RegisterDoctor() {
             Días disponibles
           </label><br />
           <input type="checkbox" id="lunes" name="lunes" value={state.days[0]} />
-          <label for="lunes"> Lunes</label><br />
+          <label htmlFor="lunes"> Lunes</label><br />
           <input type="checkbox" id="martes" name="martes" value={state.days[1]} />
-          <label for="martes"> Martes</label><br />
+          <label htmlFor="martes"> Martes</label><br />
           <input type="checkbox" id="miercoles" name="miercoles" value={state.days[2]} />
-          <label for="miercoles"> Miércoles</label><br />
+          <label htmlFor="miercoles"> Miércoles</label><br />
           <input type="checkbox" id="Jueves" name="Jueves" value={state.days[3]} />
-          <label for="Jueves"> Jueves</label><br />
+          <label htmlFor="Jueves"> Jueves</label><br />
           <input type="checkbox" id="viernes" name="viernes" value={state.days[4]} />
-          <label for="viernes"> Viernes</label><br />
+          <label htmlFor="viernes"> Viernes</label><br />
           <input type="checkbox" id="sabado" name="sabado" value={state.days[5]} />
-          <label for="sabado"> Sábado</label><br />
+          <label htmlFor="sabado"> Sábado</label><br />
           {errors.days && <p className={style.errorText}>{errors.days}</p>}
         </div>
 

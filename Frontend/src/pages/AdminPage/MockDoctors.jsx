@@ -63,11 +63,5 @@ export const getDoctors = () => {
     });
   }
 export const getDoctorById = (id) => {  
-    return new Promise((res) => {  
-      setTimeout(() => {      
-        doctors.map((doctor)=>(
-           res(doctor.medId===id ? doctor : doctor ) 
-        ))
-      }, 500);
-    });
+    return doctors.find((doctor) => (doctor.medId == id ? doctor : null));
   }

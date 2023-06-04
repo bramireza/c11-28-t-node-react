@@ -11,10 +11,8 @@ function DoctorCard() {
 
     useEffect(() => {
         try {
-            getDoctorById(medId)
-                .then(res => {setDoctor(res); console.log(res)})
-                .catch(e => console.log(e))
-                .finally(() => setLoading(false))
+            setDoctor(getDoctorById(medId));
+            setLoading(false);
         } catch (error) {
             console.log(error);
         }

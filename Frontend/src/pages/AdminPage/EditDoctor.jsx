@@ -28,10 +28,8 @@ function EditDoctor() {
 
     useEffect(() => {
       try {
-          getDoctorById(medId)
-              .then(res => {setState(res); console.log(res)})
-              .catch(e => console.log(e))
-              .finally(() => setLoading(false))
+          setState(getDoctorById(medId));
+          setLoading(false);
       } catch (error) {
           console.log(error);
       }
@@ -54,10 +52,10 @@ function EditDoctor() {
         <h4>Datos personales</h4>
         <form action="" onSubmit={handleSubmit} className="d-flex flex-column gap-2 align-self-start text-start">
           <div>
-            <input
+            {/* <input
                accept="image/*" 
                type="file"
-            />
+            /> */}
             <label htmlFor="" className="fst-italic align-self-start">
               Nombre/s
             </label>
