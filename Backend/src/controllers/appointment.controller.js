@@ -5,7 +5,7 @@ const {
 const Appointment = require("../models/Appointment");
 const Doctor = require("../models/Doctor");
 const Patient = require("../models/Patient");
-const Schedule = require("../models/Schedule");
+const Specialty = require("../models/Specialty");
 
 const store = async (req, res) => {
   try {
@@ -24,10 +24,26 @@ const store = async (req, res) => {
         message: "El paciente no existe",
       });
     }
-    const date = new Date(data.appointmentDate);
+    const specialty = await Specialty.findById(data.specialty);
+    if (!specialty) {
+      return res.status(404).json({
+        ok: false,
+        message: "La especialidad no existe",
+      });
+    }
+    // Date appointment
+    const appointmentDate = new Date(data.appointmentDate);
+    // Date today 0h 0m 0s
+    const today = new Date().setHours(0, 0, 0, 0);
+    if (appointmentDate < today) {
+      return res.status(400).json({
+        ok: false,
+        message: "La fecha del turno no puede ser anterior a la fecha actual",
+      });
+    }
     const availableAppointmentSlots = await getAvailableAppointmentSlots(
       doctor,
-      date
+      appointmentDate
     );
     const schedule = doctor.schedule;
     if (availableAppointmentSlots > 0) {
@@ -41,7 +57,7 @@ const store = async (req, res) => {
 
       // Number appointments added
       const numberAppointmentsAdded = (
-        await getAppointmentsByDoctorAndDate(doctor._id, date)
+        await getAppointmentsByDoctorAndDate(doctor._id, appointmentDate)
       ).length;
 
       // Add hour in appointment date
@@ -51,9 +67,14 @@ const store = async (req, res) => {
       );
 
       const saveAppointment = await appointment.save();
+      const populatedAppointment = await Appointment.findById(
+        saveAppointment._id
+      )
+        .populate("specialty")
+        .populate("doctor");
       return res.status(201).json({
         ok: true,
-        appointment: saveAppointment,
+        appointment: populatedAppointment,
       });
     } else {
       res.status(500).json({

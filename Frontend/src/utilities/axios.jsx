@@ -7,6 +7,9 @@ export const api = () => {
     baseURL: BASE_URL + "/api/v1",
     headers: {
       "Content-Type": "application/json",
+      ...(localStorage.getItem("accessToken")
+        ? { Authorization: `Bearer ${localStorage.getItem("accessToken")}` }
+        : {}),
     },
   });
 };

@@ -19,7 +19,7 @@ function NavBar() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav>
               <NavLink to="/" href="#home" className='m-2' >Somos</NavLink>
-              <NavLink to="/turnos-especialidad" href="#link" className='m-2'>Servicios</NavLink>
+              <NavLink  href="#link" className='m-2'>Servicios</NavLink>
               <NavLink href="#link" className='m-2' >About us</NavLink>
             </Nav>
           </Navbar.Collapse>

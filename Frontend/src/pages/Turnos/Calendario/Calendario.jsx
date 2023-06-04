@@ -1,131 +1,125 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
+import Calendar from "react-calendar";
 import "./Calendario.css";
-import ConfirmarTurnos from '../ConfirmarCita/ConfirmarCita';
-import { api } from '../../../utilities/axios';
+import ConfirmarTurnos from "../ConfirmarCita/ConfirmarCita";
+import { api } from "../../../utilities/axios";
+import { useCartContext } from "../Contexto/Contexto";
 
-const Calendario = ({ agenda, cant, mes, year, medId }) => {
-    console.log("pasamos a calendario")
-    const [dia, setDia] = useState("")
-    const [loading, setLoading] = useState(true)
-    const [userId, setUserId] = useState("")
+const Calendario = ({ agenda, medId }) => {
+  const { especialidad } = useCartContext();
 
-    const DIAS = [{ dia: "Lun", num: 1 }, { dia: "Mar", num: 2 }, { dia: "Mie", num: 3 }, { dia: "Jue", num: 4 }, { dia: "Vie", num: 5 }, { dia: "Sab", num: 6 }, { dia: "Dom", num: 0 }]
-   
-    const options = {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        hour12: false,
-        timeZone: "America/Argentina/Buenos_Aires" // Cambia esto a la zona horaria que necesites
+  const [loading, setLoading] = useState(true);
+  const [loading2, setLoading2] = useState(true);
+
+  const [userId, setUserId] = useState("");
+
+  const [medicoName, setMedicoName] = useState("");
+  const [fechaSeleccionada, setFechaSeleccionada] = useState(new Date());
+  const [appointment, setAppointment] = useState(null);
+  const minDate = new Date(
+    fechaSeleccionada.getFullYear(),
+    fechaSeleccionada.getMonth(),
+    1
+  );
+  const maxDate = new Date(
+    fechaSeleccionada.getFullYear(),
+    fechaSeleccionada.getMonth() + 1,
+    0
+  );
+
+  const diasDisponiblesEnAgenda = agenda
+    .filter((day) => day.availableAppointmentSlots !== 0)
+    .map((day) => day.day);
+
+  const diaNoDisponibleEnAgenda = agenda
+    .filter((day) => day.availableAppointmentSlots === 0)
+    .map((day) => day.day);
+
+  useEffect(() => {
+    setAppointment(null);
+    api()
+      .get("/auth/me")
+      .then((response) => {
+        setUserId(response.data.user._id);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+  useEffect(() => {
+    if (appointment) {
+      console.log(appointment);
+
+      setLoading2(loading);
+    }
+  }, [appointment, loading]);
+
+  const crearCita = (date) => {
+    if (userId) {
+      const data = {
+        doctor: medId,
+        patient: userId,
+        appointmentDate: date,
+        specialty: especialidad,
       };
-      
-      
-
-    useEffect(() => {
-        crearCita()
-
-
-    }, [dia, userId])
-
-
-    const accessToken = localStorage.getItem("accessToken");
-    const headers = accessToken
-        ? { Authorization: `Bearer ${accessToken}` }
-        : {};
-
-    function pasarDia({ i }) {
-        console.log("llama funcion dia " + i)
-        
-        setDia((new Date(year, mes, i)).toDateString())
-        console.log(dia)
-        //setDia((DIAS.filter((es) => es.num === ((new Date(year, mes, i)).getDay())))[0].dia)
-        setLoading(false)
-
-        api().get("/auth/me", { headers })
-            .then((response) => {
-                setUserId(response.data.user._id);
-
-            })
-            //.finally(() => setLoading(false))
-            .catch((error) => {
-                console.log(error);
-            });
-
-
+      api()
+        .post("/appointment", data)
+        .then((response) => {
+          console.log(response.data.appointment);
+          setAppointment(response.data.appointment);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
+  };
 
+  const handleFechaChange = (date) => {
+    setFechaSeleccionada(date);
+    console.log(fechaSeleccionada);
+  };
 
+  const agregarClaseCSS = ({ date, view }) => {
+    if (view === "month") {
+      const month = date.getMonth();
+      const diaActual = date.getDate();
 
-    function crearCita() {
-        if (dia && userId) {
-            const data = { doctor: medId, patient: userId, appointmentDate: dia }
-            console.log(data)
-            api().post("/appointment", data, { headers })
-                .then((response) => {
-                    const date = new Date(response.data.appointment.appointmentDate);
-                    const formattedDate = date.toLocaleDateString("es-AR", options);
-                    console.log(formattedDate)
-
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-
-
+      if (diasDisponiblesEnAgenda.includes(diaActual)) {
+        return "availableDays";
+      }
+      if (
+        month === new Date().getMonth() &&
+        diaNoDisponibleEnAgenda.includes(diaActual)
+      ) {
+        return "unAvailableDays";
+      }
     }
+  };
 
+  const deshabilitarDias = ({ date, view }) => {
+    const diaActual = date.getDate();
+    return view === "month" && !diasDisponiblesEnAgenda.includes(diaActual);
+  };
 
+  return (
+    <div className="almanaque">
+      {loading ? (
+        <Calendar
+          value={fechaSeleccionada}
+          onChange={handleFechaChange}
+          tileClassName={agregarClaseCSS}
+          tileDisabled={deshabilitarDias}
+          minDate={minDate}
+          maxDate={maxDate}
+          onClickDay={crearCita}
+        />
+      ) : (
+        ""
+      )}
+      {appointment && !loading && <ConfirmarTurnos appointment={appointment} />}
+    </div>
+  );
+};
 
-    console.log("dia en calendario" + dia)
-
-    return (
-        <div className='almanaque'>
-            {loading ? function () {
-                let botones = []
-                for (let i = 1; i < (cant + 1); i++) {
-                    let comprobar = agenda.some((el) => el.day == i)
-                    if (comprobar === true) {
-                        botones.push(<button onClick={() => { pasarDia({ i }) }} className='botonAlmanaque'>{(DIAS.filter((es) => es.num === ((new Date(year, mes, i)).getDay())))[0].dia + " " + i}</button>)
-
-                    } else {
-                        botones.push(<button className='botonAlmanaque' disabled={true}>{(DIAS.filter((es) => es.num === ((new Date(year, mes, i)).getDay())))[0].dia + " " + i}</button>)
-
-                    }
-
-
-                    //persons.push(<p>{data[i].name + ", " + data[i].age + " years old"}</p>)
-                }
-                return botones
-            }() : ""
-            }
-            {loading ? "" : <ConfirmarTurnos />}
-
-
-        </div>
-
-    )
-
-
-
-
-}
-
-/*<ul>
-                {agenda.map(dia => <li key={dia.day}>{dia.day}</li>)}
-            </ul>*/
-
-
-
-export default Calendario
-
-//console.log( cursos.some((el) => el.nombre == "Desarrollo
-//Web"))
-// true
-/*{loading2
-    ? ""
-    : medicosEspecialidad.map((med) => (
-        <div key={med.license}>{<ManejarModales med={med} especialidad={especialidad} />}</div>
-      ))}*/
+export default Calendario;

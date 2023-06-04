@@ -2,8 +2,10 @@ const { getAvailableAppointmentSlots } = require("../helpers/appointment");
 const Appointment = require("../models/Appointment");
 const Doctor = require("../models/Doctor");
 
-const convertWeeklyScheduleToMonthCalendar = async (doctor, year, month) => {
-  const startDate = new Date(year, month, 1);
+const convertWeeklyScheduleToMonthCalendar = async (doctor) => {
+  const startDate = new Date();
+  const year = startDate.getFullYear();
+  const month = startDate.getMonth();
   const endDate = new Date(year, month + 1, 0);
 
   const calendarData = [];

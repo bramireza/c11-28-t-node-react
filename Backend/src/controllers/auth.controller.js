@@ -181,7 +181,7 @@ const resetPasswordPatient = async (req, res) => {
     }
 
     // Busca al usuario y actualiza la contraseña
-    const user = await Patient.findById(tokenDoc.userId);
+    let user = await Patient.findById(tokenDoc.userId);
     if (!user) {
       res.status(404).json({
         ok: false,
@@ -189,9 +189,15 @@ const resetPasswordPatient = async (req, res) => {
       });
       return;
     }
-    user.password = await encriptPass(password);
+    const encriptPassword = await encriptPass(password);
+    user = await Patient.findByIdAndUpdate(
+      tokenDoc.userId,
+      {
+        password: encriptPassword,
+      },
+      { new: true }
+    );
 
-    await user.save();
     // Elimina el token
     await ResetToken.deleteOne({ token: tokenDoc.token });
 

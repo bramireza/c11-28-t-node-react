@@ -33,7 +33,7 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
   npm install 
   npm start
 ```
-    ## API Reference
+## API Reference
 
 ### AUTHENTICATE
 #### LOGIN
@@ -90,6 +90,37 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
     "cp": "myCodePostal",
   }
 
+```
+
+#### ME
+
+```http
+  GET /api/v1/auth/me
+```
+* Descripción: Este endpoint se utiliza para devolver los datos del usuario(paciente, doctor y administrador).
+* Método: GET
+* Headers: Requiere autenticación con Bearer token
+* Respuesta exitosa (JSON):
+
+```json
+  {
+    "ok": true,
+    "user": {
+        "_id": "6476c7e02b92a6182a17f63d",
+        "name": "John Doe",
+        "email": "johndoe@gmail.com",
+        "password": "$2b$08$vme8V0CLs5Vcu6HSFYEMSOfcRMXESveyskqfasufFXmBrH0e5UDey",
+        "phoneNumber": "987654321",
+        "address": "myAddress",
+        "personalId": "00000000",
+        "birthDay": "2012-12-12T05:00:00.000Z",
+        "gender": "male",
+        "nationality": "myCountry",
+        "cp": "myCodePostal",
+        "rol": "patient",
+        "__v": 0
+    }
+  }
 ```
 * Respuesta exitosa (JSON):
 
@@ -484,6 +515,35 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
     }
   }
   ```
+ #### GET CALENDAR
+```http
+  GET /api/v1/doctor/idDoctor/calendar
+```
+* Descripción: Este endpoint se utiliza para mostrar los dias del mes actual en que atiende un doctor en especifico.
+  - day: es el numero del dia
+  - availableAppointmentSlots: es el numero de citas disponibles que quedan en ese dia
+* Método: GET
+* Headers: Requiere autenticación con Bearer token
+* Params: idDoctor
+* Respuesta exitosa (JSON):
+
+  ```json
+  {
+    "ok": true,
+    "calendar": [
+        {
+            "day": 5,
+            "availableAppointmentSlots": 10
+        },
+        {
+            "day": 7,
+            "availableAppointmentSlots": 10
+        },
+        {...}
+    ]
+  }
+  ```
+  
 #### UPDATE DOCTOR
 ```http
   PUT /api/v1/doctor/idDoctor
