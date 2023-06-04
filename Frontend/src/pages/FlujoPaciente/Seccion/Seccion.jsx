@@ -28,49 +28,60 @@ const Seccion = () => {
 
 
         //Datos del Paciente
-    // const paciente = () => {
-    //     api().get('appointment/me', { headers })
-    //         .then(res => {
-    //             setHora(res.data.appointments[0].appointmentDate.split('T')[1].slice(0, 5))
-    //             setDia(res.data.appointments[0].appointmentDate.split('T')[0])
-    //         })
-    //         .catch(err => console.log(err))
-    // }
-    // paciente();
+        useEffect(
+            ()=>{
+                api().get('appointment/me', { headers })
+                .then(res =>{
+                    setHora(res.data.appointments[0].appointmentDate.split('T')[1].slice(0,5))
+                    setDia(res.data.appointments[0].appointmentDate.split('T')[0])
+            })
+                .catch(err => console.log(err))
+            }
 
-    // //Datos del doctor
-    // const doctor = (id) => {
-    //     api().get(`/doctor/${id}`, { headers })
-    //         .then(res => {
-    //             setArea(res.data.doctor.specialties[res.data.doctor.specialties.length - 1].name),
-    //                 setDoc(res.data.doctor.name)
-    //         }
-    //         )
-    //         .catch(err => err)
-    // }
-    // doctor(idDoc)
+        ),[];
+        
 
-    // //Busca nombre del paciente
-    // function nombrePaciente() {
-    //     api().get("/auth/me", { headers })
-    //         .then(res => setNompa(res.data.user.name))
-    //         .catch(err => console.log(err))
-    // }
-    // nombrePaciente()
-    // //Busca el id del doctor
-    // function BuscaIdDoctor() {
-    //     api().get("/appointment/me", { headers })
-    //         .then(res => {
-    //             console.log(res.data.appointments[0].doctor)
-    //             setIdDoc(res.data.appointments[0].doctor)
-    //         }
-    //         )
-    //         .catch(err => console.log(err))
-    // }
-    // BuscaIdDoctor();
+        // Datos del doctoR
+        useEffect(
+            ()=>{
+                api().get(`/doctor/${idDoc}`, { headers })
+                .then(res =>
+                     {
+                    setArea(res.data.doctor.specialties[res.data.doctor.specialties.length - 1].name),
+                    setDoc(res.data.doctor.name)}
+                    )
+                .catch(err => err)
+            }
+        ),[idDoc];
+        
+        
+        // Busca nombre del paciente
+        useEffect(
+            ()=>{
+                api().get("/auth/me", { headers})
+                    .then(res => setNompa(res.data.user.name))
+                    .catch(err => console.log(err))
+            }
 
+        ),[];
+        
+        //Busca el id del doctor
+        useEffect(
+            ()=>{
+                api().get("/appointment/me", { headers})
+                    .then(res => {
+                        // console.log(res.data.appointments[0].doctor)
+                        setIdDoc(res.data.appointments[0].doctor)
+                    }
+                        )
+                    .catch(err => console.log(err))
+            }
+        ),[];
+        
+            
+            
+    return(
 
-    return (
         <>
 
             <header className="header d-flex p-3 align-items-center justify-content-start gap-2">
