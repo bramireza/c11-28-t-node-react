@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import DoctorCard from "./DoctorCard";
 import { Link, useNavigate } from "react-router-dom";
 import { getDoctorById, getDoctors } from "./MockDoctors";
+import { api } from "../../utilities/axios";
 
 function AdminDashboard() {
 
@@ -11,10 +12,16 @@ function AdminDashboard() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        getDoctors()
-            .then(rta => setDoctors(rta))
-            .catch((err) => console.log(err))
-            .finally(() => setLoading(false))
+        //getDoctors()
+        //    .then(rta => setDoctors(rta))
+        //    .catch((err) => console.log(err))
+        //    .finally(() => setLoading(false))
+        api()
+            .get("/doctor")
+            .then((res) => {setDoctors(res.data.doctors) 
+            console.log(res);} )
+            .catch((e) => console.log(e))
+
     }, [])
 
     const handleClick = (e) => {
@@ -49,13 +56,16 @@ function AdminDashboard() {
                         return (
                             <tr className='fw-normal' key={index}>
                                 <th>
-                                    <img className='' style={{ height: '100px', width: '120px' }} src={doctor.image} />
+                                    <img className='' style={{ height: '100px', width: '120px' }} src={doctor.gender == "male" ? 
+                                                                                                            "https://img.freepik.com/foto-gratis/doctor-brazos-cruzados-sobre-fondo-blanco_1368-5790.jpg?w=2000" 
+                                                                                                            : 
+                                                                                                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_VcNrlLvabf6_8efcKV4W_oNFJWuX8U9tbg&usqp=CAU"} />
                                 </th>
                                 <td className='align-middle'>
-                                    <span className="ms-2">{doctor.name + " " + doctor.lastName}</span>
+                                    <span className="ms-2">{doctor.name}</span>
                                 </td>
                                 <td className='align-middle'>
-                                    <Link to={`/doctor/${doctor.medId}`} className='btn btn-secondary'>Ver más</Link>
+                                    <Link to={`/doctor/${doctor._id}`} className='btn btn-secondary'>Ver más</Link>
                                 </td>
                             </tr>
                         )

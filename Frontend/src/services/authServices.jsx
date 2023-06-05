@@ -8,7 +8,7 @@ const authServices = () => {
     me: () => api().get("/auth/me"),
     forgotPassword: (data) => api().post("/auth/forgot-password", data),
     resetPassword: (data) => api().post("/auth/reset-password", data),
-    loginStaff: (data) => api().post("/auth/login/staff", data),
+    loginStaff: (data) => api().post("/auth/staff/login", data),
   };
 
   return {
