@@ -673,7 +673,7 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 ```http
   POST /api/v1/appointment
 ```
-* Descripción: Este endpoint se utiliza para crear nuevos citas medicas, con el horario asigando por el sistema.
+* Descripción: Este endpoint se utiliza para crear nuevos citas medicas, con el horario asigando por el sistema, se enviara la confirmacion de la nueva cita por email al usuario
 * Método: POST
 * Headers: Requiere autenticación con Bearer token
 * Body (JSON):
@@ -693,12 +693,39 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
   {
     "ok": true,
     "appointment": {
-        "doctor": "64716d94b453d0929049610a",
+        "_id": "647d62258550b26332e86971",
+        "doctor": {
+            "_id": "64716d94b453d0929049610a",
+            "name": "Juan Pérez",
+            "email": "juan.perez@gmail.com",
+            "license": "123456",
+            "birthDay": "2000-10-17T05:00:00.000Z",
+            "nationality": "peru",
+            "address": "mi casa",
+            "personalId": "12345678",
+            "cp": "233",
+            "gender": "male",
+            "phoneNumber": "555-1234",
+            "specialties": [
+                "646c37439d97a5fe240ac058",
+                "646c2bc80cf9c6ef0f9fcdbd"
+            ],
+            "rol": "doctor",
+            "active": true,
+            "schedule": "64716d94b453d0929049610b",
+            "password": "$2b$08$EFJ4pRWE/lrBOdHwgKk./.cTDxPMeXBFWoG/Ewq60l2eetbxmgzim",
+            "__v": 0
+        },
         "patient": "64681c0dd6c26be85ba34989",
-        "appointmentDate": "2023-05-03T20:00:00.000Z",
+        "specialty": {
+            "_id": "646c37439d97a5fe240ac058",
+            "name": "Ginecologia",
+            "active": true,
+            "__v": 0
+        },
+        "appointmentDate": "2023-06-07T23:00:00.000Z",
         "duration": 60,
         "active": true,
-        "_id": "6476cd2e2b92a6182a17f677",
         "__v": 0
     }
   }
@@ -768,12 +795,142 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
     "ok": true,
     "appointments": [
         {
-            "_id": "6476bf37aa9be8bcce862aa3",
-            "doctor": "64716d94b453d0929049610a",
+            "_id": "647d62258550b26332e86971",
+            "doctor": {
+                "_id": "64716d94b453d0929049610a",
+                "name": "Juan Pérez",
+                "email": "juan.perez@gmail.com",
+                "license": "123456",
+                "birthDay": "2000-10-17T05:00:00.000Z",
+                "nationality": "peru",
+                "address": "mi casa",
+                "personalId": "12345678",
+                "cp": "233",
+                "gender": "male",
+                "phoneNumber": "555-1234",
+                "specialties": [
+                    "646c37439d97a5fe240ac058",
+                    "646c2bc80cf9c6ef0f9fcdbd"
+                ],
+                "rol": "doctor",
+                "active": true,
+                "schedule": "64716d94b453d0929049610b",
+                "password": "$2b$08$EFJ4pRWE/lrBOdHwgKk./.cTDxPMeXBFWoG/Ewq60l2eetbxmgzim",
+                "__v": 0
+            },
             "patient": "64681c0dd6c26be85ba34989",
-            "appointmentDate": "2023-05-01T15:00:00.000Z",
+            "specialty": {
+                "_id": "646c37439d97a5fe240ac058",
+                "name": "Ginecologia",
+                "active": true,
+                "__v": 0
+            },
+            "appointmentDate": "2023-06-02T23:00:00.000Z",
             "duration": 60,
-            "active": false,
+            "active": true,
+            "__v": 0
+        },{...}
+    ]
+  }
+  ```
+  
+#### GET MY PAST APPOINTMENTS
+```http
+  GET /api/v1/appointment/me
+```
+* Descripción: Este endpoint se utiliza para mostrar todas las citas medicas pasadas del paciente.
+* Método: GET
+* Headers: Requiere autenticación con Bearer token
+* Respuesta exitosa (JSON):
+  ```json
+  {
+    "ok": true,
+    "appointments": [
+        {
+            "_id": "647d62258550b26332e86971",
+            "doctor": {
+                "_id": "64716d94b453d0929049610a",
+                "name": "Juan Pérez",
+                "email": "juan.perez@gmail.com",
+                "license": "123456",
+                "birthDay": "2000-10-17T05:00:00.000Z",
+                "nationality": "peru",
+                "address": "mi casa",
+                "personalId": "12345678",
+                "cp": "233",
+                "gender": "male",
+                "phoneNumber": "555-1234",
+                "specialties": [
+                    "646c37439d97a5fe240ac058",
+                    "646c2bc80cf9c6ef0f9fcdbd"
+                ],
+                "rol": "doctor",
+                "active": true,
+                "schedule": "64716d94b453d0929049610b",
+                "password": "$2b$08$EFJ4pRWE/lrBOdHwgKk./.cTDxPMeXBFWoG/Ewq60l2eetbxmgzim",
+                "__v": 0
+            },
+            "patient": "64681c0dd6c26be85ba34989",
+            "specialty": {
+                "_id": "646c37439d97a5fe240ac058",
+                "name": "Ginecologia",
+                "active": true,
+                "__v": 0
+            },
+            "appointmentDate": "2023-06-02T23:00:00.000Z",
+            "duration": 60,
+            "active": true,
+            "__v": 0
+        },{...}
+    ]
+  }
+  ```
+#### GET MY UPCOMING APPOINTMENTS
+```http
+  GET /api/v1/appointment/me
+```
+* Descripción: Este endpoint se utiliza para mostrar todas las citas medicas pendientes del paciente o doctor logueado.
+* Método: GET
+* Headers: Requiere autenticación con Bearer token
+* Respuesta exitosa (JSON):
+  ```json
+  {
+    "ok": true,
+    "appointments": [
+        {
+            "_id": "647d62258550b26332e86971",
+            "doctor": {
+                "_id": "64716d94b453d0929049610a",
+                "name": "Juan Pérez",
+                "email": "juan.perez@gmail.com",
+                "license": "123456",
+                "birthDay": "2000-10-17T05:00:00.000Z",
+                "nationality": "peru",
+                "address": "mi casa",
+                "personalId": "12345678",
+                "cp": "233",
+                "gender": "male",
+                "phoneNumber": "555-1234",
+                "specialties": [
+                    "646c37439d97a5fe240ac058",
+                    "646c2bc80cf9c6ef0f9fcdbd"
+                ],
+                "rol": "doctor",
+                "active": true,
+                "schedule": "64716d94b453d0929049610b",
+                "password": "$2b$08$EFJ4pRWE/lrBOdHwgKk./.cTDxPMeXBFWoG/Ewq60l2eetbxmgzim",
+                "__v": 0
+            },
+            "patient": "64681c0dd6c26be85ba34989",
+            "specialty": {
+                "_id": "646c37439d97a5fe240ac058",
+                "name": "Ginecologia",
+                "active": true,
+                "__v": 0
+            },
+            "appointmentDate": "2023-06-02T23:00:00.000Z",
+            "duration": 60,
+            "active": true,
             "__v": 0
         },{...}
     ]
