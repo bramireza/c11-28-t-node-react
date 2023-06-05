@@ -15,6 +15,16 @@ appointmentRouter.get(
   appointmentController.getAllMyAppointments
 );
 appointmentRouter.get(
+  "/me/past",
+  isAuthenticated(["patient", "doctor", "admin"]),
+  appointmentController.getMyPastAppointments
+);
+appointmentRouter.get(
+  "/me/upcoming",
+  isAuthenticated(["patient", "doctor", "admin"]),
+  appointmentController.getMyUpcomingAppointments
+);
+appointmentRouter.get(
   "/",
   isAuthenticated(["patient", "doctor", "admin"]),
   appointmentController.getAll
