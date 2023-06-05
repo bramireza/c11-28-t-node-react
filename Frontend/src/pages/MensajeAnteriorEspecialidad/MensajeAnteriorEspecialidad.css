@@ -1,0 +1,15 @@
+.mensaje{
+    width: 250px;
+    height: 250px;
+    background-color: blanchedalmond;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    padding: 20px;
+    position: absolute;
+    top: 300px;
+    display: flex;
+    flex-direction: column;
+}
