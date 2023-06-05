@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import { Button } from 'react-bootstrap'
 import "./Navbar.css";
 
+
 function NavBar() {
   return (
     <Navbar className='navbar d-flex align-items-start' bg="light" expand="lg"  >
@@ -18,7 +19,7 @@ function NavBar() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav>
               <NavLink to="/" href="#home" className='m-2' >Somos</NavLink>
-              <NavLink href="#link" className='m-2'>Servicios</NavLink>
+              <NavLink  href="#link" className='m-2'>Servicios</NavLink>
               <NavLink href="#link" className='m-2' >About us</NavLink>
             </Nav>
           </Navbar.Collapse>

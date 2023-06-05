@@ -16,7 +16,7 @@ specialtyRouter.get(
 );
 specialtyRouter.get(
   "/:id",
-  isAuthenticated(["admin"]),
+  isAuthenticated(["patient", "admin"]),
   specialtyController.getOne
 );
 specialtyRouter.put(

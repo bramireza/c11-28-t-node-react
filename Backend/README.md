@@ -33,15 +33,15 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
   npm install 
   npm start
 ```
-
 ## API Reference
 
-### LOGIN
+### AUTHENTICATE
+#### LOGIN
 
 ```http
   POST /api/v1/auth/login
 ```
-* Descripción: Este endpoint se utiliza para iniciar sesión en la aplicación.
+* Descripción: Este endpoint se utiliza para iniciar sesión en la aplicación por parte del Paciente.
 * Método: POST
 * Headers: No requiere autenticación
 * Body (JSON):
@@ -49,7 +49,7 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 ```json
   {
     "personalId": "00000000",
-    "password":"myPassword+",
+    "password":"myPassword123*",
   }
 
 ```
@@ -65,7 +65,7 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 ```
 
 
-### REGISTER
+#### REGISTER
 
 ```http
   POST /api/v1/auth/register
@@ -80,7 +80,7 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
   {
     "name": "John Doe",
     "email": "johndoe@gmail.com",
-    "password":"myPassword+",
+    "password":"myPassword123*",
     "phoneNumber": "987654321",
     "address": "myAddress",
     "personalId": "00000000",
@@ -91,6 +91,37 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
   }
 
 ```
+
+#### ME
+
+```http
+  GET /api/v1/auth/me
+```
+* Descripción: Este endpoint se utiliza para devolver los datos del usuario(paciente, doctor y administrador).
+* Método: GET
+* Headers: Requiere autenticación con Bearer token
+* Respuesta exitosa (JSON):
+
+```json
+  {
+    "ok": true,
+    "user": {
+        "_id": "6476c7e02b92a6182a17f63d",
+        "name": "John Doe",
+        "email": "johndoe@gmail.com",
+        "password": "$2b$08$vme8V0CLs5Vcu6HSFYEMSOfcRMXESveyskqfasufFXmBrH0e5UDey",
+        "phoneNumber": "987654321",
+        "address": "myAddress",
+        "personalId": "00000000",
+        "birthDay": "2012-12-12T05:00:00.000Z",
+        "gender": "male",
+        "nationality": "myCountry",
+        "cp": "myCodePostal",
+        "rol": "patient",
+        "__v": 0
+    }
+  }
+```
 * Respuesta exitosa (JSON):
 
 ```json
@@ -100,7 +131,7 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
     "user": {...}
   }
 ```
-### FORGOT PASSWORD
+#### FORGOT PASSWORD
 
 ```http
   POST /api/v1/auth/forgot-password
@@ -130,7 +161,7 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 * URL Enviada por Correo :
   `URL_FRONT/confirmPassword?token=miTokenGeneradoDesdeBack`
 
-### RESET PASSWORD
+#### RESET PASSWORD
 
 ```http
   POST /api/v1/auth/reset-password
@@ -155,11 +186,39 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
     "message": "Se restableció la contraseña con éxito",
   }
   ```
+
+#### LOGIN STAFF
+
+```http
+  POST /api/v1/auth/staff/login
+```
+* Descripción: Este endpoint se utiliza para iniciar sesión en la aplicación por parte del Administrador y del Doctor.
+* Método: POST
+* Headers: No requiere autenticación
+* Body (JSON):
+
+```json
+  {
+    "personalId": "admin",
+    "password":"admin123",
+  }
+
+```
+* Respuesta exitosa (JSON):
+
+```json
+  {
+    "ok": true,
+    "message": "Autenticacion correcta",
+    "user": {...}
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.mitoken" 
+  }
+```
 ### SPECIALTY
 
 #### STORE SPECIALTY
 ```http
-  POST /api/v1/auth/specialty
+  POST /api/v1/specialty
 ```
 * Descripción: Este endpoint se utiliza para crear nuevas especialidades.
 * Método: POST
@@ -191,7 +250,7 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 
 #### GET ALL SPECIALTIES
 ```http
-  GET /api/v1/auth/specialty
+  GET /api/v1/specialty
 ```
 * Descripción: Este endpoint se utiliza para listar todas las especialidades.
 * Método: GET
@@ -221,7 +280,7 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 
 #### GET ONE SPECIALTY
 ```http
-  GET /api/v1/auth/specialty/idSpecialty
+  GET /api/v1/specialty/idSpecialty
 ```
 * Descripción: Este endpoint se utiliza para mostrar una especialidad en especifico.
 * Método: GET
@@ -242,7 +301,7 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
   ```
 #### UPDATE SPECIALTY
 ```http
-  PUT /api/v1/auth/specialty/idSpecialty
+  PUT /api/v1/specialty/idSpecialty
 ```
 * Descripción: Este endpoint se utiliza para editar una especialidad en especifico.
 * Método: PUT
@@ -272,7 +331,7 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 
 #### REMOVE SPECIALTY
 ```http
-  DELETE /api/v1/auth/specialty/idSpecialty
+  DELETE /api/v1/specialty/idSpecialty
 ```
 * Descripción: Este endpoint se utiliza para eliminar una espcialidad en especifico (Soft Delete).
 * Método: DELETE
@@ -290,7 +349,7 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 
 #### STORE DOCTOR
 ```http
-  POST /api/v1/auth/doctor
+  POST /api/v1/doctor
 ```
 * Descripción: Este endpoint se utiliza para crear nuevos doctores.
 * Método: POST
@@ -299,16 +358,27 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 
   ```json
   {
-    "name": "Juan Pérez",
-    "email": "juan.perez@example.com",
+    "name": "Rosa Elias",
+    "personalId": "87654321",
+    "email": "rosaelias@gmail.com",
     "license": "123456",
     "phoneNumber": "555-1234",
-    "specialties": [ 
+    "nationality": "peru",
+    "gender": "male",
+    "cp": "233",
+    "birthDay": "10-17-2000",
+    "address": "mi casa",
+    "specialties": [
       "646c37439d97a5fe240ac058",
-      "646c2bc80cf9c6ef0f9fcdbd"
+      "646c37a39d97a5fe240ac05d"
     ],
-    "schedule": [...]
-
+    "daysOfWeek": [
+        "Monday",
+        "Friday"
+    ],
+    "appointmentDuration": 60,
+    "startTime": "10:00",
+    "endTime": "20:00"
   } 
 
   ```
@@ -318,26 +388,14 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
   ```json
   {
     "ok": true,
-    "doctor": {
-        "name": "Juan Pérez",
-        "email": "juan.perez@example.com",
-        "license": "123456",
-        "phoneNumber": "555-1234",
-        "specialties": [
-            "646c37439d97a5fe240ac058",
-            "646c2bc80cf9c6ef0f9fcdbd"
-        ],
-        "schedule": [...],
-        "active": true,
-        "_id": "646ecefa6841988f4894d8e8",
-        "__v": 0
+    "message": "Se ha guardado con exito la cuenta de Rosa Elias con el personalId de 87654321 "
     }
   }
   ```
 
 #### GET ALL DOCTORS
 ```http
-  GET /api/v1/auth/doctor
+  GET /api/v1/doctor
 ```
 * Descripción: Este endpoint se utiliza para listar todos los doctores.
 * Método: GET
@@ -348,32 +406,62 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
   {
     "ok": true,
     "doctors": [
-        {
-            "_id": "646e7905f3e66b3cf33bc622",
-            "name": "Rosa Mena",
-            "email": "rosa.mena@example.com",
-            "license": "211212",
+        {   
+            "_id": "6476ca0b2b92a6182a17f65a",
+            "name": "Rosa Elias",
+            "email": "rosaelias@gmail.com",
+            "license": "55555555",
+            "birthDay": "2000-10-17T05:00:00.000Z",
+            "nationality": "peru",
+            "address": "mi casa",
+            "personalId": "87654321",
+            "cp": "233",
+            "gender": "male",
             "phoneNumber": "555-1234",
             "specialties": [
-                "646c37439d97a5fe240ac058",
-                "646c37a39d97a5fe240ac05d"
+                {
+                    "_id": "646c37a39d97a5fe240ac05d",
+                    "name": "Geriatría",
+                    "active": true,
+                    "__v": 0
+                }
             ],
-            "schedule": [...],
+            "rol": "doctor",
             "active": true,
+            "schedule": "6476ca0b2b92a6182a17f65b",
+            "password": "$2b$08$lpAQ6dv/EHVtDj5WJA54mehfe6lyBADyi/t4/PKWFvEMsfoEv3oUm",
             "__v": 0
         },
         {
-            "_id": "646e7908f3e66b3cf33bc624",
-            "name": "Juan Pérez",
-            "email": "juan.perez@example.com",
+            "_id": "64765d58109eec57cba9a293",
+            "name": "Manuel Garcia",
+            "email": "manuelgarcia@gmail.com",
             "license": "123456",
+            "birthDay": "2000-10-17T05:00:00.000Z",
+            "nationality": "peru",
+            "address": "mi casa",
+            "personalId": "12121212",
+            "cp": "233",
+            "gender": "male",
             "phoneNumber": "555-1234",
             "specialties": [
-                "646c37439d97a5fe240ac058",
-                "646c2bc80cf9c6ef0f9fcdbd"
+                {
+                    "_id": "646c37439d97a5fe240ac058",
+                    "name": "Ginecologia",
+                    "active": true,
+                    "__v": 0
+                },
+                {
+                    "_id": "646c37a39d97a5fe240ac05d",
+                    "name": "Geriatría",
+                    "active": true,
+                    "__v": 0
+                }
             ],
-            "schedule": [...],
+            "rol": "doctor",
             "active": true,
+            "schedule": "64765d58109eec57cba9a294",
+            "password": "$2b$08$BrM84m1N4KZc2rufbUg1JefYSpWntpzsgNBylmRzmUEk4x.eUkAXa",
             "__v": 0
         },{...}
     ]
@@ -382,7 +470,7 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 
 #### GET ONE DOCTOR
 ```http
-  GET /api/v1/auth/doctor/idDoctor
+  GET /api/v1/doctor/idDoctor
 ```
 * Descripción: Este endpoint se utiliza para mostrar un doctor en especifico.
 * Método: GET
@@ -394,24 +482,71 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
   {
     "ok": true,
     "doctor": {
-        "_id": "646e7908f3e66b3cf33bc624",
-        "name": "Juan Pérez",
-        "email": "juan.perez@example.com",
+        "_id": "64765d58109eec57cba9a293",
+        "name": "Manuel Garcia",
+        "email": "manuelgarcia@gmail.com",
         "license": "123456",
+        "birthDay": "2000-10-17T05:00:00.000Z",
+        "nationality": "peru",
+        "address": "mi casa",
+        "personalId": "12121212",
+        "cp": "233",
+        "gender": "male",
         "phoneNumber": "555-1234",
         "specialties": [
-            "646c37439d97a5fe240ac058",
-            "646c2bc80cf9c6ef0f9fcdbd"
+            {
+                "_id": "646c37439d97a5fe240ac058",
+                "name": "Ginecologia",
+                "active": true,
+                "__v": 0
+            },
+            {
+                "_id": "646c37a39d97a5fe240ac05d",
+                "name": "Geriatría",
+                "active": true,
+                "__v": 0
+            }
         ],
-        "schedule": [...],
+        "rol": "doctor",
         "active": true,
+        "schedule": "64765d58109eec57cba9a294",
+        "password": "$2b$08$BrM84m1N4KZc2rufbUg1JefYSpWntpzsgNBylmRzmUEk4x.eUkAXa",
         "__v": 0
     }
   }
   ```
+ #### GET CALENDAR
+```http
+  GET /api/v1/doctor/idDoctor/calendar
+```
+* Descripción: Este endpoint se utiliza para mostrar los dias del mes actual en que atiende un doctor en especifico.
+  - day: es el numero del dia
+  - availableAppointmentSlots: es el numero de citas disponibles que quedan en ese dia
+* Método: GET
+* Headers: Requiere autenticación con Bearer token
+* Params: idDoctor
+* Respuesta exitosa (JSON):
+
+  ```json
+  {
+    "ok": true,
+    "calendar": [
+        {
+            "day": 5,
+            "availableAppointmentSlots": 10
+        },
+        {
+            "day": 7,
+            "availableAppointmentSlots": 10
+        },
+        {...}
+    ]
+  }
+  ```
+  
 #### UPDATE DOCTOR
 ```http
-  PUT /api/v1/auth/doctor/idDoctor
+  PUT /api/v1/doctor/idDoctor
 ```
 * Descripción: Este endpoint se utiliza para editar un doctor en especifico.
 * Método: PUT
@@ -421,7 +556,7 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 
   ```json
   {
-    "name": "Juan Pérez NUEVO",
+    "name": "Rosa Elias NUEVO",
     "email": "juan.perez@example.com",
     "license": "123456",
     "phoneNumber": "555-1234",
@@ -440,17 +575,25 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
   {
     "ok": true,
     "doctor": {
-        "_id": "646e7908f3e66b3cf33bc624",
-        "name": "Juan Pérez NUEVO",
+        "_id": "64765d58109eec57cba9a293",
+        "name": "Rosa Elias NUEVO",
         "email": "juan.perez@example.com",
         "license": "123456",
+        "birthDay": "2000-10-17T05:00:00.000Z",
+        "nationality": "peru",
+        "address": "mi casa",
+        "personalId": "12121212",
+        "cp": "233",
+        "gender": "male",
         "phoneNumber": "555-1234",
         "specialties": [
             "646c37439d97a5fe240ac058",
-            "646c2bc80cf9c6ef0f9fcdbd"
+            "646c37a39d97a5fe240ac05d"
         ],
-        "schedule": [],
+        "rol": "doctor",
         "active": true,
+        "schedule": "64765d58109eec57cba9a294",
+        "password": "$2b$08$BrM84m1N4KZc2rufbUg1JefYSpWntpzsgNBylmRzmUEk4x.eUkAXa",
         "__v": 0
     }
   }
@@ -458,7 +601,7 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 
 #### REMOVE DOCTOR
 ```http
-  DELETE /api/v1/auth/doctor/idDoctor
+  DELETE /api/v1/doctor/idDoctor
 ```
 * Descripción: Este endpoint se utiliza para eliminar un doctor en especifico (Soft Delete).
 * Método: DELETE
@@ -475,7 +618,7 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
 
 #### FILTER DOCTORS BY SPECIALTY
 ```http
-  GET /api/v1/auth/doctor/specialty/idSpecialty
+  GET /api/v1/doctor/specialty/idSpecialty
 ```
 * Descripción: Este endpoint se utiliza para listar los doctores filtrados por especialidad.
 * Método: GET
@@ -488,32 +631,357 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
     "ok": true,
     "doctors": [
         {
-            "_id": "646e7905f3e66b3cf33bc622",
-            "name": "Rosa Mena",
-            "email": "rosa.mena@example.com",
-            "license": "211212",
+            "_id": "64716d94b453d0929049610a",
+            "name": "Juan Pérez",
+            "email": "juan.perez@gmail.com",
+            "license": "123456",
+            "birthDay": "2000-10-17T05:00:00.000Z",
+            "nationality": "peru",
+            "address": "mi casa",
+            "personalId": "12345678",
+            "cp": "233",
+            "gender": "male",
             "phoneNumber": "555-1234",
             "specialties": [
-                "646c37439d97a5fe240ac058"
+                {
+                    "_id": "646c37439d97a5fe240ac058",
+                    "name": "Ginecologia",
+                    "active": true,
+                    "__v": 0
+                },
+                {
+                    "_id": "646c2bc80cf9c6ef0f9fcdbd",
+                    "name": "Cardiologia",
+                    "active": false,
+                    "__v": 0
+                }
             ],
-            "schedule": [...],
+            "rol": "doctor",
             "active": true,
+            "schedule": "64716d94b453d0929049610b",
+            "password": "$2b$08$EFJ4pRWE/lrBOdHwgKk./.cTDxPMeXBFWoG/Ewq60l2eetbxmgzim",
             "__v": 0
         },
-        {
-            "_id": "646e7908f3e66b3cf33bc624",
+        {...}
+    ]
+  }
+  ```
+
+### APPOINTMENT
+
+#### STORE APPOINTMENT
+```http
+  POST /api/v1/appointment
+```
+* Descripción: Este endpoint se utiliza para crear nuevos citas medicas, con el horario asigando por el sistema, se enviara la confirmacion de la nueva cita por email al usuario
+* Método: POST
+* Headers: Requiere autenticación con Bearer token
+* Body (JSON):
+
+  ```json
+  {
+    "doctor": "64716d94b453d0929049610a",
+    "patient": "64681c0dd6c26be85ba34989",
+    "appointmentDate": "05/03/2023" //(formato %m %d &Y)
+  } 
+
+  ```
+
+* Respuesta exitosa (JSON):
+
+  ```json
+  {
+    "ok": true,
+    "appointment": {
+        "_id": "647d62258550b26332e86971",
+        "doctor": {
+            "_id": "64716d94b453d0929049610a",
             "name": "Juan Pérez",
-            "email": "juan.perez@example.com",
+            "email": "juan.perez@gmail.com",
             "license": "123456",
+            "birthDay": "2000-10-17T05:00:00.000Z",
+            "nationality": "peru",
+            "address": "mi casa",
+            "personalId": "12345678",
+            "cp": "233",
+            "gender": "male",
             "phoneNumber": "555-1234",
             "specialties": [
                 "646c37439d97a5fe240ac058",
                 "646c2bc80cf9c6ef0f9fcdbd"
             ],
-            "schedule": [...],
+            "rol": "doctor",
+            "active": true,
+            "schedule": "64716d94b453d0929049610b",
+            "password": "$2b$08$EFJ4pRWE/lrBOdHwgKk./.cTDxPMeXBFWoG/Ewq60l2eetbxmgzim",
+            "__v": 0
+        },
+        "patient": "64681c0dd6c26be85ba34989",
+        "specialty": {
+            "_id": "646c37439d97a5fe240ac058",
+            "name": "Ginecologia",
+            "active": true,
+            "__v": 0
+        },
+        "appointmentDate": "2023-06-07T23:00:00.000Z",
+        "duration": 60,
+        "active": true,
+        "__v": 0
+    }
+  }
+  ```
+
+#### GET ALL APPOINTMENT
+```http
+  GET /api/v1/appointment
+```
+* Descripción: Este endpoint se utiliza para listar todos las citas medicas.
+* Método: GET
+* Headers: Requiere autenticación con Bearer token
+* Respuesta exitosa (JSON):
+
+  ```json
+  {
+    
+    "ok": true,
+    "appointments": [
+        {
+            "_id": "6476bf3aaa9be8bcce862aab",
+            "doctor": "64716d94b453d0929049610a",
+            "patient": "64681c0dd6c26be85ba34989",
+            "appointmentDate": "2023-05-01T15:00:00.000Z",
+            "duration": 60,
             "active": true,
             "__v": 0
         },{...}
     ]
   }
   ```
+
+#### GET ONE APPOINTMENT
+```http
+  GET /api/v1/appointment/idAppointment
+```
+* Descripción: Este endpoint se utiliza para mostrar una cita medica en especifica.
+* Método: GET
+* Headers: Requiere autenticación con Bearer token
+* Params: idAppointment
+* Respuesta exitosa (JSON):
+
+  ```json
+  {
+    "ok": true,
+    "appointment": {
+        "_id": "6476bf3aaa9be8bcce862aab",
+        "doctor": "64716d94b453d0929049610a",
+        "patient": "64681c0dd6c26be85ba34989",
+        "appointmentDate": "2023-05-01T15:00:00.000Z",
+        "duration": 60,
+        "active": true,
+        "__v": 0
+    }
+  }
+  ```
+#### GET ALL MY APPOINTMENTS
+```http
+  GET /api/v1/appointment/me
+```
+* Descripción: Este endpoint se utiliza para mostrar todas las citas medicas del paciente o doctor logueado.
+* Método: GET
+* Headers: Requiere autenticación con Bearer token
+* Respuesta exitosa (JSON):
+  ```json
+  {
+    "ok": true,
+    "appointments": [
+        {
+            "_id": "647d62258550b26332e86971",
+            "doctor": {
+                "_id": "64716d94b453d0929049610a",
+                "name": "Juan Pérez",
+                "email": "juan.perez@gmail.com",
+                "license": "123456",
+                "birthDay": "2000-10-17T05:00:00.000Z",
+                "nationality": "peru",
+                "address": "mi casa",
+                "personalId": "12345678",
+                "cp": "233",
+                "gender": "male",
+                "phoneNumber": "555-1234",
+                "specialties": [
+                    "646c37439d97a5fe240ac058",
+                    "646c2bc80cf9c6ef0f9fcdbd"
+                ],
+                "rol": "doctor",
+                "active": true,
+                "schedule": "64716d94b453d0929049610b",
+                "password": "$2b$08$EFJ4pRWE/lrBOdHwgKk./.cTDxPMeXBFWoG/Ewq60l2eetbxmgzim",
+                "__v": 0
+            },
+            "patient": "64681c0dd6c26be85ba34989",
+            "specialty": {
+                "_id": "646c37439d97a5fe240ac058",
+                "name": "Ginecologia",
+                "active": true,
+                "__v": 0
+            },
+            "appointmentDate": "2023-06-02T23:00:00.000Z",
+            "duration": 60,
+            "active": true,
+            "__v": 0
+        },{...}
+    ]
+  }
+  ```
+  
+#### GET MY PAST APPOINTMENTS
+```http
+  GET /api/v1/appointment/me
+```
+* Descripción: Este endpoint se utiliza para mostrar todas las citas medicas pasadas del paciente.
+* Método: GET
+* Headers: Requiere autenticación con Bearer token
+* Respuesta exitosa (JSON):
+  ```json
+  {
+    "ok": true,
+    "appointments": [
+        {
+            "_id": "647d62258550b26332e86971",
+            "doctor": {
+                "_id": "64716d94b453d0929049610a",
+                "name": "Juan Pérez",
+                "email": "juan.perez@gmail.com",
+                "license": "123456",
+                "birthDay": "2000-10-17T05:00:00.000Z",
+                "nationality": "peru",
+                "address": "mi casa",
+                "personalId": "12345678",
+                "cp": "233",
+                "gender": "male",
+                "phoneNumber": "555-1234",
+                "specialties": [
+                    "646c37439d97a5fe240ac058",
+                    "646c2bc80cf9c6ef0f9fcdbd"
+                ],
+                "rol": "doctor",
+                "active": true,
+                "schedule": "64716d94b453d0929049610b",
+                "password": "$2b$08$EFJ4pRWE/lrBOdHwgKk./.cTDxPMeXBFWoG/Ewq60l2eetbxmgzim",
+                "__v": 0
+            },
+            "patient": "64681c0dd6c26be85ba34989",
+            "specialty": {
+                "_id": "646c37439d97a5fe240ac058",
+                "name": "Ginecologia",
+                "active": true,
+                "__v": 0
+            },
+            "appointmentDate": "2023-06-02T23:00:00.000Z",
+            "duration": 60,
+            "active": true,
+            "__v": 0
+        },{...}
+    ]
+  }
+  ```
+#### GET MY UPCOMING APPOINTMENTS
+```http
+  GET /api/v1/appointment/me
+```
+* Descripción: Este endpoint se utiliza para mostrar todas las citas medicas pendientes del paciente o doctor logueado.
+* Método: GET
+* Headers: Requiere autenticación con Bearer token
+* Respuesta exitosa (JSON):
+  ```json
+  {
+    "ok": true,
+    "appointments": [
+        {
+            "_id": "647d62258550b26332e86971",
+            "doctor": {
+                "_id": "64716d94b453d0929049610a",
+                "name": "Juan Pérez",
+                "email": "juan.perez@gmail.com",
+                "license": "123456",
+                "birthDay": "2000-10-17T05:00:00.000Z",
+                "nationality": "peru",
+                "address": "mi casa",
+                "personalId": "12345678",
+                "cp": "233",
+                "gender": "male",
+                "phoneNumber": "555-1234",
+                "specialties": [
+                    "646c37439d97a5fe240ac058",
+                    "646c2bc80cf9c6ef0f9fcdbd"
+                ],
+                "rol": "doctor",
+                "active": true,
+                "schedule": "64716d94b453d0929049610b",
+                "password": "$2b$08$EFJ4pRWE/lrBOdHwgKk./.cTDxPMeXBFWoG/Ewq60l2eetbxmgzim",
+                "__v": 0
+            },
+            "patient": "64681c0dd6c26be85ba34989",
+            "specialty": {
+                "_id": "646c37439d97a5fe240ac058",
+                "name": "Ginecologia",
+                "active": true,
+                "__v": 0
+            },
+            "appointmentDate": "2023-06-02T23:00:00.000Z",
+            "duration": 60,
+            "active": true,
+            "__v": 0
+        },{...}
+    ]
+  }
+  ```
+#### UPDATE APPOINTMENT
+```http
+  PUT /api/v1/appointment/idAppointment
+```
+* Descripción: Este endpoint se utiliza para editar una cita medica en especifico.
+* Método: PUT
+* Headers: Requiere autenticación con Bearer token
+* Params: idAppointment
+* Body (JSON):
+
+  ```json
+  {
+    "active": true
+  }
+
+  ```
+
+* Respuesta exitosa (JSON):
+  ```json
+  {
+    "ok": true,
+    "appointment": {
+        "_id": "6476bf37aa9be8bcce862aa3",
+        "doctor": "64716d94b453d0929049610a",
+        "patient": "64681c0dd6c26be85ba34989",
+        "appointmentDate": "2023-05-01T15:00:00.000Z",
+        "duration": 60,
+        "active": true,
+        "__v": 0
+    }
+  }
+  ```
+#### REMOVE APPOINTMENT
+```http
+  DELETE /api/v1/appointment/idAppointment
+```
+* Descripción: Este endpoint se utiliza para eliminar ua cita medica en especifico (Soft Delete).
+* Método: DELETE
+* Headers: Requiere autenticación con Bearer token
+* Params: idAppointment
+* Respuesta exitosa (JSON):
+
+  ```json
+  {
+    "ok": true,
+    "message": "Se eliminó exitosamente"
+  }
+  ```
+

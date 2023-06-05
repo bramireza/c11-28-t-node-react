@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useServices from "../../services/useServices";
+import authServices from "../../services/authServices";
 import validatePassword from "../../utilities/validatePassword";
 import style from "./register.module.css";
 
@@ -26,23 +26,39 @@ const Register = () => {
   const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
-  const { auth } = useServices();
+  const { auth } = authServices();
 
   const validate = () => {
     let errorsList = {};
     const emailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    if (!state.email) errorsList = { ...errorsList, email: "Campo obligatorio" };
-    else if (!emailRegExp.test(state.email)) errorsList = { ...errorsList, email: "Debe ingresar una direccion de correo valida" };
+    if (!state.email)
+      errorsList = { ...errorsList, email: "Campo obligatorio" };
+    else if (!emailRegExp.test(state.email))
+      errorsList = {
+        ...errorsList,
+        email: "Debe ingresar una direccion de correo valida",
+      };
     if (!state.name) errorsList = { ...errorsList, name: "Campo obligatorio" };
-    if (!state.lastName) errorsList = { ...errorsList, lastName: "Campo obligatorio" };
-    if (!state.personalId) errorsList = { ...errorsList, personalId: "Campo obligatorio" };
-    else if (state.personalId.length < 8) errorsList = { ...errorsList, personalId: "Debe tener al menos 8 digitos" };
-    if (!state.birthDay) errorsList = { ...errorsList, birthDay: "Campo obligatorio" };
-    if (!state.nationality) errorsList = { ...errorsList, nationality: "Campo obligatorio" };
-    if (!state.gender) errorsList = { ...errorsList, gender: "Campo obligatorio" };
-    if (!state.phoneNumber) errorsList = { ...errorsList, phoneNumber: "Campo obligatorio" };
-    if (!state.address) errorsList = { ...errorsList, address: "Campo obligatorio" };
+    if (!state.lastName)
+      errorsList = { ...errorsList, lastName: "Campo obligatorio" };
+    if (!state.personalId)
+      errorsList = { ...errorsList, personalId: "Campo obligatorio" };
+    else if (state.personalId.length < 8)
+      errorsList = {
+        ...errorsList,
+        personalId: "Debe tener al menos 8 digitos",
+      };
+    if (!state.birthDay)
+      errorsList = { ...errorsList, birthDay: "Campo obligatorio" };
+    if (!state.nationality)
+      errorsList = { ...errorsList, nationality: "Campo obligatorio" };
+    if (!state.gender)
+      errorsList = { ...errorsList, gender: "Campo obligatorio" };
+    if (!state.phoneNumber)
+      errorsList = { ...errorsList, phoneNumber: "Campo obligatorio" };
+    if (!state.address)
+      errorsList = { ...errorsList, address: "Campo obligatorio" };
     if (!state.cp) errorsList = { ...errorsList, cp: "Campo obligatorio" };
 
     const errorPass1 = validatePassword(state.password);
@@ -51,10 +67,19 @@ const Register = () => {
     if (errorPass1) errorsList = { ...errorsList, password: errorPass1 };
     if (errorPass2) errorsList = { ...errorsList, password2: errorPass2 };
     if (!errorPass1 & !errorPass2 && state.password !== state.password2)
-      errorsList = { ...errorsList, password: ["Los passwords deben coincidir"], password2: ["Los passwords deben coincidir"] };
+      errorsList = {
+        ...errorsList,
+        password: ["Los passwords deben coincidir"],
+        password2: ["Los passwords deben coincidir"],
+      };
 
-    if (!state.conditions) errorsList = { ...errorsList, conditions: "Debe aceptar los terminos y condiciones" };
-    if (!state.robot) errorsList = { ...errorsList, robot: "Aceptar que no es un robot" };
+    if (!state.conditions)
+      errorsList = {
+        ...errorsList,
+        conditions: "Debe aceptar los terminos y condiciones",
+      };
+    if (!state.robot)
+      errorsList = { ...errorsList, robot: "Aceptar que no es un robot" };
     return errorsList;
   };
 
@@ -76,6 +101,8 @@ const Register = () => {
         address: state.address,
         birthDay: Date.parse(state.birthDay),
         gender: state.gender,
+        nationality: state.nationality,
+        cp: state.cp,
       };
       try {
         const { data } = await auth.signup(body);
@@ -89,10 +116,13 @@ const Register = () => {
   };
 
   return (
-    <main className="container mx-auto p-4" onSubmit={handleSubmit}>
-      <h1>Crear nueva cuenta</h1>
-      <p className="mb-5">Forem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <form action="" className="d-flex flex-column gap-2 align-self-start text-start">
+    <main className="mx-auto text-center w-75">
+      <h1 className="pt-4">Registrar Cuenta</h1>
+      <h4 className="mb-5">Registrar nueva cuenta.</h4>
+      <form
+        className="d-flex flex-column gap-2 align-self-start text-start"
+        onSubmit={handleSubmit}
+      >
         <div>
           <label htmlFor="" className="fst-italic align-self-start">
             Nombre/s
@@ -120,7 +150,9 @@ const Register = () => {
             value={state.lastName}
             onChange={handleChange}
           />
-          {errors.lastName && <p className={style.errorText}>{errors.lastName}</p>}
+          {errors.lastName && (
+            <p className={style.errorText}>{errors.lastName}</p>
+          )}
         </div>
 
         <div>
@@ -135,7 +167,9 @@ const Register = () => {
             value={state.personalId}
             onChange={handleChange}
           />
-          {errors.personalId && <p className={style.errorText}>{errors.personalId}</p>}
+          {errors.personalId && (
+            <p className={style.errorText}>{errors.personalId}</p>
+          )}
         </div>
 
         <div className="row">
@@ -151,7 +185,9 @@ const Register = () => {
               value={state.birthDay}
               onChange={handleChange}
             />
-            {errors.birthday && <p className={style.errorText}>{errors.birthday}</p>}
+            {errors.birthday && (
+              <p className={style.errorText}>{errors.birthday}</p>
+            )}
           </div>
 
           <div className="col-md-6 col-6">
@@ -166,7 +202,9 @@ const Register = () => {
               value={state.nationality}
               onChange={handleChange}
             />
-            {errors.nationality && <p className={style.errorText}>{errors.nationality}</p>}
+            {errors.nationality && (
+              <p className={style.errorText}>{errors.nationality}</p>
+            )}
           </div>
         </div>
 
@@ -185,7 +223,9 @@ const Register = () => {
               <option value="male">Masculino</option>
               <option value="female">Femenino</option>
             </select>
-            {errors.gender && <p className={style.errorText}>{errors.gender}</p>}
+            {errors.gender && (
+              <p className={style.errorText}>{errors.gender}</p>
+            )}
           </div>
 
           <div className="col-md-6 col-6">
@@ -200,7 +240,9 @@ const Register = () => {
               value={state.phoneNumber}
               onChange={handleChange}
             />
-            {errors.phoneNumber && <p className={style.errorText}>{errors.phoneNumber}</p>}
+            {errors.phoneNumber && (
+              <p className={style.errorText}>{errors.phoneNumber}</p>
+            )}
           </div>
         </div>
 
@@ -217,7 +259,9 @@ const Register = () => {
               value={state.address}
               onChange={handleChange}
             />
-            {errors.address && <p className={style.errorText}>{errors.address}</p>}
+            {errors.address && (
+              <p className={style.errorText}>{errors.address}</p>
+            )}
           </div>
 
           <div className="col-md-6 col-6">
@@ -299,10 +343,18 @@ const Register = () => {
 
         <div>
           <label style={{ marginTop: "15px" }} className="bg-white">
-            <input type="checkbox" className="form-check-input" name="conditions" value={state.conditions} onChange={handleChange} />
+            <input
+              type="checkbox"
+              className="form-check-input"
+              name="conditions"
+              value={state.conditions}
+              onChange={handleChange}
+            />
             Acepto los términos y condiciones
           </label>
-          {errors.conditions && <p className={style.errorText}>{errors.conditions}</p>}
+          {errors.conditions && (
+            <p className={style.errorText}>{errors.conditions}</p>
+          )}
         </div>
 
         {/* <label className="bg-white">
@@ -312,7 +364,13 @@ const Register = () => {
 
         <div className="border p-3 d-flex align-items-center">
           <label className="m-0">
-            <input type="checkbox" className="form-check-input" name="robot" value={state.robot} onChange={handleChange} />
+            <input
+              type="checkbox"
+              className="form-check-input"
+              name="robot"
+              value={state.robot}
+              onChange={handleChange}
+            />
             No soy un robot
           </label>
           {errors.robot && <p className={style.errorText}>{errors.robot}</p>}
@@ -321,7 +379,10 @@ const Register = () => {
         <button
           type="submit"
           className="btn btn-primary my-3 bg-success w-50 mx-auto border-0"
-          style={{ transition: "background-color 0.2s", backgroundColor: "#000" }}
+          style={{
+            transition: "background-color 0.2s",
+            backgroundColor: "#000",
+          }}
         >
           Registrarse
         </button>
