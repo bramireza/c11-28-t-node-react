@@ -6,6 +6,7 @@ const Appointment = require("../models/Appointment");
 const Doctor = require("../models/Doctor");
 const Patient = require("../models/Patient");
 const Specialty = require("../models/Specialty");
+const { transporter } = require("../utils/nodemailer");
 
 const store = async (req, res) => {
   try {
@@ -72,6 +73,25 @@ const store = async (req, res) => {
       )
         .populate("specialty")
         .populate("doctor");
+
+      const date = populatedAppointment.appointmentDate;
+
+      const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const dateFormat = date.toLocaleDateString("es-AR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        timeZone,
+      });
+      await transporter.sendMail({
+        from: process.env.MAIL_MAIL,
+        to: patient.email,
+        subject: "Confirmación Cita Médica",
+        html: `<p>Hola ${patient.name},</p><p>Tu cita médica se ha generado con exito</p><p><strong>Fecha y hora:</strong> ${dateFormat} hs<br><strong>Doctor:</strong> ${populatedAppointment.doctor.name}<br><strong>Especialidad:</strong> ${populatedAppointment.specialty.name}</p>`,
+      });
       return res.status(201).json({
         ok: true,
         appointment: populatedAppointment,
@@ -103,7 +123,72 @@ const getAllMyAppointments = async (req, res) => {
     }
     const appointments = await Appointment.find({
       $or: [{ doctor: user._id }, { patient: user._id }],
+    })
+      .populate("specialty")
+      .populate("doctor");
+
+    return res.status(200).json({
+      ok: true,
+      appointments,
     });
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      message: "Error del servidor",
+      error,
+    });
+  }
+};
+const getMyPastAppointments = async (req, res) => {
+  try {
+    const user =
+      (await Patient.findById(req.user._id)) ||
+      (await Doctor.findById(req.user._id));
+    if (!user) {
+      return res.status(404).json({
+        ok: false,
+        message: "Usuario no encontrado",
+      });
+    }
+    const appointments = await Appointment.find({
+      $or: [{ doctor: user._id }, { patient: user._id }],
+      appointmentDate: { $lt: new Date() },
+    })
+      .sort({ appointmentDate: -1 })
+      .populate("specialty")
+      .populate("doctor");
+
+    return res.status(200).json({
+      ok: true,
+      appointments,
+    });
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      message: "Error del servidor",
+      error,
+    });
+  }
+};
+const getMyUpcomingAppointments = async (req, res) => {
+  try {
+    const user =
+      (await Patient.findById(req.user._id)) ||
+      (await Doctor.findById(req.user._id));
+    if (!user) {
+      return res.status(404).json({
+        ok: false,
+        message: "Usuario no encontrado",
+      });
+    }
+
+    const appointments = await Appointment.find({
+      $or: [{ doctor: user._id }, { patient: user._id }],
+      appointmentDate: { $gt: new Date() },
+    })
+      .sort({ appointmentDate: 1 })
+      .populate("specialty")
+      .populate("doctor");
 
     return res.status(200).json({
       ok: true,
@@ -212,6 +297,8 @@ const remove = async (req, res) => {
 module.exports = {
   store,
   getAllMyAppointments,
+  getMyPastAppointments,
+  getMyUpcomingAppointments,
   getAll,
   getOne,
   update,
