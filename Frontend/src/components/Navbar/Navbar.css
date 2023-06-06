@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* overflow-x: hidden; */
+}
+
+.boton-hamburguesa {
+    background-color: white;
+}
+
+.navbar-toggler-icon {
+    background-color: white;    
+}
+
+.navbar-toggler {
+    background-color: white;    
+}
+.navbar {
+    width: 100%;  
+}
+
+.navbar-brand{
+    margin: 0;
+}
+.logo-menu{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 55vw;
+    flex-wrap: wrap;
+
+}
+
+.logo {
+    border: 1px solid black;
+    width: 80px;
+    height: 40px;
+    background-color: bisque;
+    padding: 10px;
+    text-align: center;
+}
+
+.navbar>.container, .navbar>.container-fluid, .navbar>.container-lg, .navbar>.container-md, .navbar>.container-sm, .navbar>.container-xl, .navbar>.container-xxl {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: inherit;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.logo-ingresar{
+    display: flex;
+    width: 60vw;
+    justify-content: space-between;
+}
+
+
+@media (min-width: 1024px) {
+    .logo-menu{
+        flex-direction: row;
+        width: 70vw;
+    }
+
+    .navbar-expand-lg .navbar-collapse {
+        display: flex!important;
+        flex-basis: auto;
+        justify-content: flex-end;
+        width: 60vw;
+    }
+}
+
+
