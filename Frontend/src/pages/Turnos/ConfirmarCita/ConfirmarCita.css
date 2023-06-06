@@ -1,24 +1,10 @@
-.select{  
-    margin: 15px;
-    position: absolute;
-    top: 120px;
-}
-
-.orden-modales{
-    display: flex;       
-    flex-wrap: wrap;    
-    justify-content: center;
-    position: absolute;
-    top: 260px;
-}
-
 .numero-titulo{
     display: flex;
     margin: 10px;
     justify-content: space-evenly;
-}
-
-.numero{
+  }
+  
+  .numero{
     width: 32px;
     height: 32px;
     background-color: rgb(11, 39, 96);    
@@ -31,11 +17,11 @@
     position: absolute;
     top: 100px;
     left: 16px;
-
+  
     font-size: 20px;
-}
-
-.titulo{
+  }
+  
+  .titulo{
     margin: 0;
     display: flex;
     align-items: center;
@@ -44,14 +30,36 @@
     left: 56px;
     color:rgba(11, 40, 96, 1) ;
     
-}
-
-.parrafo{
+  }
+  
+  .parrafo{
     position: absolute;
     top: 130px;
     margin: 15px 15px 15px 0px;
     display: flex;
     left: 16px;
     color: rgba(11, 40, 96, 1);
+  
+  }
 
-}
+  .section{
+    position: absolute;
+    top: 210px;
+    left: 0;
+  }
+
+  .custom-button {
+    background-color:rgba(0, 191, 178, 1) !important;
+    border-radius: 10px !important;
+    height: 40px !important;
+    width: 270px !important;
+    font-size: 15px !important;
+    padding: 0;
+  }
+
+  .texto{
+    color: blue;
+    font-size: 50px;
+  }
+
+  
