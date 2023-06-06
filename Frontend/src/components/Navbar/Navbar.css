@@ -26,6 +26,7 @@
 }
 
 .navbar-toggler {
+    /* background-color: rgba(#1043A5) */
     background-color: #1043A5;
     border: none;
     border-image: none;
@@ -34,17 +35,21 @@
 
 .navbar {
     width: 100%;
+    /* background-color: rgba(#1043A5); */
     background-color: #1043A5;
     /* margin: 0;
     padding: 0;
     box-sizing: border-box;
     overflow-x: hidden; */
+    z-index: 1000;
 }
 
 .navbar-brand {
     margin: 0;
     
 }
+
+
 
 .logo-menu {
     display: flex;

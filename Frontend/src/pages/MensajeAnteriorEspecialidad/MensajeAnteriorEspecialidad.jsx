@@ -3,7 +3,9 @@ import "./MensajeAnteriorEspecialidad.css";
 
 const MensajeAnteriorEspecialidad = () => {
   return (
-    <div className='mensaje'>Por Favor seleccione en el desplegable la especialidad para poder solicitar su turno medico.</div>
+    <div className='men'>
+      <p className='mensaje'>Por Favor seleccione en el desplegable la especialidad para poder solicitar su turno medico.</p>
+    </div>
   )
 }
 

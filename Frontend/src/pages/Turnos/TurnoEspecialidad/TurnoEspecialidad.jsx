@@ -45,12 +45,11 @@ const TurnoEspecialidad = () => {
   return (
     <div>
       <div className="numero-titulo">
-      <p className="numero">1</p>
-      <h2 className="titulo">Elegir Especialidad.</h2>
-      <p className="parrafo">El primer paso es seleccionar el medico de tu preferencia.</p>
-
+        <p className="numero">1</p>
+        <h2 className="titulo">Elegir Especialidad.</h2>
+        <p className="parrafo">El primer paso es seleccionar el medico de tu preferencia.</p>
       </div>
-   
+
       {loading ? (
         "Cargando"
       ) : (
@@ -68,14 +67,14 @@ const TurnoEspecialidad = () => {
       )}
       <div className="orden-modales">
         {loading2
-          ? <MensajeAnteriorEspecialidad/>
+          ? <MensajeAnteriorEspecialidad />
           : medicosEspecialidad.map((med) => (
             <div key={med._id}>
               {<ModalMedicos med={med} idEspecialidad={idEspecialidad} />}
             </div>
           ))}
+      </div>
     </div>
-  </div>
   );
 };
 
