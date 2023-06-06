@@ -6,14 +6,15 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import ConfirmPassword from "./pages/ConfirmPassword/ConfirmPassword";
 import Registro from "./pages/register/Register";
 import Login from "./pages/login/Login";
+import RegisterDoctor from "./pages/AdminPage/RegisterDoctor";
+import EditDoctor from "./pages/AdminPage/EditDoctor";
+import DoctorCard from "./pages/AdminPage/DoctorCard";
+import AdminDashboard from "./pages/AdminPage/AdminDashboard";
 import TurnoOnLine from "./pages/FlujoPaciente/TurnoOnLine";
 import Seccion from "./pages/FlujoPaciente/Seccion/Seccion";
 import TurnoEspecialidad from "./pages/Turnos/TurnoEspecialidad/TurnoEspecialidad";
 import FechaTurno from "./pages/Turnos/FechaTurno/FechaTurno";
 import CartContextProvider from "./pages/Turnos/Contexto/Contexto";
-//import CartContextProvider from "./pages/Contexto/Contexto";
-//import CartContextProvider from "./pages/Turnos/Contexto/CartContext";
-//import ContextProvider from "./components/Contexto/Contexto";
 
 
 function App() {
@@ -35,6 +36,10 @@ function App() {
             <Route path="/turnos-especialidad" element={<TurnoEspecialidad />} />
 
             <Route path="/fecha-turno/:medId" element={<FechaTurno />} />
+            <Route path="/admin" element={<AdminDashboard></AdminDashboard>}/>
+            <Route path="/doctor/create" element={<RegisterDoctor/>}/>
+            <Route path="/doctor/edit/:medId/" element={<EditDoctor/>}/>
+            <Route path="/doctor/:medId" element={<DoctorCard/>}/>
 
             {/* <PruebaRutas/> */}
           </Routes>
