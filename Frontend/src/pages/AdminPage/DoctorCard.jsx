@@ -9,15 +9,20 @@ function DoctorCard() {
     const { medId } = useParams();
     const navigate = useNavigate();
     const [doctor, setDoctor] = useState({});
+    const [specialties, setSpecialties] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [birthDay, setBirthDay] = useState("");
 
     useEffect(() => {
         try {
-            //setDoctor(getDoctorById(medId));
             api()
                 .get(`/doctor/${medId}`)
-                .then((res) => { console.log(res);
-                    setDoctor(res.data.doctor)})
+                .then((res) => { 
+                    setSpecialties(res.data.doctor.specialties);
+                    setDoctor(res.data.doctor);
+                    setBirthDay(res.data.doctor.birthDay.slice(0,10));
+                    console.log(res.data);
+                })
                 .catch((e) => console.log(e))
             setLoading(false);
         } catch (error) {
@@ -62,8 +67,10 @@ function DoctorCard() {
                                 <p className="card-text">Email:</p>
                             </div>
                             <div className='col'>
-                                {/*<p className="card-text">{doctor.specialties}</p>*/}
-                                <p className="card-text">{doctor.birthDay}</p>
+                                {specialties.map((specialty, index)=> (
+                                    <span className="card-text" key={index}>{specialty.name + " "}</span>
+                                ))}
+                                <p className="card-text mt-3">{birthDay}</p>
                                 <p className="card-text">{doctor.nationality}</p>
                                 <p className="card-text">{doctor.address}</p>
                                 <p className="card-text">{doctor.phoneNumber}</p>
@@ -78,8 +85,8 @@ function DoctorCard() {
                                 <p className="card-text">Días laborales</p>
                             </div>
                             <div className='col'>
-                                <p className="card-text">{doctor.turno}</p>
-                                <p className="card-text">{doctor.days}</p>
+                                <p className="card-text">{doctor.schedule.startTime + " " + doctor.schedule.endTime}</p>
+                                <p className="card-text">{doctor.schedule.daysOfWeek}</p>
                             </div>
 
                         </div>
