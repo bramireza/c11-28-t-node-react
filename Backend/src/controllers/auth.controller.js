@@ -10,6 +10,7 @@ const Doctor = require("../models/Doctor");
 
 const loginPatient = async (req, res) => {
   const { personalId, password } = req.body;
+  console.log(req.body);
 
   try {
     if (!personalId || !password) {
