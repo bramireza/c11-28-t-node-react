@@ -22,7 +22,7 @@ function ModalMedicos({ med, idEspecialidad }) {
     <div >
       <Link to={`/fecha-turno/${med._id}`}>
         <div  className="modal-medicos">
-          <span className="imagen-modal"></span>
+          <img className="imagen-modal" src="/images/Profile_picture.png" alt="" />
           <div className="contenido-medicos">
             <h6 className="nombre">Dr. {med.name}</h6>
 
