@@ -26,6 +26,13 @@ app.use(
   cors({
     origin: "*",
     credentials: true,
+    allowedHeaders: [
+      "Origin",
+      "X-Requested-With",
+      "Content-Type",
+      "Accept",
+      "authorization",
+    ],
   })
 );
 app.use(logger("dev"));
