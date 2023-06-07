@@ -13,7 +13,7 @@ function NavBar() {
           <button className="boton-ingresar ">Ingresar</button>
         </NavLink>
         <div className='logo-menu'>
-          <NavLink to="/" className="m-0 logo" href="#home"></NavLink>
+          <NavLink to="/"  href="#home"  ><img src="/images/XMLID_1_.png" alt="" className="logo"/></NavLink>
           <Navbar.Toggle aria-controls="basic-navbar-nav" className='border-0'/>
           <Navbar.Collapse id="basic-navbar-nav" >
             <Nav className='nav'>

@@ -66,16 +66,19 @@ const Seccion = () => {
     <>
       <header className="header d-flex p-3 align-items-center justify-content-start gap-2">
         <img
-          src="https://www.freeiconspng.com/thumbs/account-icon/account-profile-icon-1.png"
+          src="/images/Ellipse 53.png"
           className="img_perfil img-fluid rounded-circle"
           alt="perfil"
         />
-        <h5 className="col-6 ">Hola, {user.name?.toUpperCase()}.</h5>
+        <div className="usuario-parrafo">
+        <h5 className="usuario">Hola, {user.name?.toUpperCase()}.</h5>
+        <p className="parrafo-foto">Aqui puedes ver tus turnos Medicos.</p>
+        </div>
       </header>
       <main>
         <section className="p-3">
-          <h3>Turnos activos</h3>
-          <p>Estas son tus próximas citas confirmadas:</p>
+          <h3 className="turnos-activos">Turnos activos</h3>
+          <p className="proximas">Estas son tus próximas citas confirmadas:</p>
           <div
             className="d-flex flex-row flex-nowrap"
             style={{ overflowX: "auto" }}
@@ -84,25 +87,25 @@ const Seccion = () => {
               ? upcomingAppointments.map((apt) => {
                   return (
                     <article
-                      className="d-flex p-3 justify-content-between gap-4 bg-body-tertiary shadow"
+                      className="d-flex p-3 justify-content-between align-items-center gap-4 bg-body-tertiary shadow"
                       key={apt._id}
                       style={{
-                        width: "500px",
-                        minWidth: "400px",
+                        width: "278px",
+                        minWidth: "278px",
                         margin: "0 10px",
                       }}
                     >
                       <img
-                        src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/7da02324714817.56338d63f2a30.jpg"
+                        src="/images/Profile_picture.png"
                         className="img_turno rounded"
                         alt="logoDoc"
                         style={{ maxWidth: "100%" }}
                       />
                       <div className="datos_turno">
-                        <h4 className="py-2">Dr.{apt.doctor.name}</h4>
-                        <p>Área: {apt.specialty.name}</p>
-                        <p>Día: {apt.appointmentDate}</p>
-                        <p>
+                        <h4 className="turnos-activos">Dr.{apt.doctor.name}</h4>
+                        <p className="proximas">Área: {apt.specialty.name}</p>
+                        <p className="proximas">Día: {apt.appointmentDate}</p>
+                        <p className="proximas">
                           Horario: {apt.startTime} - {apt.endTime}
                         </p>
                       </div>
@@ -113,7 +116,7 @@ const Seccion = () => {
           </div>
         </section>
         <section className="p-3">
-          <h3>Turnos pasados</h3>
+          <h3 className="turnos-activos">Turnos pasados</h3>
           {pastAppointments.length != 0
             ? pastAppointments.map((apt) => {
                 return (
@@ -122,15 +125,15 @@ const Seccion = () => {
                     key={apt._id}
                   >
                     <img
-                      src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/7da02324714817.56338d63f2a30.jpg"
+                      src="/images/Profile_picture.png"
                       className="img_turno rounded"
                       alt="logoDoc"
                     />
                     <div className="datos_turno">
-                      <h4 className="py-2">Dr.{apt.doctor.name}</h4>
-                      <p>Área: {apt.specialty.name}</p>
-                      <p>Día: {apt.appointmentDate}</p>
-                      <p>
+                      <h4 className="turnos-activos">Dr.{apt.doctor.name}</h4>
+                      <p className="proximas">Área: {apt.specialty.name}</p>
+                      <p className="proximas">Día: {apt.appointmentDate}</p>
+                      <p className="proximas">
                         Horario: {apt.startTime} - {apt.endTime}
                       </p>
                     </div>
@@ -142,7 +145,7 @@ const Seccion = () => {
         <div className="d-flex px-3 pb-3">
           <Link
             to="/turnos-especialidad"
-            className="btn btn-success col-12 col-md-6 mx-auto"
+            className="btn color-boton col-12 col-md-6 mx-auto"
           >
             Crear nuevo turno
           </Link>
