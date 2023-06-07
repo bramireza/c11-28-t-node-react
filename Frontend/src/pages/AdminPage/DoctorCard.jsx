@@ -12,6 +12,46 @@ function DoctorCard() {
     const [specialties, setSpecialties] = useState([]);
     const [loading, setLoading] = useState(true);
     const [birthDay, setBirthDay] = useState("");
+    const [days, setDays] = useState([]);
+
+    function handleRemove(){
+        api()
+            .delete(`/doctor/${medId}`)
+            .then(navigate('/admin'))
+            .catch((e) => console.log(e))
+    }
+
+    function changeDayFormat(days){
+        let dias = [];
+        days.forEach(day => {
+            switch (day) {
+                case "Monday":
+                    dias.push(" Lunes");
+                    break;
+                case "Tuesday":
+                    dias.push(" Martes");
+                    break;
+                case "Wednesday":
+                    dias.push(" Miércoles");
+                    break;
+                case "Thursday":
+                    dias.push(" Jueves");
+                    break;
+                case "Friday":
+                    dias.push(" Viernes");
+                    break;
+                case "Saturday":
+                    dias.push(" Sábado");
+                    break;
+                case "Sunday":
+                    dias.push(" Domingo");
+                    break;
+                default:
+                    break;
+            }
+        });
+        setDays(dias);
+    }
 
     useEffect(() => {
         try {
@@ -21,7 +61,7 @@ function DoctorCard() {
                     setSpecialties(res.data.doctor.specialties);
                     setDoctor(res.data.doctor);
                     setBirthDay(res.data.doctor.birthDay.slice(0,10));
-                    console.log(res.data);
+                    changeDayFormat(res.data.doctor.schedule.daysOfWeek);
                     setLoading(false);
                 })
                 .catch((e) => console.log(e))
@@ -29,13 +69,6 @@ function DoctorCard() {
             console.log(error);
         }
     }, [medId])
-
-    function handleRemove(){
-        api()
-            .delete(`/doctor/${medId}`)
-            .then(navigate('/admin'))
-            .catch((e) => console.log(e))
-    }
 
     return (
         <div className="card col p-2" >
@@ -86,7 +119,7 @@ function DoctorCard() {
                             </div>
                             <div className='col'>
                                 <p className="card-text">{doctor.schedule.startTime + " - " + doctor.schedule.endTime}</p> 
-                                <p className="card-text">{doctor.schedule.daysOfWeek + " "}</p>
+                                <span className="card-text d-flex">{days + " "}</span>
                             </div>
 
                         </div>
