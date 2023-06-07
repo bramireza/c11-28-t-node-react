@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import style from "../register/register.module.css";
-import { api } from '../../utilities/axios';
+import { api } from "../../utilities/axios";
 import { useNavigate } from "react-router-dom";
-
 
 // const defaultValues = {
 //   personalId: "",
@@ -20,22 +19,25 @@ import { useNavigate } from "react-router-dom";
 //   days: ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
 // };
 
-
-
 function RegisterDoctor() {
-  
-  
   const [state, setState] = useState({});
   const [errors, setErrors] = useState({});
   const [days, setDays] = useState([]);
-  const [startTime , setStartTime] = useState('');
-  const [endTime , setEndTime] = useState('');
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
   const navigate = useNavigate();
-  const [especialidades, setEspecialidades] = useState([]);
-  
-  
-  
-  const handleOnCheckbox = (e)=>{ 
+  const [specialties, setSpecialties] = useState([]);
+
+  useEffect(() => {
+    api()
+      .get("/specialty")
+      .then((res) => {
+        setSpecialties(res.data.specialties);
+        console.log(res.data.specialties);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+  const handleOnCheckbox = (e) => {
     const { value, checked } = e.target;
     if (checked) {
       setDays((prevSelectedDays) => [...prevSelectedDays, value]);
@@ -45,40 +47,40 @@ function RegisterDoctor() {
       );
     }
   };
-  
-  const SepararStartEnd = (e)=>{
-   if(e.target.value == 'mañana'){
-    setStartTime('8:00'),
-    setEndTime('12:00')
-  }else{
-    setStartTime('15:00'),
-    setEndTime('18:00')
-  }
-  }
 
+  const SepararStartEnd = (e) => {
+    if (e.target.value == "mañana") {
+      setStartTime("8:00"), setEndTime("12:00");
+    } else {
+      setStartTime("15:00"), setEndTime("18:00");
+    }
+  };
 
   const handleChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
 
-  
-    const crearDoctor = (e)=>{
-      e.preventDefault();
-      state.daysOfWeek = [...days];
-      state.startTime = startTime;
-      state.appointmentDuration = 60;
-      state.endTime = endTime;
-      state.especialties = [state.especialties]
-      let body = state;
-      console.log(body)
+  const crearDoctor = (e) => {
+    e.preventDefault();
+    state.daysOfWeek = [...days];
+    state.startTime = startTime;
+    state.appointmentDuration = 60;
+    state.endTime = endTime;
+    state.specialties = [state.specialties];
+    let body = state;
+    console.log(body);
 
-      api()
-        .post("/doctor", {body})
-        .then(res=>(!res.ok)?console.log('Error al registrar un Doctor'):navigate('/admin'))
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    api()
+      .post("/doctor", body)
+      .then((res) =>
+        !res.data.ok
+          ? console.log("Error al registrar un Doctor")
+          : navigate("/admin")
+      )
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   // useEffect(()=>{
   //   api()
@@ -88,21 +90,20 @@ function RegisterDoctor() {
   //     value: esp._id,
   //   }))})
   // },[])
-    
 
-  
-     
- 
-
-  
   return (
     <main className="container mx-auto p-4">
       <h1>Agregar perfil profesional</h1>
-      <p className="mb-5">Forem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <p className="mb-5">
+        Forem ipsum dolor sit amet, consectetur adipiscing elit.
+      </p>
       <h4>Datos personales</h4>
-      <form action="" onSubmit={crearDoctor} className="d-flex flex-column gap-2 align-self-start text-start">
+      <form
+        action=""
+        onSubmit={crearDoctor}
+        className="d-flex flex-column gap-2 align-self-start text-start"
+      >
         <div>
-          
           <label htmlFor="" className="fst-italic align-self-start">
             Nombre y Apellido
           </label>
@@ -128,7 +129,9 @@ function RegisterDoctor() {
             value={state.personalId}
             onChange={handleChange}
           />
-          {errors.personalId && <p className={style.errorText}>{errors.personalId}</p>}
+          {errors.personalId && (
+            <p className={style.errorText}>{errors.personalId}</p>
+          )}
         </div>
 
         <div>
@@ -143,25 +146,34 @@ function RegisterDoctor() {
             value={state.license}
             onChange={handleChange}
           />
-          {errors.license && <p className={style.errorText}>{errors.license}</p>}
+          {errors.license && (
+            <p className={style.errorText}>{errors.license}</p>
+          )}
         </div>
 
-
-        <div >
+        <div>
           <label htmlFor="" className="fst-italic align-self-start">
             Especialidad
           </label>
           <select
             className="form-select bg-light border border-none text-dark p-2"
             name="specialties"
-            value={state.especialidad}
+            value={state.specialties}
             onChange={handleChange}
           >
-            <option value="">Seleccionar especialidad</option>
-            <option value="646c37a39d97a5fe240ac05d">Geriatria</option>
-            <option value="646c37439d97a5fe240ac058">Ginecologia</option>
+            <option value="" selected disabled>
+              Seleccionar especialidad
+            </option>
+
+            {specialties.map((esp) => (
+              <option value={esp._id} key={esp._id}>
+                {esp.name}
+              </option>
+            ))}
           </select>
-          {errors.especialidad && <p className={style.errorText}>{errors.especialidad}</p>}
+          {errors.especialidad && (
+            <p className={style.errorText}>{errors.especialidad}</p>
+          )}
         </div>
 
         <div className="row">
@@ -177,7 +189,9 @@ function RegisterDoctor() {
               value={state.birthDay}
               onChange={handleChange}
             />
-            {errors.birthday && <p className={style.errorText}>{errors.birthday}</p>}
+            {errors.birthday && (
+              <p className={style.errorText}>{errors.birthday}</p>
+            )}
           </div>
 
           <div className="col-md-6 col-6">
@@ -192,7 +206,9 @@ function RegisterDoctor() {
               value={state.nationality}
               onChange={handleChange}
             />
-            {errors.nationality && <p className={style.errorText}>{errors.nationality}</p>}
+            {errors.nationality && (
+              <p className={style.errorText}>{errors.nationality}</p>
+            )}
           </div>
         </div>
 
@@ -211,7 +227,9 @@ function RegisterDoctor() {
               <option value="male">Masculino</option>
               <option value="female">Femenino</option>
             </select>
-            {errors.gender && <p className={style.errorText}>{errors.gender}</p>}
+            {errors.gender && (
+              <p className={style.errorText}>{errors.gender}</p>
+            )}
           </div>
 
           <div className="col-md-6 col-6">
@@ -226,7 +244,9 @@ function RegisterDoctor() {
               value={state.phoneNumber}
               onChange={handleChange}
             />
-            {errors.phoneNumber && <p className={style.errorText}>{errors.phoneNumber}</p>}
+            {errors.phoneNumber && (
+              <p className={style.errorText}>{errors.phoneNumber}</p>
+            )}
           </div>
         </div>
 
@@ -243,7 +263,9 @@ function RegisterDoctor() {
               value={state.address}
               onChange={handleChange}
             />
-            {errors.address && <p className={style.errorText}>{errors.address}</p>}
+            {errors.address && (
+              <p className={style.errorText}>{errors.address}</p>
+            )}
           </div>
 
           <div className="col-md-6 col-6">
@@ -279,7 +301,7 @@ function RegisterDoctor() {
 
         <h4>Horarios</h4>
 
-        <div >
+        <div>
           <label htmlFor="" className="fst-italic align-self-start">
             Turno
           </label>
@@ -288,10 +310,11 @@ function RegisterDoctor() {
             name="startTime"
             onChange={SepararStartEnd}
           >
-            <option value="" hidden>Seleccionar turno</option>
-            <option value= 'mañana'>Mañana</option>
-            <option value='tarde'>Tarde</option>
-            
+            <option value="" hidden>
+              Seleccionar turno
+            </option>
+            <option value="mañana">Mañana</option>
+            <option value="tarde">Tarde</option>
           </select>
           {errors.turno && <p className={style.errorText}>{errors.turno}</p>}
         </div>
@@ -299,58 +322,78 @@ function RegisterDoctor() {
         <div>
           <label htmlFor="" className="fst-italic align-self-start">
             Días disponibles
-          </label><br />
-          <input type="checkbox"
-          onChange={handleOnCheckbox}
-          id="lunes"
-          name="lunes"
-          value="lunes"
-          checked={days.includes("lunes")} />
-          <label htmlFor="lunes"> Lunes</label><br />
-          <input  type="checkbox"
-          onChange={handleOnCheckbox}
-          id="martes"
-          name="martes"
-          value="martes"
-          checked={days.includes("martes")} />
-          <label htmlFor="martes"> Martes</label><br />
-          <input type="checkbox"
-          onChange={handleOnCheckbox}
-          id="miercoles"
-          name="miercoles"
-          value="miercoles"
-          checked={days.includes("miercoles")} />
-          <label htmlFor="miercoles"> Miércoles</label><br />
-          <input type="checkbox"
-          onChange={handleOnCheckbox}
-          id="jueves"
-          name="jueves"
-          value="jueves"
-          checked={days.includes("jueves")} />
-          <label htmlFor="Jueves"> Jueves</label><br />
-          <input type="checkbox"
-          onChange={handleOnCheckbox}
-          id="viernes"
-          name="viernes"
-          value="viernes"
-          checked={days.includes("viernes")} />
-          <label htmlFor="viernes"> Viernes</label><br />
-          <input type="checkbox"
-          onChange={handleOnCheckbox}
-          id="sabado"
-          name="sabado"
-          value="sabado"
-          checked={days.includes("sabado")} />
-          <label htmlFor="sabado"> Sábado</label><br />
-          
+          </label>
+          <br />
+          <input
+            type="checkbox"
+            onChange={handleOnCheckbox}
+            id="lunes"
+            name="lunes"
+            value="Monday"
+            checked={days.includes("Monday")}
+          />
+          <label htmlFor="lunes"> Lunes</label>
+          <br />
+          <input
+            type="checkbox"
+            onChange={handleOnCheckbox}
+            id="martes"
+            name="martes"
+            value="Tuesday"
+            checked={days.includes("Tuesday")}
+          />
+          <label htmlFor="martes"> Martes</label>
+          <br />
+          <input
+            type="checkbox"
+            onChange={handleOnCheckbox}
+            id="miercoles"
+            name="miercoles"
+            value="Wednesday"
+            checked={days.includes("Wednesday")}
+          />
+          <label htmlFor="miercoles"> Miércoles</label>
+          <br />
+          <input
+            type="checkbox"
+            onChange={handleOnCheckbox}
+            id="jueves"
+            name="jueves"
+            value="Thursday"
+            checked={days.includes("Thursday")}
+          />
+          <label htmlFor="Jueves"> Jueves</label>
+          <br />
+          <input
+            type="checkbox"
+            onChange={handleOnCheckbox}
+            id="viernes"
+            name="viernes"
+            value="Friday"
+            checked={days.includes("Friday")}
+          />
+          <label htmlFor="viernes"> Viernes</label>
+          <br />
+          <input
+            type="checkbox"
+            onChange={handleOnCheckbox}
+            id="sabado"
+            name="sabado"
+            value="Saturday"
+            checked={days.includes("Saturday")}
+          />
+          <label htmlFor="sabado"> Sábado</label>
+          <br />
           {errors.days && <p className={style.errorText}>{errors.days}</p>}
         </div>
 
         <button
           type="submit"
           className="btn btn-primary my-3 bg-dark w-50 mx-auto border-0"
-          style={{ transition: "background-color 0.2s", backgroundColor: "#000" }}
-          
+          style={{
+            transition: "background-color 0.2s",
+            backgroundColor: "#000",
+          }}
         >
           Guardar
         </button>
