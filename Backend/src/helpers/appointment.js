@@ -1,7 +1,7 @@
 const Appointment = require("../models/Appointment");
 
-const getAppointmentsByDoctorAndDate = (doctorId, date) => {
-  return Appointment.aggregate([
+const getAppointmentsByDoctorAndDate = async (doctorId, date) => {
+  return await Appointment.aggregate([
     // Matching appointments by the date and doctor
     {
       $match: {
