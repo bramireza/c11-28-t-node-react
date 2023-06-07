@@ -428,7 +428,18 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
             ],
             "rol": "doctor",
             "active": true,
-            "schedule": "6476ca0b2b92a6182a17f65b",
+            "schedule": {
+              "_id": "64716d94b453d0929049610b",
+              "daysOfWeek": [
+                  "Monday",
+                  "Wednesday",
+                  "Friday"
+              ],
+              "appointmentDuration": 60,
+              "startTime": "10:00",
+              "endTime": "20:00",
+              "__v": 0
+            },
             "password": "$2b$08$lpAQ6dv/EHVtDj5WJA54mehfe6lyBADyi/t4/PKWFvEMsfoEv3oUm",
             "__v": 0
         },
@@ -460,7 +471,18 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
             ],
             "rol": "doctor",
             "active": true,
-            "schedule": "64765d58109eec57cba9a294",
+            "schedule": {
+              "_id": "64716d94b453d0929049610b",
+              "daysOfWeek": [
+                  "Monday",
+                  "Wednesday",
+                  "Friday"
+              ],
+              "appointmentDuration": 60,
+              "startTime": "10:00",
+              "endTime": "20:00",
+              "__v": 0
+            },
             "password": "$2b$08$BrM84m1N4KZc2rufbUg1JefYSpWntpzsgNBylmRzmUEk4x.eUkAXa",
             "__v": 0
         },{...}
@@ -509,7 +531,18 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
         ],
         "rol": "doctor",
         "active": true,
-        "schedule": "64765d58109eec57cba9a294",
+        "schedule": {
+              "_id": "64716d94b453d0929049610b",
+              "daysOfWeek": [
+                  "Monday",
+                  "Wednesday",
+                  "Friday"
+              ],
+              "appointmentDuration": 60,
+              "startTime": "10:00",
+              "endTime": "20:00",
+              "__v": 0
+            },
         "password": "$2b$08$BrM84m1N4KZc2rufbUg1JefYSpWntpzsgNBylmRzmUEk4x.eUkAXa",
         "__v": 0
     }
@@ -658,7 +691,18 @@ Para ejecutar este proyecto, deberá agregar las siguientes variables de entorno
             ],
             "rol": "doctor",
             "active": true,
-            "schedule": "64716d94b453d0929049610b",
+            "schedule": {
+              "_id": "64716d94b453d0929049610b",
+              "daysOfWeek": [
+                  "Monday",
+                  "Wednesday",
+                  "Friday"
+              ],
+              "appointmentDuration": 60,
+              "startTime": "10:00",
+              "endTime": "20:00",
+              "__v": 0
+            },
             "password": "$2b$08$EFJ4pRWE/lrBOdHwgKk./.cTDxPMeXBFWoG/Ewq60l2eetbxmgzim",
             "__v": 0
         },
