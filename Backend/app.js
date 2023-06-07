@@ -24,15 +24,10 @@ mongoose
 
 app.use(
   cors({
-    origin: "*",
-    credentials: true,
-    allowedHeaders: [
-      "Origin",
-      "X-Requested-With",
-      "Content-Type",
-      "Accept",
-      "authorization",
-    ],
+    origin: "*", // Permitir solicitudes solo desde este origen
+    methods: ["GET", "POST", "PUT", "DELETE"], // Permitir solo estos métodos HTTP
+    allowedHeaders: ["Content-Type", "Authorization"], // Permitir solo estos encabezados personalizados
+    credentials: true, // Permitir enviar credenciales (como "cookies") en solicitudes CORS
   })
 );
 app.use(logger("dev"));
