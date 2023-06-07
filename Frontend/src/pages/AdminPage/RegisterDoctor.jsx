@@ -1,77 +1,121 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import style from "../register/register.module.css";
+import { api } from '../../utilities/axios';
+import { useNavigate } from "react-router-dom";
 
-const defaultValues = {
-  personalId: "",
-  name: "",
-  lastName: "",
-  matricula: "",
-  especialidad: "",
-  email: "",
-  phoneNumber: "",
-  birthDay: "",
-  gender: "",
-  address: "",
-  nationality: "",
-  cp: "",
-  turno: ["Maniana", "tarde"],
-  days: ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
-};
+
+// const defaultValues = {
+//   personalId: "",
+//   name: "",
+//   license: "",
+//   especialidad: "",
+//   email: "",
+//   phoneNumber: "",
+//   birthDay: "",
+//   gender: "",
+//   address: "",
+//   nationality: "",
+//   cp: "",
+//   turno: ["Mañana", "tarde"],
+//   days: ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
+// };
+
+
 
 function RegisterDoctor() {
-
-  const [state, setState] = useState(defaultValues);
+  
+  
+  const [state, setState] = useState({});
   const [errors, setErrors] = useState({});
+  const [days, setDays] = useState([]);
+  const [startTime , setStartTime] = useState('');
+  const [endTime , setEndTime] = useState('');
+  const navigate = useNavigate();
+  const [especialidades, setEspecialidades] = useState([]);
+  
+  
+  
+  const handleOnCheckbox = (e)=>{ 
+    const { value, checked } = e.target;
+    if (checked) {
+      setDays((prevSelectedDays) => [...prevSelectedDays, value]);
+    } else {
+      setDays((prevSelectedDays) =>
+        prevSelectedDays.filter((day) => day !== value)
+      );
+    }
+  };
+  
+  const SepararStartEnd = (e)=>{
+   if(e.target.value == 'mañana'){
+    setStartTime('8:00'),
+    setEndTime('12:00')
+  }else{
+    setStartTime('15:00'),
+    setEndTime('18:00')
+  }
+  }
+
 
   const handleChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErrors({});
-  };
+  
+    const crearDoctor = (e)=>{
+      e.preventDefault();
+      state.daysOfWeek = [...days];
+      state.startTime = startTime;
+      state.appointmentDuration = 60;
+      state.endTime = endTime;
+      state.especialties = [state.especialties]
+      let body = state;
+      console.log(body)
 
+      api()
+        .post("/doctor", {body})
+        .then(res=>(!res.ok)?console.log('Error al registrar un Doctor'):navigate('/admin'))
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
+  // useEffect(()=>{
+  //   api()
+  //   .get("/specialty")
+  //   .then(res=>res.dataoptions={especialidades.map((esp) => ({
+  //     label: esp.name,
+  //     value: esp._id,
+  //   }))})
+  // },[])
+    
+
+  
+     
+ 
+
+  
   return (
     <main className="container mx-auto p-4">
       <h1>Agregar perfil profesional</h1>
       <p className="mb-5">Forem ipsum dolor sit amet, consectetur adipiscing elit.</p>
       <h4>Datos personales</h4>
-      <form action="" onSubmit={handleSubmit} className="d-flex flex-column gap-2 align-self-start text-start">
+      <form action="" onSubmit={crearDoctor} className="d-flex flex-column gap-2 align-self-start text-start">
         <div>
-          <input
-             accept="image/*" 
-             type="file"
-          />
+          
           <label htmlFor="" className="fst-italic align-self-start">
-            Nombre/s
+            Nombre y Apellido
           </label>
           <input
             type="text"
             className="form-control bg-light border border-none text-dark p-2"
-            placeholder="Nombre/s"
+            placeholder="Nombre y Apellido"
             name="name"
             value={state.name}
             onChange={handleChange}
           />
           {errors.name && <p className={style.errorText}>{errors.name}</p>}
         </div>
-
-        <div>
-          <label htmlFor="" className="fst-italic align-self-start">
-            Apellido/s
-          </label>
-          <input
-            type="text"
-            className="form-control bg-light border border-none text-dark p-2"
-            placeholder="Apellido/s"
-            name="lastName"
-            value={state.lastName}
-            onChange={handleChange}
-          />
-          {errors.lastName && <p className={style.errorText}>{errors.lastName}</p>}
-        </div>
-
         <div>
           <label htmlFor="" className="fst-italic align-self-start">
             DNI
@@ -95,11 +139,11 @@ function RegisterDoctor() {
             type="text"
             className="form-control bg-light border border-none text-dark p-2"
             placeholder="Número de matrícula"
-            name="personalId"
-            value={state.matricula}
+            name="license"
+            value={state.license}
             onChange={handleChange}
           />
-          {errors.matricula && <p className={style.errorText}>{errors.matricula}</p>}
+          {errors.license && <p className={style.errorText}>{errors.license}</p>}
         </div>
 
 
@@ -109,30 +153,15 @@ function RegisterDoctor() {
           </label>
           <select
             className="form-select bg-light border border-none text-dark p-2"
-            name="gender"
+            name="specialties"
             value={state.especialidad}
             onChange={handleChange}
           >
             <option value="">Seleccionar especialidad</option>
-            <option value="male">Clínica</option>
-            <option value="female">Cardiología</option>
+            <option value="646c37a39d97a5fe240ac05d">Geriatria</option>
+            <option value="646c37439d97a5fe240ac058">Ginecologia</option>
           </select>
           {errors.especialidad && <p className={style.errorText}>{errors.especialidad}</p>}
-        </div>
-
-        <div>
-          <label htmlFor="" className="fst-italic align-self-start">
-            DNI
-          </label>
-          <input
-            type="text"
-            className="form-control bg-light border border-none text-dark p-2"
-            placeholder="Documento de identidad"
-            name="personalId"
-            value={state.personalId}
-            onChange={handleChange}
-          />
-          {errors.personalId && <p className={style.errorText}>{errors.personalId}</p>}
         </div>
 
         <div className="row">
@@ -256,13 +285,13 @@ function RegisterDoctor() {
           </label>
           <select
             className="form-select bg-light border border-none text-dark p-2"
-            name="turno"
-            value={state.turno}
-            onChange={handleChange}
+            name="startTime"
+            onChange={SepararStartEnd}
           >
-            <option value="">Seleccionar turno</option>
-            <option value={state.turno[0]}>Mañana</option>
-            <option value={state.turno[1]}>Tarde</option>
+            <option value="" hidden>Seleccionar turno</option>
+            <option value= 'mañana'>Mañana</option>
+            <option value='tarde'>Tarde</option>
+            
           </select>
           {errors.turno && <p className={style.errorText}>{errors.turno}</p>}
         </div>
@@ -271,18 +300,49 @@ function RegisterDoctor() {
           <label htmlFor="" className="fst-italic align-self-start">
             Días disponibles
           </label><br />
-          <input type="checkbox" id="lunes" name="lunes" value={state.days[0]} />
+          <input type="checkbox"
+          onChange={handleOnCheckbox}
+          id="lunes"
+          name="lunes"
+          value="lunes"
+          checked={days.includes("lunes")} />
           <label htmlFor="lunes"> Lunes</label><br />
-          <input type="checkbox" id="martes" name="martes" value={state.days[1]} />
+          <input  type="checkbox"
+          onChange={handleOnCheckbox}
+          id="martes"
+          name="martes"
+          value="martes"
+          checked={days.includes("martes")} />
           <label htmlFor="martes"> Martes</label><br />
-          <input type="checkbox" id="miercoles" name="miercoles" value={state.days[2]} />
+          <input type="checkbox"
+          onChange={handleOnCheckbox}
+          id="miercoles"
+          name="miercoles"
+          value="miercoles"
+          checked={days.includes("miercoles")} />
           <label htmlFor="miercoles"> Miércoles</label><br />
-          <input type="checkbox" id="Jueves" name="Jueves" value={state.days[3]} />
+          <input type="checkbox"
+          onChange={handleOnCheckbox}
+          id="jueves"
+          name="jueves"
+          value="jueves"
+          checked={days.includes("jueves")} />
           <label htmlFor="Jueves"> Jueves</label><br />
-          <input type="checkbox" id="viernes" name="viernes" value={state.days[4]} />
+          <input type="checkbox"
+          onChange={handleOnCheckbox}
+          id="viernes"
+          name="viernes"
+          value="viernes"
+          checked={days.includes("viernes")} />
           <label htmlFor="viernes"> Viernes</label><br />
-          <input type="checkbox" id="sabado" name="sabado" value={state.days[5]} />
+          <input type="checkbox"
+          onChange={handleOnCheckbox}
+          id="sabado"
+          name="sabado"
+          value="sabado"
+          checked={days.includes("sabado")} />
           <label htmlFor="sabado"> Sábado</label><br />
+          
           {errors.days && <p className={style.errorText}>{errors.days}</p>}
         </div>
 
@@ -290,6 +350,7 @@ function RegisterDoctor() {
           type="submit"
           className="btn btn-primary my-3 bg-dark w-50 mx-auto border-0"
           style={{ transition: "background-color 0.2s", backgroundColor: "#000" }}
+          
         >
           Guardar
         </button>
