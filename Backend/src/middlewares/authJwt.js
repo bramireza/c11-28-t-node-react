@@ -17,6 +17,7 @@ const isAuthenticated = (allowesRoles) => {
       }
       const token = authorization.split(" ")[1];
       const decodedToken = verifyToken(token);
+      console.log(decodedToken);
       const user =
         (await Patient.findById(decodedToken._id)) ||
         (await Doctor.findById(decodedToken._id)) ||
@@ -26,6 +27,7 @@ const isAuthenticated = (allowesRoles) => {
         return res.status(401).json({
           ok: false,
           message: "🚫 Un-Authorized 🚫",
+          decodedToken,
         });
       }
       if (!user || !allowesRoles.includes(user.rol)) {
