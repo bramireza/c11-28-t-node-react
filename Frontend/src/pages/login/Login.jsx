@@ -49,9 +49,7 @@ const Login = () => {
         password: state.password,
       };
       try {
-        console.log(body);
         const { data } = await auth.login(body);
-        console.log(data);
         if (data.accessToken) {
           localStorage.setItem("accessToken", data.accessToken);
           navigate("/turno");
