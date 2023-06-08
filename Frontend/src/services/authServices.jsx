@@ -10,7 +10,7 @@ const authServices = () => {
       await api().post("/auth/forgot-password", data),
     resetPassword: async (data) =>
       await api().post("/auth/reset-password", data),
-    loginStaff: async (data) => await api().post("/auth/login/staff", data),
+    loginStaff: async (data) => await api().post("/auth/staff/login", data),
   };
 
   return {
