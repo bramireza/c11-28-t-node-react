@@ -11,5 +11,10 @@
       "src": "/(.*)",
       "dest": "/"
     }
-  ]
+  ],
+  "functions": {
+    "tu_funcion": {
+      "maxDuration": 30
+    }
+  }
 }
