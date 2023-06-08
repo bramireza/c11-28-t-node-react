@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
+import "./ConfirmarCita.css";
 
 function ConfirmarTurnos({ appointment }) {
   const navigate = useNavigate();
@@ -27,10 +28,17 @@ function ConfirmarTurnos({ appointment }) {
 
   function confirmacion() {
     Swal.fire({
-      title: "¡Tu turno médico ha sido confirmado!",
-      text: "Recibirás el comprobante en tu email. Recuerda llevarlo a tu cita.",
-      width: 600,
-      confirmButtonText: "Ver mis Turnos",
+      icon: 'success',
+      html: '<h1>¡Su turno médico ha sido confirmado con éxito!</h1><p>En un momento enviaremos el comprobante del mismo al mail con el que te registraste. Recuerda llevarlo contigo el dia de tu cita.</p>',
+      // text: "En un momento enviaremos el comprobante del mismo al mail con el que te registraste. Recuerda llevarlo contigo el dia de tu cita.",
+      width: 382, 
+           
+      confirmButtonText: "Ver turnos confirmados",
+      customClass: {
+        confirmButton: 'custom-button',
+        text: 'texto',
+      },
+      
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
@@ -42,45 +50,53 @@ function ConfirmarTurnos({ appointment }) {
   return (
     <div>
       {loading ? (
-        <section className="container p-3">
-          <h3>3. Confirmar Turno</h3>
-          <p>Forem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          <div className="card">
-            <div className="card-body">
-              <h5 className="card-title bg-body-secondary text-center">
-                Información del Turno
-              </h5>
-              <div className="d-flex row">
-                <div className="col">
-                  <p className="card-text">Especialidad:</p>
-                  <p className="card-text">Profesional:</p>
-                  <p className="card-text">Fecha y Hora:</p>
-                </div>
-                <div className="col">
-                  <p className="card-text">{dataAppointment?.specialty.name}</p>
-                  <p className="card-text">{dataAppointment?.doctor.name}</p>
-                  <p className="card-text">{formattedDate} hs</p>
+        <div>
+          <div className="numero-titulo">
+            <p className="numero">3</p>
+            <h2 className="titulo">Confirmar turno</h2>
+            <p className="parrafo">Para finalizar, te pediremos que confirmes el turno asignado. De lo contrario elegir "Cancelar".</p>
+          </div>
+          <section className="container p-3 section">
+
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title bg-body-secondary text-center">
+                  Información del Turno
+                </h5>
+                <div className="d-flex row">
+                  <div className="col">
+                    <p className="card-text">Especialidad:</p>
+                    <p className="card-text">Profesional:</p>
+                    <p className="card-text">Fecha y Hora:</p>
+                    <p className="card-text">Lugar:</p>
+                  </div>
+                  <div className="col">
+                    <p className="card-text">{dataAppointment?.specialty.name}</p>
+                    <p className="card-text">{dataAppointment?.doctor.name}</p>
+                    <p className="card-text">{formattedDate} hs</p>
+                    <p className="card-text">Hospital</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <p>Texto sobre cancelaciones y demás</p>
-          <div className="container d-flex flex-column">
-            <button
-              className="btn btn-primary my-2 mb-3"
-              onClick={confirmacion}
-            >
-              Confirmar turno
-            </button>
-            <Link
-              to="/turnos-especialidad"
-              className="btn btn-outline-primary"
-              href="#"
-            >
-              Cancelar
-            </Link>
-          </div>
-        </section>
+            <p>Si no desea el turno puede presionar en Cancelar.</p>
+            <div className="container d-flex flex-column">
+              <button
+                className="btn btn-primary my-2 mb-3"
+                onClick={confirmacion}
+              >
+                Confirmar turno
+              </button>
+              <Link
+                to="/turnos-especialidad"
+                className="btn btn-outline-primary"
+                href="#"
+              >
+                Cancelar
+              </Link>
+            </div>
+          </section>
+        </div>
       ) : (
         ""
       )}

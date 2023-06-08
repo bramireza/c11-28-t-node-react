@@ -105,15 +105,26 @@ const Calendario = ({ agenda, medId }) => {
   return (
     <div className="almanaque">
       {loading ? (
-        <Calendar
-          value={fechaSeleccionada}
-          onChange={handleFechaChange}
-          tileClassName={agregarClaseCSS}
-          tileDisabled={deshabilitarDias}
-          minDate={minDate}
-          maxDate={maxDate}
-          onClickDay={crearCita}
-        />
+        <div className="calendario">
+          <div className="numero-titulo">
+            <p className="numero">2</p>
+            <h2 className="titulo">Seleccionar Fecha</h2>
+            <p className="parrafo">Luego deberas indicar el dia de tu asistencia y el sistema te asignara el horario.</p>
+          </div>
+
+          <Calendar
+            value={fechaSeleccionada}
+            onChange={handleFechaChange}
+            tileClassName={agregarClaseCSS}
+            tileDisabled={deshabilitarDias}
+            minDate={minDate}
+            maxDate={maxDate}
+            onClickDay={crearCita}
+          />
+
+
+        </div>
+
       ) : (
         ""
       )}

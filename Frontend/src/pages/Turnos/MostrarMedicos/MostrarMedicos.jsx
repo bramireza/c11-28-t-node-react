@@ -13,21 +13,23 @@ function ModalMedicos({ med, idEspecialidad }) {
       recolectarDatos(idEspecialidad)
       api()
         .get("/specialty/" + idEspecialidad)
-        .then((response) => setEspecialidad(response.data.specialty.name))        
+        .then((response) => setEspecialidad(response.data.specialty.name))
         .catch((error) => console.log(error));
       //setEspecialidad();
     }
   }, [idEspecialidad]);
   return (
-    <div>
+    <div >
       <Link to={`/fecha-turno/${med._id}`}>
-        <div className="modal-medicos">
-          <span className="imagen-modal">imagen</span>
+        <div  className="modal-medicos">
+          <img className="imagen-modal" src="/images/Profile_picture.png" alt="" />
           <div className="contenido-medicos">
-            <h6>Dr. {med.name}</h6>
+            <h6 className="nombre">Dr. {med.name}</h6>
+
+            <p className="matricula">N° de Matricula: {med.license}</p>
 
             {idEspecialidad ? (
-              <p>Especialidad: {especialidad}</p>
+              <p className="especialidad">Especialidad: {especialidad}</p>
             ) : (
               <p>
                 Especialidad:
@@ -38,8 +40,8 @@ function ModalMedicos({ med, idEspecialidad }) {
             )}
             {/* <p>Dias y Horarios</p> */}
             {/* <p>indefinido por el momento</p> */}
-            <p className="matricula">N° de Matricula: {med.license}</p>
-            <button className="p-1">Ver Agenda</button>
+           
+            <button className="boton">Ver Agenda</button>
           </div>
         </div>
       </Link>

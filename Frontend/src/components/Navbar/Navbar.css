@@ -9,39 +9,75 @@
     background-color: white;
 }
 
-.navbar-toggler-icon {
-    background-color: white;    
+.boton-ingresar {
+    background: linear-gradient(0deg, #00BFB2, #00BFB2),
+        linear-gradient(0deg, #FFFFFF, #FFFFFF);
+        height: 48px;
+        width: 89px;
+        left: 309px;
+        top: 16px;
+        border-radius: 8px;
+        border: solid 1px black;
+        padding: 12px 16px 12px 16px;        
+}
+
+.navbar-toggler-icon {   
+    background-image: url(../Navbar/icons8-menú-30.png) !important;     
 }
 
 .navbar-toggler {
-    background-color: white;    
-}
-.navbar {
-    width: 100%;  
+    /* background-color: rgba(#1043A5) */
+    background-color: #1043A5;
+    border: none;
+    border-image: none;
+    position: relative;   
 }
 
-.navbar-brand{
-    margin: 0;
+.navbar {
+    width: 100%;
+    /* background-color: rgba(#1043A5); */
+    background-color: #1043A5;
+    /* margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden; */
+    z-index: 1000;
 }
-.logo-menu{
+
+.navbar-brand {
+    margin: 0;
+    
+}
+
+
+
+.logo-menu {
     display: flex;
     flex-direction: row-reverse;
-    justify-content: space-between;
+    justify-content: flex-end;
     width: 55vw;
+    align-items: center;
     flex-wrap: wrap;
 
 }
 
 .logo {
-    border: 1px solid black;
-    width: 80px;
-    height: 40px;
-    background-color: bisque;
-    padding: 10px;
+    /* border: 1px solid black; */
+    width: 35vw;
+    /* height: 48px; */
+    /* background-color: bisque; */
+    /* padding: 10px; */
     text-align: center;
+    margin-left: 10px;
 }
 
-.navbar>.container, .navbar>.container-fluid, .navbar>.container-lg, .navbar>.container-md, .navbar>.container-sm, .navbar>.container-xl, .navbar>.container-xxl {
+.navbar>.container,
+.navbar>.container-fluid,
+.navbar>.container-lg,
+.navbar>.container-md,
+.navbar>.container-sm,
+.navbar>.container-xl,
+.navbar>.container-xxl {
     display: flex;
     flex-direction: row-reverse;
     flex-wrap: inherit;
@@ -49,25 +85,38 @@
     justify-content: space-between;
 }
 
-.logo-ingresar{
+.logo-ingresar {
     display: flex;
     width: 60vw;
     justify-content: space-between;
 }
 
+@media (min-width: 768px) {
+    .logo {
+        
+        width: 20vw;
+    }
+}
+
 
 @media (min-width: 1024px) {
-    .logo-menu{
+    .logo-menu {
         flex-direction: row;
         width: 70vw;
     }
 
     .navbar-expand-lg .navbar-collapse {
-        display: flex!important;
+        display: flex !important;
         flex-basis: auto;
         justify-content: flex-end;
         width: 60vw;
     }
+
+    .logo {
+        /* border: 1px solid black; */
+        width: 10vw;
+        margin-left: 0;
+        
+    }
+    
 }
-
-
