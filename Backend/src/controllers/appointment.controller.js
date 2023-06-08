@@ -92,10 +92,10 @@ const store = async (req, res) => {
       //   subject: "Confirmación Cita Médica",
       //   html: `<p>Hola ${patient.name},</p><p>Tu cita médica se ha generado con exito</p><p><strong>Fecha y hora:</strong> ${dateFormat} hs<br><strong>Doctor:</strong> ${populatedAppointment.doctor.name}<br><strong>Especialidad:</strong> ${populatedAppointment.specialty.name}</p>`,
       // });
-      // return res.status(201).json({
-      //   ok: true,
-      //   appointment: populatedAppointment,
-      // });
+      return res.status(201).json({
+        ok: true,
+        appointment: populatedAppointment,
+      });
     } else {
       res.status(500).json({
         ok: false,
