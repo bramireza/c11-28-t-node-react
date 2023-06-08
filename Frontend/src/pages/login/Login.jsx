@@ -18,7 +18,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.setItem("accessToken"))
+    if (localStorage.getItem("accessToken"))
       localStorage.removeItem("accessToken");
   }, []);
   const validate = () => {
