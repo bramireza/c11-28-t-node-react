@@ -24,11 +24,19 @@ mongoose
 
 app.use(
   cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    exposedHeaders: ["Authorization"],
+    origin: ["http://localhost:3000", process.env.FRONT_URL],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "Accept",
+      "Origin",
+      "Access-Control-Allow-Headers",
+      "Access-Control-Request-Headers",
+      "Access-Control-Allow-Origin",
+    ],
   })
 );
 app.use(express.json());
