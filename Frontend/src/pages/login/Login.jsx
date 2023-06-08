@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import authServices from "../../services/authServices";
@@ -17,6 +17,10 @@ const Login = () => {
   const { auth } = authServices();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (localStorage.getItem("accessToken"))
+      localStorage.removeItem("accessToken");
+  }, []);
   const validate = () => {
     let errorsList = {};
 

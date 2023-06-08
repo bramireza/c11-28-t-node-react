@@ -54,20 +54,21 @@
 .logo-menu {
     display: flex;
     flex-direction: row-reverse;
-    justify-content: space-between;
+    justify-content: flex-end;
     width: 55vw;
-    
+    align-items: center;
     flex-wrap: wrap;
 
 }
 
 .logo {
-    border: 1px solid black;
-    width: 80px;
-    height: 48px;
-    background-color: bisque;
-    padding: 10px;
+    /* border: 1px solid black; */
+    width: 35vw;
+    /* height: 48px; */
+    /* background-color: bisque; */
+    /* padding: 10px; */
     text-align: center;
+    margin-left: 10px;
 }
 
 .navbar>.container,
@@ -90,6 +91,13 @@
     justify-content: space-between;
 }
 
+@media (min-width: 768px) {
+    .logo {
+        
+        width: 20vw;
+    }
+}
+
 
 @media (min-width: 1024px) {
     .logo-menu {
@@ -103,4 +111,12 @@
         justify-content: flex-end;
         width: 60vw;
     }
+
+    .logo {
+        /* border: 1px solid black; */
+        width: 10vw;
+        margin-left: 0;
+        
+    }
+    
 }

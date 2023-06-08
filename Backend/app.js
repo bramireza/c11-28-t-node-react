@@ -24,35 +24,39 @@ mongoose
 
 app.use(
   cors({
-    origin: "*",
+    origin: ["http://localhost:3000", process.env.FRONT_URL],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: [
-      "Origin",
-      "X-Requested-With",
       "Content-Type",
+      "Authorization",
+      "X-Requested-With",
       "Accept",
-      "authorization",
+      "Origin",
+      "Access-Control-Allow-Headers",
+      "Access-Control-Request-Headers",
+      "Access-Control-Allow-Origin",
     ],
   })
 );
-app.use(logger("dev"));
 app.use(express.json());
+app.use(logger("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+//   );
+//   res.setHeader(
+//     "Access-Control-Allow-Headers",
+//     "X-Requested-With,content-type"
+//   );
+//   res.setHeader("Access-Control-Allow-Credentials", true);
+//   next();
+// });
 
 router(app);
 

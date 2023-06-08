@@ -35,12 +35,12 @@ const store = async (req, res) => {
     doctor.password = await encriptPass(password);
     const saveDoctor = await doctor.save();
 
-    await transporter.sendMail({
-      from: process.env.MAIL_MAIL,
-      to: doctor.email,
-      subject: "Confirmación Creacion de Cuenta",
-      html: `<p>Hola ${doctor.name},</p><p>Tus crendenciales son las siguientes</p><p><strong>PersonalId:</strong> ${doctor.personalId}<br><strong>Password:</strong> ${password}</p>`,
-    });
+    // await transporter.sendMail({
+    //   from: process.env.MAIL_MAIL,
+    //   to: doctor.email,
+    //   subject: "Confirmación Creacion de Cuenta",
+    //   html: `<p>Hola ${doctor.name},</p><p>Tus crendenciales son las siguientes</p><p><strong>PersonalId:</strong> ${doctor.personalId}<br><strong>Password:</strong> ${password}</p>`,
+    // });
     return res.status(201).json({
       ok: true,
       message: `Se ha guardado con exito la cuenta de ${doctor.name} con el personalId de ${doctor.personalId} `,

@@ -66,8 +66,9 @@ const TurnoEspecialidad = () => {
         />
       )}
       <div className="orden-modales">
-        {loading2
-          ? <MensajeAnteriorEspecialidad />
+        {loading2  
+        ? <MensajeAnteriorEspecialidad/>      
+          // ? <div className="area-imagen"><img src="/images/77192-search-doctor.jpg" alt="imagen-de-lupa" className="imagen-lupa"/></div>
           : medicosEspecialidad.map((med) => (
             <div key={med._id}>
               {<ModalMedicos med={med} idEspecialidad={idEspecialidad} />}
