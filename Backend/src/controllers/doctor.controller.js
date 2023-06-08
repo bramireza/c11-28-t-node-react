@@ -4,7 +4,6 @@ const encriptPass = require("../utils/bcrypt");
 const { transporter } = require("../utils/nodemailer");
 const { store: storeSchedule } = require("../controllers/schedule.controller");
 const convertWeeklyScheduleToMonthCalendar = require("../middlewares/calendar");
-const { emailQueue } = require("../utils/emailQueue");
 const store = async (req, res) => {
   try {
     const data = req.body;
@@ -36,7 +35,7 @@ const store = async (req, res) => {
     doctor.password = await encriptPass(password);
     const saveDoctor = await doctor.save();
 
-    await emailQueue.add({
+    await transporter.sendMail({
       from: process.env.MAIL_MAIL,
       to: doctor.email,
       subject: "Confirmación Creacion de Cuenta",

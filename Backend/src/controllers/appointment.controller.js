@@ -6,7 +6,6 @@ const Appointment = require("../models/Appointment");
 const Doctor = require("../models/Doctor");
 const Patient = require("../models/Patient");
 const Specialty = require("../models/Specialty");
-const { emailQueue } = require("../utils/emailQueue");
 const { transporter } = require("../utils/nodemailer");
 
 const store = async (req, res) => {
@@ -87,7 +86,7 @@ const store = async (req, res) => {
         second: "numeric",
         timeZone,
       });
-      await emailQueue.add({
+      await transporter.sendMail({
         from: process.env.MAIL_MAIL,
         to: patient.email,
         subject: "Confirmación Cita Médica",
