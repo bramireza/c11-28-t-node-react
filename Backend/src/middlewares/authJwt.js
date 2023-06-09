@@ -16,7 +16,7 @@ const isAuthenticated = (allowesRoles) => {
         });
       }
       const token = authorization.split(" ")[1];
-      const decodedToken = verifyToken(token);
+      const decodedToken = await verifyToken(token);
       const user =
         (await Patient.findById(decodedToken._id)) ||
         (await Doctor.findById(decodedToken._id)) ||
