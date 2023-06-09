@@ -53,10 +53,12 @@ const Login = () => {
         password: state.password,
       };
       try {
-        const { data } = await auth.login(body);
-        if (data.accessToken) {
 
-          await new Promise((resolve, reject) => {
+      const { data } = await auth.login(body);
+
+      if (data.accessToken) {
+
+        await new Promise((resolve, reject) => {
 
           localStorage.setItem("accessToken", data.accessToken);
 
@@ -65,10 +67,18 @@ const Login = () => {
         });
 
         navigate("/turno");
-        console.log(data);
-      } catch (err) {
-        console.log(err);
+
+      } else {
+
+        setErrors({ message: "Authentication failed" });
+
       }
+
+    } catch (err) {
+
+      console.log(err);
+
+    }
     }
     setErrors(response);
   };
