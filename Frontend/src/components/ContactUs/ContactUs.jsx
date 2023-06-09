@@ -8,9 +8,9 @@ function ContactUs() {
                 <h5 className="p-3">Estamos para brindarte toda la información y atención que necesites.</h5> 
                 <div id="container-contact">
                     <div id="images-container">
-                        <img src="../../../public/images/mail-icon.PNG" alt="" />
-                        <img src="../../../public/images/phone-icon.PNG" alt="" />
-                        <img src="../../../public/images/map-icon.PNG" alt="" />
+                        <img src="/images/mail-icon.PNG" alt="" />
+                        <img src="/images/phone-icon.PNG" alt="" />
+                        <img src="/images/map-icon.PNG" alt="" />
                     </div>
                     <div id="info-contact-container">
                         <p>hello@relume.io</p>
