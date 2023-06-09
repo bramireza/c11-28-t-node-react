@@ -47,7 +47,7 @@ function TurnoOnLine() {
             <p className="par">Finalmente, te solicitamos que confirmes el turno asignado.</p>
           </div>
         </div>
-        <Link to='/turnos-especialidad' variant="primary" className='btn color-boton w-85 mx-auto my-3'>Comenzar</Link>
+        <Link to='/turnos-especialidad' variant="primary" className='btn color-boton w-75 mx-auto my-3'>Comenzar</Link>
       </div>
     </div>
 
