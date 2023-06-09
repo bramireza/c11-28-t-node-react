@@ -54,7 +54,7 @@ const Login = () => {
       };
 
       try {
-        const { data } = await auth.loginStaff(body);
+        const { data } = await auth.login(body);
         if (data.accessToken) {
           localStorage.setItem("accessToken", data.accessToken);
           navigate("/admin");
