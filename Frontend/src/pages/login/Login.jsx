@@ -52,13 +52,16 @@ const Login = () => {
         personalId: state.personalId,
         password: state.password,
       };
-      const { data } = await auth.login(body);
 
-      if (data.accessToken) {
-        localStorage.setItem("accessToken", data.accessToken);
-        navigate("/turno");
-      } else {
-        setErrors({ message: "Authentication failed" });
+      try {
+        const { data } = await auth.loginStaff(body);
+        if (data.accessToken) {
+          localStorage.setItem("accessToken", data.accessToken);
+          navigate("/admin");
+        }
+        console.log(data);
+      } catch (err) {
+        console.log(err);
       }
     }
 
