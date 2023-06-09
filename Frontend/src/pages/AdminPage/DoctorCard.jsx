@@ -1,57 +1,76 @@
+
 // import PropTypes from 'prop-types';
+
 import { Link, useParams, useNavigate } from "react-router-dom";
 //import { getDoctorById } from './MockDoctors';
-import { useState, useEffect } from 'react';
-import { api } from '../../utilities/axios';
+import { useState, useEffect } from "react";
+import { api } from "../../utilities/axios";
 
 function DoctorCard() {
+  const { medId } = useParams();
+  const navigate = useNavigate();
+  const [doctor, setDoctor] = useState({});
+  const [specialties, setSpecialties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [birthDay, setBirthDay] = useState("");
+  const [days, setDays] = useState([]);
 
-    const { medId } = useParams();
-    const navigate = useNavigate();
-    const [doctor, setDoctor] = useState({});
-    const [specialties, setSpecialties] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [birthDay, setBirthDay] = useState("");
-    const [days, setDays] = useState([]);
+  function handleRemove() {
+    api()
+      .delete(`/doctor/${medId}`)
+      .then(navigate("/admin"))
+      .catch((e) => console.log(e));
+  }
 
-    function handleRemove(){
-        api()
-            .delete(`/doctor/${medId}`)
-            .then(navigate('/admin'))
-            .catch((e) => console.log(e))
+  function changeDayFormat(days) {
+    let dias = [];
+    days.forEach((day) => {
+      switch (day) {
+        case "Monday":
+          dias.push(" Lunes");
+          break;
+        case "Tuesday":
+          dias.push(" Martes");
+          break;
+        case "Wednesday":
+          dias.push(" Miércoles");
+          break;
+        case "Thursday":
+          dias.push(" Jueves");
+          break;
+        case "Friday":
+          dias.push(" Viernes");
+          break;
+        case "Saturday":
+          dias.push(" Sábado");
+          break;
+        case "Sunday":
+          dias.push(" Domingo");
+          break;
+        default:
+          break;
+      }
+    });
+    setDays(dias);
+  }
+
+  useEffect(() => {
+    try {
+      api()
+        .get(`/doctor/${medId}`)
+        .then((res) => {
+          setSpecialties(res.data.doctor.specialties);
+          setDoctor(res.data.doctor);
+          setBirthDay(res.data.doctor.birthDay.slice(0, 10));
+          changeDayFormat(res.data.doctor.schedule.daysOfWeek);
+          setLoading(false);
+        })
+        .catch((e) => console.log(e));
+    } catch (error) {
+      console.log(error);
     }
+  }, [medId]);
 
-    function changeDayFormat(days){
-        let dias = [];
-        days.forEach(day => {
-            switch (day) {
-                case "Monday":
-                    dias.push(" Lunes");
-                    break;
-                case "Tuesday":
-                    dias.push(" Martes");
-                    break;
-                case "Wednesday":
-                    dias.push(" Miércoles");
-                    break;
-                case "Thursday":
-                    dias.push(" Jueves");
-                    break;
-                case "Friday":
-                    dias.push(" Viernes");
-                    break;
-                case "Saturday":
-                    dias.push(" Sábado");
-                    break;
-                case "Sunday":
-                    dias.push(" Domingo");
-                    break;
-                default:
-                    break;
-            }
-        });
-        setDays(dias);
-    }
 
     useEffect(() => {
         try {
@@ -138,9 +157,11 @@ function DoctorCard() {
                     </div>
                 </div>
                 )}
-        </div>
-    )
-}
 
+        </div>
+      )
+    </div>
+  )
+}
 
 export default DoctorCard;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import authServices from "../../services/authServices";
@@ -16,11 +16,15 @@ const LoginStaff = () => {
 
   const { auth } = authServices();
   const navigate = useNavigate();
-
+  useEffect(() => {
+    if (localStorage.getItem("accessToken"))
+      localStorage.removeItem("accessToken");
+  }, []);
   const validate = () => {
     let errorsList = {};
 
-    if (!state.email) errorsList = { ...errorsList, email: "Campo obligatorio" };
+    if (!state.email)
+      errorsList = { ...errorsList, email: "Campo obligatorio" };
 
     //const errorPass = validatePassword(state.password);
     //if (errorPass) errorsList = { ...errorsList, password: errorPass };
@@ -75,9 +79,7 @@ const LoginStaff = () => {
             value={state.email}
             onChange={handleChange}
           />
-          {errors.email && (
-            <p className={style.errorText}>{errors.email}</p>
-          )}
+          {errors.email && <p className={style.errorText}>{errors.email}</p>}
         </div>
 
         <div className="d-flex flex-column">
@@ -110,7 +112,6 @@ const LoginStaff = () => {
           Olvidé mi contraseña
         </Link>
         <button className="btn btn-success my-2 mx-auto w-50">Ingresar</button>
-
       </form>
     </main>
   );
