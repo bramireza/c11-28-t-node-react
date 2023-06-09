@@ -1,3 +1,4 @@
+import mapa from '../../assets/mapacontacto.png';
 import "./contactUs.css"
 function ContactUs() {
     return ( 
@@ -19,7 +20,7 @@ function ContactUs() {
                 </div>
             </div>
             <div className="col-sm-8">
-                <img src="..." alt="mapa" />
+                <img src={mapa} alt="mapa" className='img-fluid'/>
             </div>
         </section>
     );
