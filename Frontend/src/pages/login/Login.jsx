@@ -57,7 +57,7 @@ const Login = () => {
         const { data } = await auth.login(body);
         if (data.accessToken) {
           localStorage.setItem("accessToken", data.accessToken);
-          navigate("/admin");
+          navigate("/turno");
         }
         console.log(data);
       } catch (err) {
