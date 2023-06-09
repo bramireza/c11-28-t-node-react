@@ -16,10 +16,10 @@ function LandingPage() {
       <Carrusel />
       <div className="desktop-responsive">
         <QuienesSomos />
+      </div>
         <Servicios />
         <EspecialidadesItems />
         <ListaNoticias />
-      </div>
         <ContactUs />
         <Entidades />
         <Footer />

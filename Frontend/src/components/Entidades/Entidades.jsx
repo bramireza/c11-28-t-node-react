@@ -2,12 +2,20 @@
 function Entidades() {
     return (
         <section className=" p-3 m-5">
-            <h4 className="row justify-content-center mb-5">Entidades</h4>
+            <h4 className="row justify-content-center mb-5" 
+                style={{ 
+                    color: "#0B2860",
+                    fontFamily: "'Poppins', 'sans-serif'",
+                    fontWeight: '600',
+                    fontSize: '32px',
+                    lineHeight: '150%',
+                 }}
+            >Certificaciones</h4>
             <div className="d-flex justify-content-center row gap-5">
-                <img style={{ width: '110px', height: '112px' }} src="https://avatars.githubusercontent.com/u/16244902?s=280&v=4" alt="" />
-                <img style={{ width: '110px', height: '112px' }} src="https://w7.pngwing.com/pngs/667/592/png-transparent-world-health-organization-world-health-organization-logo-world-thumbnail.png" alt="" />
-                <img style={{ width: '110px', height: '112px' }} src="https://www.unpa.edu.ar/sites/default/files/editor/noticias/LogoConicet.jpg" alt="" />
-                <img style={{ width: '110px', height: '112px' }} src="https://pbs.twimg.com/profile_images/1490696354439516163/Kx8hscxp_400x400.jpg" alt="" />
+                <img style={{ width: '202px', height: '66px' }} src="/images/cert1.png.svg" alt="" />
+                <img style={{ width: '202px', height: '66px' }} src="/images/European.png.svg" alt="" />
+                <img style={{ width: '202px', height: '66px' }} src="/images/Colleg.png.svg" alt="" />
+                <img style={{ width: '202px', height: '66px' }} src="/images/HIMSSNuevo.png.svg" alt="" />
             </div>
         </section>
     );
