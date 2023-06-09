@@ -55,9 +55,16 @@ const Login = () => {
       try {
         const { data } = await auth.login(body);
         if (data.accessToken) {
+
+          await new Promise((resolve, reject) => {
+
           localStorage.setItem("accessToken", data.accessToken);
-          navigate("/turno");
-        }
+
+          resolve();
+
+        });
+
+        navigate("/turno");
         console.log(data);
       } catch (err) {
         console.log(err);
