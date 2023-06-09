@@ -58,7 +58,7 @@
     border-radius: 8px; 
     z-index: 1000;
     font-size: 17px;
-    color: rgba(11, 40, 96, 1);
+    /* color: rgba(11, 40, 96, 1); */
    
 }
 
@@ -97,6 +97,7 @@
 .color-boton{
     background: #00BFB2!important;
     color: white!important;
+    width: 290px;
 }
 
 

@@ -82,14 +82,14 @@ function ConfirmarTurnos({ appointment }) {
             <p>Si no desea el turno puede presionar en Cancelar.</p>
             <div className="container d-flex flex-column">
               <button
-                className="btn btn-primary my-2 mb-3"
+                className="btn color-boton mb-3"
                 onClick={confirmacion}
               >
                 Confirmar turno
               </button>
               <Link
                 to="/turnos-especialidad"
-                className="btn btn-outline-primary"
+                className="btn color-boton2 btn-outline-primary"
                 href="#"
               >
                 Cancelar
