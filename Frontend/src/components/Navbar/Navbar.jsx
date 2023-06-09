@@ -17,9 +17,10 @@ function NavBar() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" className='border-0'/>
           <Navbar.Collapse id="basic-navbar-nav" >
             <Nav className='nav'>
-              <NavLink to="/" href="#home" className='m-2 text-white' >Somos</NavLink>
-              <NavLink  href="#link" className='m-2 text-white'>Servicios</NavLink>
-              <NavLink href="#link" className='m-2 text-white' >About us</NavLink>
+              <NavLink to="/" href="#home" className='m-2 text-white text-decoration-none' >¿Quienes Somos?</NavLink>
+              <NavLink  href="#link" className='m-2 text-white text-decoration-none'>Servicios</NavLink>
+              <NavLink href="#link" className='m-2 text-white text-decoration-none' >Especialidades</NavLink>
+              <NavLink href="#link" className='m-2 text-white text-decoration-none' >Noticias</NavLink>
             </Nav>
           </Navbar.Collapse>
         </div>
