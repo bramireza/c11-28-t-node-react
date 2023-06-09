@@ -168,7 +168,7 @@ function DoctorCard() {
             </button>
             {/*<Link to="/remove" className="btn btn-outline-secondary mx-2" style={{ color: 'black', width: '187px' }} href="#">Eliminar</Link>*/}
             <Link
-              to={`/doctor/edit/${doctor.medId}`}
+              to={`/doctor/edit/${doctor._id}`}
               className="btn btn-secondary mb-3"
               style={{
                 color: "#FFFFFF",
