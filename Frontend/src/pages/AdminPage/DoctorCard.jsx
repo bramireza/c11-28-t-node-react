@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Link, useParams, useNavigate } from "react-router-dom";
 //import { getDoctorById } from './MockDoctors';
 import { useState, useEffect } from 'react';
