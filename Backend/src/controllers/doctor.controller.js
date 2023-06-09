@@ -2,7 +2,10 @@ const Doctor = require("../models/Doctor");
 const crypto = require("crypto");
 const encriptPass = require("../utils/bcrypt");
 const { transporter } = require("../utils/nodemailer");
-const { store: storeSchedule } = require("../controllers/schedule.controller");
+const {
+  store: storeSchedule,
+  update: updateSchedule,
+} = require("../controllers/schedule.controller");
 const convertWeeklyScheduleToMonthCalendar = require("../middlewares/calendar");
 const store = async (req, res) => {
   try {
@@ -151,6 +154,7 @@ const update = async (req, res) => {
     const doctor = await Doctor.findByIdAndUpdate({ _id }, req.body, {
       new: true,
     });
+    doctor.schedule = await updateSchedule(req.body.schedule, res);
     if (!doctor) {
       return res.status(404).json({
         ok: false,
