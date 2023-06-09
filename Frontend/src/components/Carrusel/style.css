@@ -1,7 +1,4 @@
-.contenedor img{
-    width: 100%;
-    height: calc(100vh - 60px);
-}
+
 .titulo{
     color: #000;
 }
@@ -9,10 +6,10 @@
     color: #000;
 }
 
-@media screen and (max-width: 414px) {
+/* @media screen and (max-width: 414px) {
     .contenedor img{
         width: 100%;
         height: calc(60vh - 60px);
     }
     
-}
+} */

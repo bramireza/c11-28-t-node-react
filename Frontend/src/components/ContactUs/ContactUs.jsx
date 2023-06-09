@@ -1,3 +1,5 @@
+import mapa from '../../assets/mapacontacto.png';
+
 function ContactUs() {
     return ( 
         <section className="container-fluid row m-0 p-3">
@@ -11,7 +13,7 @@ function ContactUs() {
                 </div>
             </div>
             <div className="col-sm-8">
-                <img src="..." alt="mapa" />
+                <img src={mapa} alt="mapa" className='img-fluid'/>
             </div>
         </section>
     );
