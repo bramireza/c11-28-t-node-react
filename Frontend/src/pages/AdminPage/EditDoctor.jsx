@@ -225,7 +225,7 @@ function EditDoctor() {
                   className="form-control bg-light border border-none text-dark p-2"
                   placeholder="Fecha de Nacimiento"
                   name="birthDay"
-                  value={state.birthDay}
+                  value={new Date(state.birthDay).toISOString().split("T")[0]}
                   onChange={handleChange}
                 />
                 {errors.birthday && (
