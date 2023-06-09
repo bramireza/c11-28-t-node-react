@@ -1,33 +1,28 @@
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-
+import './style.css';
+import imgsomos from '../../assets/imgquienes.png';
+import cruz from '../../assets/cruzsomos.svg';
 
 
 function QuienesSomos() {
   return (
-    <Card border="light">
-      <Row>
-        <Col md={6}>
-          <Card.Img className='card_img' variant="top" src="https://thumbs.dreamstime.com/b/grupo-de-doctores-felices-que-se-encuentran-en-la-oficina-del-hospital-52510947.jpg" />
-        </Col>
-        <Col md={6}>
-          <Card.Body className='d-flex flex-column'>
-            <Card.Title className='fw-bolder card_title'>¿ Quienes Somos ?</Card.Title>
-            <Card.Text>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis facilis, mollitia corrupti rerum enim doloribus nisi exercitationem. Amet, quod? Sed nisi modi hic magni voluptate? Sapiente magnam dicta repellat tenetur!
-            </Card.Text>
-            <ListGroup className="list-group-flush lista_grupo">
-              <ListGroup.Item >Punto 1</ListGroup.Item>
-              <ListGroup.Item>Punto 2</ListGroup.Item>
-              <ListGroup.Item>Punto 3</ListGroup.Item>
-            </ListGroup>
-          </Card.Body>
-        </Col>
+    <>
+      
+        <div className='contimg '>
+            <img src={imgsomos} alt="" className='imgquienesSomos mx-auto' />
+            <div className='cuadroAzul px-3'>
+              <h2 className='mt-4'>¿Quienes somos?</h2>
+              <p className='mt-3'>Somos Syncare Hospital, una institución de salud comprometida con el bienestar y la atención médica de calidad. Nuestro equipo de profesionales altamente capacitados y nuestra infraestructura de vanguardia nos permiten brindar servicios médicos de excelencia a nuestros pacientes. 
+                  Brindamos:</p>
+              <p ><span><img src={cruz} alt="cruzimg" className='parraimg me-1' /></span> Amplia especialización</p>
+              <p ><span><img src={cruz} alt="cruzimg" className='parraimg me-1' /></span> Atención Integra</p>
+              <p ><span><img src={cruz} alt="cruzimg" className='parraimg me-1' /></span> Tecnologia Avanzada</p>
+          
+            </div>
+        </div>
 
-      </Row>
-    </Card>
+      
+    </>
+    
   );
 }
 

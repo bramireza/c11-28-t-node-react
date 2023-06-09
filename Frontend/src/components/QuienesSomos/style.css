@@ -1,0 +1,52 @@
+
+.contimg{ 
+    margin:20px 0; 
+    width: 90vw;
+    /* background   : #444; */
+    /* position: absolute; */
+}
+.imgquienesSomos{
+    width: 90%;
+    height: 80%;
+    /* position: relative;
+    top: 0;
+    left: 20px; */
+
+    
+}
+.parraimg{
+    display: inline;
+    width: 5%;
+    
+}
+/* .parraimg span{
+    display: inline;
+    width: 100px;
+} */
+.cuadroAzul{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 80%;
+    height:1fr;
+    border-radius: 20px;
+    /* z-index: 5; */
+    top: -80px;
+    left: 70px;
+    position: relative;
+    font-size: 1rem;
+    background: #1043A5;
+    color: #fff;
+}
+@media (min-width:1070px) {
+    
+    .cuadroAzul{
+        width: 50%;
+        font-size:2rem;
+        top: -500px;
+    }
+    .parraimg{
+        width: 5%;
+    }
+    
+}
