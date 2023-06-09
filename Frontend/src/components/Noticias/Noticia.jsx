@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 
 function Noticia({ noticia }) {
     return (
-        <div className="card col-sm p-2" >
-            <div className="card-body">
+        <div className="card col-sm p-2">
+            <div className="card-body"  style={{color: '#0B2860'}} >
                 <img className="card-img-top" style={{height: '380px'}} src={noticia.hrefLink} alt={noticia.titulo} />
-                <h5 className="card-title">{noticia.titulo}</h5>
-                <p className="card-text">{noticia.descripcion}</p>
-                <Link to="" style={{color: 'black'}} href="#">Leer más</Link>
+                <p id="notice-speciality">{noticia.speciality}</p>
+                <h5 id="notice-title" className="card-title">{noticia.titulo}</h5>
+                <p id="notice-description" className="card-text">{noticia.descripcion}</p>
+                <Link id="link" to=""href="#">Leer más &gt;</Link>
             </div>
         </div>
     )

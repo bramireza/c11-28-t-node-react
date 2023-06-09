@@ -1,0 +1,7 @@
+#contact-section{
+    background-color: #DFF6F4;
+    width: 100vw;
+}
+#contact-section #container-contact{
+    display: flex;
+}
