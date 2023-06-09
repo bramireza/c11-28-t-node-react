@@ -40,11 +40,15 @@
     color: #fff;
 }
 @media (min-width:900px) {
-    
+    .contimg{ 
+        position: relative;
+        margin-bottom: -200px;
+    }
     .cuadroAzul{
         width: 50%;
         font-size:2rem;
-        top: -500px;
+        position: relative;
+        top: -200px;
     }
     .parraimg{
         width: 5%;
