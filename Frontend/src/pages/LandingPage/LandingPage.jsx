@@ -19,10 +19,10 @@ function LandingPage() {
         <Servicios />
         <EspecialidadesItems />
         <ListaNoticias />
+      </div>
         <ContactUs />
         <Entidades />
         <Footer />
-      </div>
     </>
   );
 }
