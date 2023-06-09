@@ -3,6 +3,7 @@ import DoctorCard from "./DoctorCard";
 import { Link, useNavigate } from "react-router-dom";
 import { getDoctorById, getDoctors } from "./MockDoctors";
 import { api } from "../../utilities/axios";
+import LogoAdmin from '../../assets/LogoAdmin.svg';
 
 function AdminDashboard() {
 
@@ -35,7 +36,7 @@ function AdminDashboard() {
 
     const Table = () => {
         return (
-            <table className="mx-auto border" style={{width: "382px"}}>
+            <table className="mx-auto border" style={{width: "340px"}}>
                 <thead>
                     <tr>
                         <th scope='col'>Foto</th>
@@ -70,15 +71,29 @@ function AdminDashboard() {
 
     return (
         <section className="container-fluid p-3">
-            <h1>Hola, Admin</h1>
-            <h5 className="col-12 mb-3">Administra los datos desde aquí.</h5>
+            <div className="d-flex align-items-center">
+            <img src={LogoAdmin} 
+            className="col-2" 
+            alt="Logo Admin" 
+            style={{
+                width:"80px",
+                height:'80px'
+            }} />
+            <div className="col-6 mx-3">
+                <h1 className="" style={{
+                color:'#0B2860'
+            }}>Hola, Admin</h1>
+                <h5 className="" style={{
+                color:'#0B2860'
+            }}>Administra los datos desde aquí.</h5>
+            </div>
+            </div>
             <div className="row justify-content-center">
-                <button className="btn btn-outline-secondary mt-3 col-8"
+                <button className="btn btn-outline-secondary mt-3 col-12"
                     style={{color: "#FFFFFF", 
                         backgroundColor: "#00BFB2", 
                         border:"none",
-                        width:"382px",
-                        height:"48px"}}
+                        }}
                     onClick={() => navigate("/doctor/create")}
                 >
                     Agregar perfil profesional
@@ -88,11 +103,13 @@ function AdminDashboard() {
                 <label htmlFor="search" className="fst-italic align-self-start"></label>
                 <input
                     type="text"
-                    className="form-control bg-light border border-secondary rounded text-dark"
+                    className="form-control bg-light border border-secondary rounded text-dark mx-auto"
                     placeholder="Buscar por profesional o especialidad"
                     style={{
-                        width:"382px",
-                        height:"48px"}}
+                        width:"340px",
+                        height:"48px",
+                        border:"2px solid #0B2860"
+                    }}
                     name="search"
                     value={searchInput}
                     onChange={handleChange}
