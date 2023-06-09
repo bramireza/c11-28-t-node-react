@@ -6,8 +6,8 @@ function Footer() {
         <footer id="footer">
             <section className="container-fluid d-flex row p-3 m-0">
                 <div className="col-sm-6">
-                    <img id="logo" src="../../../public/images/XMLID_2_.svg"/>
-                    <p>Tu aliado en salud, brindando atención médica de calidad y compromiso con el bienestar de nuestros pacientes</p>
+                    <img id="logo" src="/images/XMLID_2_.svg"/>
+                    <p id="descripcion-footer">Tu aliado en salud, brindando atención médica de calidad y compromiso con el bienestar de nuestros pacientes</p>
                 </div>
                 <div id="seccion-links" className="col-sm px-5">
                     <h5>Secciones</h5>
@@ -22,10 +22,10 @@ function Footer() {
                     <h5 id="title-redes">Redes Sociales</h5>
                     <div id="seccion-redes">
                         <div id="images-footer">
-                            <img src="../../../public/images/Facebook.svg" alt="" />
-                            <img src="../../../public/images/Instagram.svg" alt="" />
-                            <img src="../../../public/images/Twitter.svg" alt="" />
-                            <img src="../../../public/images/LinkedIn.svg" alt="" />
+                            <img src="/images/Facebook.svg" alt="" />
+                            <img src="/images/Instagram.svg" alt="" />
+                            <img src="/images/Twitter.svg" alt="" />
+                            <img src="/images/LinkedIn.svg" alt="" />
                         </div>
                         <div className="">
                             <p>@syncareHospital</p>
