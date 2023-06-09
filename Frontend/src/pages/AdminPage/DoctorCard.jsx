@@ -84,14 +84,14 @@ function DoctorCard() {
                                                                                                             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_VcNrlLvabf6_8efcKV4W_oNFJWuX8U9tbg&usqp=CAU"} alt='medico' />
                             <div className='px-5'>
                                 <h5 className="card-title">{doctor.name}</h5>
-                                <p className="card-text">{"DNI: " + doctor.personalId}</p>
-                                <p className="card-text">{"N. de matricula: " +doctor.license}</p>
+                                <p className="card-text">DNI: <span className='fw-bold'> {doctor.personalId}</span></p>
+                                <p className="card-text">N. de matricula:<span className='fw-bold'> {doctor.license}</span></p>
                             </div>
                         </div>
                         <hr />
                         <h4>Datos personales</h4>
                         <div className='container-fluid row my-4'>
-                            <div className='col'>
+                            <div className='col-6'>
                                 <p className="card-text">Especialidad/es:</p>
                                 <p className="card-text">Fecha de nacimiento:</p>
                                 <p className="card-text">Nacionalidad:</p>
@@ -99,15 +99,15 @@ function DoctorCard() {
                                 <p className="card-text">Teléfono de contacto:</p>
                                 <p className="card-text">Email:</p>
                             </div>
-                            <div className='col'>
+                            <div className='col-6'>
                                 {specialties.map((specialty, index)=> (
-                                    <span className="card-text" key={index}>{specialty.name + " "}</span>
+                                    <span className="card-text fw-bold" key={index}>{specialty.name + " "}</span>
                                 ))}
-                                <p className="card-text mt-3">{birthDay}</p>
-                                <p className="card-text">{doctor.nationality}</p>
-                                <p className="card-text">{doctor.address}</p>
-                                <p className="card-text">{doctor.phoneNumber}</p>
-                                <p className="card-text">{doctor.email}</p>
+                                <p className="card-text mt-4 fw-bold">{birthDay}</p>
+                                <p className="card-text mt-4 fw-bold">{doctor.nationality}</p>
+                                <p className="card-text mt-4 fw-bold">{doctor.address}</p>
+                                <p className="card-text mt-4 fw-bold">{doctor.phoneNumber}</p>
+                                <p className="card-text mt-4 fw-bold">{doctor.email}</p>
                             </div>
                         </div>
                         <hr />
@@ -118,20 +118,20 @@ function DoctorCard() {
                                 <p className="card-text">Días laborales</p>
                             </div>
                             <div className='col'>
-                                <p className="card-text">{doctor.schedule.startTime + " - " + doctor.schedule.endTime}</p> 
-                                <span className="card-text d-flex">{days + " "}</span>
+                                <p className="card-text fw-bold">{doctor.schedule.startTime + " - " + doctor.schedule.endTime}</p> 
+                                <span className="card-text d-flex fw-bold">{days + " "}</span>
                             </div>
 
                         </div>
                     </div>
                     <div className='text-center mt-4'>
-                        <button onClick={ handleRemove } className="btn btn-outline-secondary mx-2" style={{ color: 'black', width: '187px' }}>Eliminar</button>
+                        <button onClick={ handleRemove } className="btn btn-outline-secondary mx-2 mb-3" style={{ color: 'black', width: '260px' }}>Eliminar</button>
                         {/*<Link to="/remove" className="btn btn-outline-secondary mx-2" style={{ color: 'black', width: '187px' }} href="#">Eliminar</Link>*/}
                         <Link to={`/doctor/edit/${doctor.medId}`} 
-                            className="btn btn-secondary" 
+                            className="btn btn-secondary mb-3" 
                             style={{ color: "#FFFFFF", 
                                 backgroundColor: "#00BFB2", 
-                                width: '187px', 
+                                width: '260px', 
                                 border: "#00BFB2" 
                             }} 
                             href="#">Editar</Link>

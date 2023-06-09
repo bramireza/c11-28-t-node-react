@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
-import DoctorCard from "./DoctorCard";
+// import DoctorCard from "./DoctorCard";
 import { Link, useNavigate } from "react-router-dom";
-import { getDoctorById, getDoctors } from "./MockDoctors";
+// import { getDoctorById, getDoctors } from "./MockDoctors";
 import { api } from "../../utilities/axios";
 import LogoAdmin from '../../assets/LogoAdmin.svg';
 
 function AdminDashboard() {
 
     const [doctors, setDoctors] = useState([]);
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
     const [searchInput, setSearchInput] = useState("");
     const navigate = useNavigate();
 
