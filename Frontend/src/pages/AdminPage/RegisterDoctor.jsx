@@ -52,7 +52,7 @@ function RegisterDoctor() {
     if (e.target.value == "mañana") {
       setStartTime("8:00"), setEndTime("12:00");
     } else {
-      setStartTime("15:00"), setEndTime("18:00");
+      setStartTime("14:00"), setEndTime("18:00");
     }
   };
 
