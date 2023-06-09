@@ -56,6 +56,7 @@ const Login = () => {
 
       if (data.accessToken) {
         localStorage.setItem("accessToken", data.accessToken);
+        navigate("/turno");
       } else {
         setErrors({ message: "Authentication failed" });
       }
