@@ -20,4 +20,25 @@ const store = async (req, res) => {
     });
   }
 };
-module.exports = { store };
+const update = async (data, res) => {
+  try {
+    const _id = data._id;
+    const schedule = await Schedule.findByIdAndUpdate({ _id }, data, {
+      new: true,
+    });
+    if (!schedule) {
+      return res.status(404).json({
+        ok: false,
+        message: "El horario no existe",
+      });
+    }
+    return schedule._id;
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      message: "Error del servidor",
+      error,
+    });
+  }
+};
+module.exports = { store, update };

@@ -3,9 +3,6 @@ import { api } from "../../../utilities/axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const accessToken = localStorage.getItem("accessToken");
-const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
-
 const Seccion = () => {
   const [user, setUser] = useState({});
   const [pastAppointments, setPastAppoinments] = useState([]);
@@ -14,7 +11,7 @@ const Seccion = () => {
   //Datos del Paciente
   useEffect(() => {
     api()
-      .get("/auth/me", { headers })
+      .get("/auth/me")
       .then((res) => setUser(res.data.user))
       .catch((err) => console.log(err));
   }, []);
@@ -46,7 +43,7 @@ const Seccion = () => {
   // Citas medicas pasadas
   useEffect(() => {
     api()
-      .get("/appointment/me/past", { headers })
+      .get("/appointment/me/past")
       .then((res) =>
         formatAppoinments(res.data.appointments, setPastAppoinments)
       )
@@ -55,7 +52,7 @@ const Seccion = () => {
   // Citas medicas proximas
   useEffect(() => {
     api()
-      .get("/appointment/me/upcoming", { headers })
+      .get("/appointment/me/upcoming")
       .then((res) =>
         formatAppoinments(res.data.appointments, setUpcomingAppoinments)
       )
@@ -71,8 +68,8 @@ const Seccion = () => {
           alt="perfil"
         />
         <div className="usuario-parrafo">
-        <h5 className="usuario">Hola, {user.name?.toUpperCase()}.</h5>
-        <p className="parrafo-foto">Aqui puedes ver tus turnos Medicos.</p>
+          <h5 className="usuario">Hola, {user.name?.toUpperCase()}.</h5>
+          <p className="parrafo-foto">Aqui puedes ver tus turnos Medicos.</p>
         </div>
       </header>
       <main>
