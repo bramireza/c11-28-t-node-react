@@ -1,20 +1,20 @@
 import { useState, useEffect } from "react";
-import DoctorCard from "./DoctorCard";
+// import DoctorCard from "./DoctorCard";
 import { Link, useNavigate } from "react-router-dom";
-import { getDoctorById, getDoctors } from "./MockDoctors";
+// import { getDoctorById, getDoctors } from "./MockDoctors";
 import { api } from "../../utilities/axios";
 
 function AdminDashboard() {
-  const [doctors, setDoctors] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [searchInput, setSearchInput] = useState("");
-  const navigate = useNavigate();
+  
+
+
+    const [doctors, setDoctors] = useState([]);
+    // const [loading, setLoading] = useState(true);
+    const [searchInput, setSearchInput] = useState("");
+    const navigate = useNavigate();
 
   useEffect(() => {
-    //getDoctors()
-    //    .then(rta => setDoctors(rta))
-    //    .catch((err) => console.log(err))
-    //    .finally(() => setLoading(false))
+   
     api()
       .get("/doctor")
       .then((res) => {
@@ -23,6 +23,7 @@ function AdminDashboard() {
       })
       .catch((e) => console.log(e));
   }, []);
+
 
   const handleChange = (e) => {
     e.preventDefault();
