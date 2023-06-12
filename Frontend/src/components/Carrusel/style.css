@@ -5,15 +5,29 @@
 .textParrafo{
     color: #000;
 }
-/* .img_carrusel{
-    width: 948px;
-    height: 677px;
-} */
+.carrusel{
+    width: 100vw;
+    height: calc(100vh - 64px);
+    /* background: #444; */
+}
+.img_caruusel{
+    height: calc(100vh - 64px);
+}
+.primera{
+    position: relative;
+    top: 150px;
+    width: 202px;  
+}
+.primera h3{
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+.primera p{
+    font-size: 18px;
+    font-weight: 400;
+}
+.btn{
+    background: #00BFB2!important;
+    border: none;
+}
 
-/* @media screen and (max-width: 414px) {
-    .contenedor img{
-        width: 100%;
-        height: calc(60vh - 60px);
-    }
-    
-} */

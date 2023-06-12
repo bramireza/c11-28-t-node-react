@@ -1,5 +1,5 @@
 import './style.css';
-import imgsomos from '../../assets/imgquienes.png';
+// import imgsomos from '../../assets/imgquienes.png';
 import cruz from '../../assets/cruzsomos.svg';
 
 
