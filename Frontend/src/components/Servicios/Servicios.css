@@ -28,13 +28,17 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    padding-left: 2rem ;
+    
 }
 
 .cuadrados{
     display: flex;
     width: 100%;
+    width: 90%;
     flex-direction: column;
     align-items: center;
+   
 }
 
 .base-nucleo{
@@ -89,7 +93,7 @@
     .titulo-parrafo{
         display: flex;
         flex-direction: column;
-        width: 98vw;
+        width: 100%;
         height: 80px;
         margin-top: 30px;
     }

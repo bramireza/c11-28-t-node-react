@@ -18,11 +18,11 @@ function LandingPage() {
         <QuienesSomos />
       </div>
         <Servicios />
-        <EspecialidadesItems />
-        <ListaNoticias />
-        <ContactUs />
-        <Entidades />
-        <Footer />
+        {/* <EspecialidadesItems /> */}
+        {/* <ListaNoticias /> */}
+        {/* <ContactUs /> */}
+        {/* <Entidades /> */}
+        {/* <Footer /> */}
     </>
   );
 }
