@@ -5,6 +5,7 @@
 .textParrafo{
     color: #000;
 }
+
 .carrusel{
     width: 100vw;
     height: calc(100vh - 64px);
@@ -30,4 +31,5 @@
     background: #00BFB2!important;
     border: none;
 }
+
 

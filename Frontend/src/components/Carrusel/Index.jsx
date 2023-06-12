@@ -8,6 +8,7 @@ import Banner3  from '../../assets/banner3.png';
 function IndividualIntervalsExample() {
   return (
     <div className='contenedor'>
+
       <Carousel className='carrusel'>
         <Carousel.Item interval={1000}>
           <img
@@ -48,6 +49,7 @@ Especialistas</h3>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
+
     </div>
   );
 }
