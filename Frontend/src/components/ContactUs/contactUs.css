@@ -6,7 +6,7 @@
 }
 #contact-section{
     background-color: #DFF6F4;
-    width: 100vw;
+    width: 100%;
     color: var(--secondary);
     font-family: 'Poppins', sans-serif;
     padding: 1rem;
