@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Noticia({ noticia }) {
     return (
-        <div className="card col-sm p-2">
+        <div className="card col-lg p-2">
             <div className="card-body"  style={{color: '#0B2860'}} >
                 <img className="card-img-top" style={{height: '380px'}} src={noticia.hrefLink} alt={noticia.titulo} />
                 <p id="notice-speciality">{noticia.speciality}</p>

@@ -13,9 +13,9 @@ const EspecialidadesItems = ()=>{
                         backgroundColor: "#1043A5",
                         borderTopLeftRadius: "30px",
                         borderTopRightRadius: "30px",
-                        marginTop: "30px",
-                        marginInline: "30px",
-                        padding: "30px"
+                        // marginTop: "30px",
+                        // marginInline: "30px",
+                        // padding: "30px"
                         
                 }}>
                 <h2 className="fw-bolder" style={{ 
@@ -38,7 +38,7 @@ const EspecialidadesItems = ()=>{
                         backgroundColor: "#1043A5",
                         borderBottomLeftRadius: "30px",
                         borderBottomRightRadius: "30px",
-                        marginInline: "30px",
+                        // marginInline: "30px",
                         // padding: "30px"
                 }}>
                 {listaCategorias.map((data,index)=>{

@@ -1,23 +1,27 @@
 import { useState } from "react";
 import Noticia from "./Noticia";
-import './noticia.css'
+import './noticia.css';
+import  Noti1  from '../../assets/imgnoticia1.png';
+import  Noti2  from '../../assets/imgnoticias2.png';
+import  Noti3  from '../../assets/imanoticias3.png';
+
 
 function ListaNoticias() {
     const noticiasDefault = [
         {
-            hrefLink:'https://statics-diariomedico.uecdn.es/cms/styles/landscape_xl/azblob/2022-03/juanma%20%281%29.jpg.webp?itok=ycU41YMX',
+            hrefLink: Noti1,
             speciality: 'Oncología',
             titulo: 'Descubrimos un nuevo enfoque en la lucha contra el cáncer',
             descripcion: 'Nuestro tratamiento innovador ofrece resultados prometedores, brindando esperanza y mejor calidad de vida a nuestros pacientes.'
         },
         {
-            hrefLink:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQPOYrdKUj98xHfcirkYJDnUfvPTjT-XpsYg&usqp=CAU',
+            hrefLink: Noti2,
             speciality: 'Cardiología',
             titulo: 'Nuevo programa de prevención de enfermedades cardiovasculares',
             descripcion: 'identificamos y reducimos factores de riesgo a través de exámenes médicos regulares y asesoramiento personalizado, garantizando la salud cardiovascular de nuestra comunidad.'
         },
         {
-            hrefLink:'https://pxb.cdn.diariohuarpe.com/huarpe/032017/1551202387730.webp?extw=jpg',
+            hrefLink: Noti3,
             speciality: 'Salud Mental',
             titulo: 'Celebramos la Semana del Bienestar Mental',
             descripcion: 'A través de charlas educativas, talleres de manejo del estrés y sesiones de terapia grupal, promovemos la conciencia y el apoyo emocional para mejorar la salud mental en nuestra comunidad.'
