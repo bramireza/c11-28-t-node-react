@@ -31,7 +31,7 @@ const EspecialidadesItems = ()=>{
                     lineHeight: "150%",
             }}>Descubre nuestras especialidades médicas, con un equipo experto que brinda atención especializada y cuidado integral para tu salud.</p>
         </div>
-        <div className="px-4" style={{ 
+        <div className="px-4 d-flex flex-wrap" style={{ 
                     backgroundColor: "#1043A5",
                     borderBottomLeftRadius: "30px",
                     borderBottomRightRadius: "30px",
