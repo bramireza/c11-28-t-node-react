@@ -47,7 +47,7 @@ function ListaNoticias() {
                 )}
             </div>
             <div className="row justify-content-center mt-3 mb-2">
-                <button id="btn" type="button" onClick={handleClick} className="btn btn-outline-secondary mt-3 col-4">Ver más noticias</button>
+                <button id="btn" type="button" onClick={handleClick}  className="btn btn-outline-secondary mt-3 col-4">Ver más noticias</button>
             </div>
         </section>
     )
