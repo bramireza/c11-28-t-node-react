@@ -19,7 +19,7 @@ function ContactUs() {
                     </div>
                 </div>
             </div>
-            <div className="col-sm-8">
+            <div className="col-12 col-lg-8">
                 <img id="mapa" src={mapa} alt="mapa" className='img-fluid'/>
             </div>
         </section>
