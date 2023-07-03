@@ -1,4 +1,4 @@
-<img align="center" alt="SynCare" src=""/>
+<img align="center" alt="SynCare" src="./Frontend/public/images/NoCountry-Portada 1.png"/>
 
 <h1 align="center"> 🩺 SynCare 📲 </h1>
 <div align='center' style="display: flex; justify-content: center; gap: 4px">
